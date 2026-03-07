@@ -31,6 +31,7 @@
     "loader/"
   ],
   "scripts": {
+    "codegen": "npx ts-node introspection/apex-charts.ts",
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
@@ -43,7 +44,10 @@
   },
   "devDependencies": {
     "@stencil/core": "^4.22.0",
+    "@types/node": "^25.3.5",
     "apexcharts": "^5.3.5",
+    "path": "^0.12.7",
+    "ts-morph": "^27.0.2",
     "typescript": "^5.6.0"
   },
   "license": "MIT"

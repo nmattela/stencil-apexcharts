@@ -11,93 +11,10 @@
     <script nomodule src="./build/apex.js"></script>
   </head>
   <body>
-    <h1>Stencil ApexCharts Demo</h1>
 
-    <h2>Stacked Bar Chart</h2>
-    <apex-chart id="chart1"></apex-chart>
+    <h2>Pure Web Components</h2>
+    <apex-chart-element id="chart4"></apex-chart-element>
 
-    <h2>Line Chart</h2>
-    <apex-chart id="chart2"></apex-chart>
 
-    <h2>Pie Chart</h2>
-    <apex-chart id="chart3"></apex-chart>
-
-    <script>
-      // Stacked Bar Chart
-      const chart1 = document.querySelector("#chart1");
-      chart1.type = "bar";
-      chart1.series = [
-        {
-          name: "Revenue",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-        },
-        {
-          name: "Profit",
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-        },
-      ];
-      chart1.options = {
-        chart: {
-          stacked: true,
-          height: 400,
-        },
-        xaxis: {
-          categories: [
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-          ],
-        },
-        colors: ["#1f77b4", "#ff7f0e"],
-        title: {
-          text: "Monthly Revenue & Profit",
-        },
-      };
-
-      // Line Chart
-      const chart2 = document.querySelector("#chart2");
-      chart2.type = "line";
-      chart2.series = [
-        {
-          name: "Sales",
-          data: [28, 29, 33, 36, 32, 32, 33],
-        },
-        {
-          name: "Visitors",
-          data: [12, 11, 14, 18, 17, 13, 13],
-        },
-      ];
-      chart2.options = {
-        chart: {
-          height: 400,
-        },
-        xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-        },
-        stroke: {
-          curve: "smooth",
-        },
-        title: {
-          text: "Website Analytics",
-        },
-      };
-
-      // Pie Chart
-      const chart3 = document.querySelector("#chart3");
-      chart3.type = "pie";
-      chart3.series = [31, 40, 28, 51, 42, 109, 100];
-      chart3.options = {
-        chart: {
-          height: 300,
-          width: 500,
-        },
-      };
-    </script>
   </body>
 </html>
