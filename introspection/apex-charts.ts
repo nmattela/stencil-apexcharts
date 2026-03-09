@@ -1,4 +1,4 @@
-import { Project, SyntaxKind, Node } from 'ts-morph';
+import { Project, SyntaxKind, Node, ClassDeclaration } from 'ts-morph';
 import * as path from 'path';
 
 const project = new Project({ tsConfigFilePath: 'tsconfig.json' });
@@ -29,20 +29,8 @@ outputFile.addImportDeclaration({
 
 outputFile.addImportDeclaration({
   moduleSpecifier: `@stencil/core`,
-  namedImports: [`Component`, `Method`, `Prop`, `Element`]
+  namedImports: [`Component`, `Method`, `Prop`, `Element`, `h`]
 })
-
-const apexChartElementClass = outputFile.addClass({
-  name: `ApexChartElement`,
-  isAbstract: true,
-  typeParameters: [`ApexType`]
-})
-
-// apexChartElementClass.addMethod({
-//   name: `getData`,
-//   isAbstract: true,
-//   returnType: `Promise<ApexType>`
-// })
 
 type ApexWebComponentTypePathElement = {
   name: string,
@@ -51,6 +39,7 @@ type ApexWebComponentTypePathElement = {
 type ApexWebComponentProperty = {
   node: Node,
   optional: boolean,
+  webComponentReference?: ApexWebComponent
 }
 type ApexWebComponent = {
   name: Array<string>,
@@ -123,11 +112,11 @@ function generateApexChartElement(node: Node, { prefix, typePath, parent }: Gene
               if(prop.getTypeNode()?.getKind() === SyntaxKind.TypeReference) {
                 return [[prop.getName(), { node: typeNode, optional: prop.hasQuestionToken() }]]
               }
-              const isChildProp = Object.hasOwn(children, prop.getName())
-              if(!isChildProp) {
+              const childProp = children[prop.getName()]
+              if(childProp === undefined) {
                 return []
               }
-              return [[prop.getName(), { node: typeNode, optional: prop.hasQuestionToken() }]]
+              return [[prop.getName(), { node: typeNode, optional: prop.hasQuestionToken(), webComponentReference: childProp.at(0) }]]
             })),
           }
         },
@@ -149,7 +138,7 @@ function generateApexChartElement(node: Node, { prefix, typePath, parent }: Gene
     case SyntaxKind.TypeLiteral: {
       const typeLiteral = node.asKindOrThrow(SyntaxKind.TypeLiteral)
       const properties = typeLiteral.getProperties()
-      const childProps = Object.fromEntries(properties.flatMap(prop => {
+      const children = Object.fromEntries(properties.flatMap(prop => {
         const typeNode = prop.getTypeNode()
         if(typeNode === undefined) {
           return []
@@ -176,7 +165,7 @@ function generateApexChartElement(node: Node, { prefix, typePath, parent }: Gene
               if(prop.getTypeNode()?.getKind() === SyntaxKind.TypeReference) {
                 return []
               }
-              const isChildProp = Object.hasOwn(childProps, prop.getName())
+              const isChildProp = Object.hasOwn(children, prop.getName())
               if(isChildProp) {
                 return []
               }
@@ -194,15 +183,15 @@ function generateApexChartElement(node: Node, { prefix, typePath, parent }: Gene
               if(prop.getTypeNode()?.getKind() === SyntaxKind.TypeReference) {
                 return [[prop.getName(), { node: typeNode, optional: prop.hasQuestionToken() }]]
               }
-              const isChildProp = Object.hasOwn(childProps, prop.getName())
-              if(!isChildProp) {
+              const childProp = children[prop.getName()]
+              if(childProp === undefined) {
                 return []
               }
-              return [[prop.getName(), { node: typeNode, optional: prop.hasQuestionToken() }]]
+              return [[prop.getName(), { node: typeNode, optional: prop.hasQuestionToken(), webComponentReference: childProp.at(0) }]]
             })),
           }
         },
-        ...Object.values(childProps).flat()
+        ...Object.values(children).flat()
       ]
     }
     case SyntaxKind.ArrayType: {
@@ -379,7 +368,6 @@ const typePathToType = (typePath: Array<ApexWebComponentTypePathElement>): strin
 }, ``)
 
 function defaultValue(node: Node): string {
-  console.log(`checking default value for node: `, node.getKindName(), node.getType().getText())
   switch(node.getKind()) {
     case SyntaxKind.StringKeyword: return `''`
     case SyntaxKind.NumberKeyword: return `0`
@@ -400,7 +388,6 @@ apexWebComponents.forEach(webComponent => {
 
   const cls = outputFile.addClass({
     name: toPascalCase(webComponent.name),
-    extends: `${apexChartElementClass.getName()}<${apexType}>`,
   })
   cls.addDecorator({
     name: `Component`,
@@ -409,6 +396,7 @@ apexWebComponents.forEach(webComponent => {
       shadow: true
     })]
   })
+
   const elementReference = cls.addProperty({
     name: `element`,
     type: `HTMLElement`,
@@ -418,6 +406,40 @@ apexWebComponents.forEach(webComponent => {
     name: `Element`,
     arguments: [],
   })
+
+  const slotElement = cls.addProperty({
+    name: `slotElement`,
+    type: `HTMLSlotElement`,
+    hasExclamationToken: true,
+  })
+  slotElement.addDecorator({
+    name: `Element`,
+    arguments: [],
+  })
+
+  const componentDidLoad = cls.addMethod({
+    name: `componentDidLoad`,
+    parameters: [],
+  })
+  componentDidLoad.setBodyText(writer => {
+    writer.writeLine(`this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement`)
+    writer.writeLine(`this.updateChildren()`)
+    writer.writeLine(`this.observeChildren()`)
+  })
+
+  const observeChildren = cls.addMethod({
+    name: `observeChildren`,
+    parameters: [],
+  })
+  observeChildren.setBodyText(writer => {
+    writer.writeLine(`this.slotElement?.addEventListener('slotchange', () => this.updateChildren())`)
+  })
+
+  const updateChildren = cls.addMethod({
+    name: `updateChildren`,
+    parameters: [],
+  })
+
   const getDataMethod = cls.addMethod({
     name: `getData`,
     isAsync: true,
@@ -427,8 +449,33 @@ apexWebComponents.forEach(webComponent => {
     name: `Method`,
     arguments: []
   })
+
   if(webComponent.typeObject !== undefined) {
     Object.entries(webComponent.typeObject.attributeProperties).map(([name, { node, optional }]) => {
+      const property = cls.addProperty({
+        name: name,
+        type: node.getType().getText(),
+        hasQuestionToken: optional,
+        initializer: !optional ? defaultValue(node) : undefined
+      })
+      switch(node.getKind()) {
+        case SyntaxKind.FunctionType: {
+          property.addDecorator({
+            name: `Event`,
+            arguments: [],
+          })
+          break
+        }
+        default: {
+          property.addDecorator({
+            name: `Prop`,
+            arguments: [],
+          })
+          break
+        }
+      }
+    })
+    Object.entries(webComponent.typeObject.childProperties).map(([name, { node, optional }]) => {
       const property = cls.addProperty({
         name: name,
         type: node.getType().getText(),
@@ -447,11 +494,46 @@ apexWebComponents.forEach(webComponent => {
       })
       writer.writeLine(`}`)
     })
-  } else if(webComponent.typeArray !== undefined) {
-    getDataMethod.setBodyText(writer => {
-      writer.writeLine(`const children = [...this.element.querySelectorAll('TODO')]`)
-      writer.writeLine(`return []`)
+    updateChildren.setBodyText(writer => {
+      Object.entries(webComponent.typeObject!.childProperties).map(([name, { node, optional, webComponentReference }]) => {
+        if(webComponentReference === undefined) {
+          return
+        }
+        writer.writeLine(`const ${name}Children: Array</*HTML*/${/*toPascalCase(webComponentReference.name)*/''}Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === '${toKebabCase(webComponentReference.name)}') ?? []`)
+        switch(node.getKind()) {
+          case SyntaxKind.ArrayType: {
+            writer.writeLine(`this.${name} = ${name}Children.map(el => (el as any).getData())`)
+            break
+          }
+          default: {
+            writer.writeLine(`this.${name} = (${name}Children.at(0) as any)?.getData()`)
+            break
+          }
+        }
+      })
+      
     })
+  } else if(webComponent.typeArray !== undefined) {
+
+    const property = cls.addProperty({
+      name: `listItems`,
+      type: `Array<${webComponent.typeArray.propertyType.getText()}>`,
+      initializer: `[]`
+    })
+    property.addDecorator({
+      name: `Prop`,
+      arguments: [],
+    })
+
+    updateChildren.setBodyText(writer => {
+      writer.writeLine(`const listItems: Array</*HTML*/${/*toPascalCase(webComponentReference.name)*/''}Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []`)
+      writer.writeLine(`this.listItems = listItems.map(el => (el as any).getData())`)
+    })
+
+    getDataMethod.setBodyText(writer => {
+      writer.writeLine(`return this.listItems`)
+    })
+
   } else if(webComponent.typeSimple !== undefined) {
     getDataMethod.setBodyText(writer => {
       switch(webComponent.typeSimple!.propertyType.getKind()) {
@@ -474,6 +556,17 @@ apexWebComponents.forEach(webComponent => {
       }
     })
   }
+
+  const render = cls.addMethod({
+    name: `render`,
+    parameters: [],
+  })
+  render.setBodyText(writer => {
+    writer.writeLine(`return (`)
+    writer.writeLine(`\t<slot>`)
+    writer.writeLine(`\t</slot>`)
+    writer.writeLine(`)`)
+  })
   
 })
 

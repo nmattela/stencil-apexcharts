@@ -1,13 +1,33 @@
 import { ApexOptions as ApexChartsApexOptions } from "apexcharts";
-import { Component, Method, Prop, Element } from "@stencil/core";
-
-abstract class ApexChartElement<ApexType> {
-}
+import { Component, Method, Prop, Element, h } from "@stencil/core";
 
 @Component({"tag":"apex-options","shadow":true})
-class ApexOptions extends ApexChartElement<ApexChartsApexOptions> {
+class ApexOptions {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-options-colors-list') ?? []
+        this.colors = colorsChildren.map(el => (el as any).getData())
+        const labelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-options-labels-list') ?? []
+        this.labels = labelsChildren.map(el => (el as any).getData())
+        const responsiveChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-options-responsive-list') ?? []
+        this.responsive = responsiveChildren.map(el => (el as any).getData())
+        const yaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-options-yaxis-list') ?? []
+        this.yaxis = (yaxisChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<ApexChartsApexOptions> {
@@ -18,82 +38,296 @@ class ApexOptions extends ApexChartElement<ApexChartsApexOptions> {
 
     @Prop()
     series?: ApexNonAxisChartSeries;
+    @Prop()
+    annotations?: ApexAnnotations;
+    @Prop()
+    chart?: ApexChart;
+    @Prop()
+    colors?: any[];
+    @Prop()
+    dataLabels?: ApexDataLabels;
+    @Prop()
+    fill?: ApexFill;
+    @Prop()
+    forecastDataPoints?: ApexForecastDataPoints;
+    @Prop()
+    grid?: ApexGrid;
+    @Prop()
+    labels?: string[];
+    @Prop()
+    legend?: ApexLegend;
+    @Prop()
+    markers?: ApexMarkers;
+    @Prop()
+    noData?: ApexNoData;
+    @Prop()
+    plotOptions?: ApexPlotOptions;
+    @Prop()
+    responsive?: ApexResponsive[];
+    @Prop()
+    parsing?: ApexParsing;
+    @Prop()
+    states?: ApexStates;
+    @Prop()
+    stroke?: ApexStroke;
+    @Prop()
+    subtitle?: ApexTitleSubtitle;
+    @Prop()
+    theme?: ApexTheme;
+    @Prop()
+    title?: ApexTitleSubtitle;
+    @Prop()
+    tooltip?: ApexTooltip;
+    @Prop()
+    xaxis?: ApexXAxis;
+    @Prop()
+    yaxis?: ApexYAxis | ApexYAxis[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-options-colors-list","shadow":true})
-class ApexOptionsColorsList extends ApexChartElement<Exclude<ApexChartsApexOptions['colors'], undefined>> {
+class ApexOptionsColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<ApexChartsApexOptions['colors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<any> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-options-colors-item","shadow":true})
-class ApexOptionsColorsItem extends ApexChartElement<Exclude<ApexChartsApexOptions['colors'], undefined>[0]> {
+class ApexOptionsColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<ApexChartsApexOptions['colors'], undefined>[0]> {
         return this.element.innerText as any
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-options-labels-list","shadow":true})
-class ApexOptionsLabelsList extends ApexChartElement<Exclude<ApexChartsApexOptions['labels'], undefined>> {
+class ApexOptionsLabelsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<ApexChartsApexOptions['labels'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-options-labels-item","shadow":true})
-class ApexOptionsLabelsItem extends ApexChartElement<Exclude<ApexChartsApexOptions['labels'], undefined>[0]> {
+class ApexOptionsLabelsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<ApexChartsApexOptions['labels'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-options-responsive-list","shadow":true})
-class ApexOptionsResponsiveList extends ApexChartElement<Exclude<ApexChartsApexOptions['responsive'], undefined>> {
+class ApexOptionsResponsiveList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<ApexChartsApexOptions['responsive'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexResponsive> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-options-yaxis-list","shadow":true})
-class ApexOptionsYaxisList extends ApexChartElement<Extract<Exclude<ApexChartsApexOptions['yaxis'], undefined>, ApexYAxis[]>> {
+class ApexOptionsYaxisList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<ApexChartsApexOptions['yaxis'], undefined>, ApexYAxis[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexYAxis> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-drop-shadow","shadow":true})
-class ApexDropShadow extends ApexChartElement<globalThis.ApexDropShadow> {
+class ApexDropShadow {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexDropShadow> {
@@ -119,12 +353,52 @@ class ApexDropShadow extends ApexChartElement<globalThis.ApexDropShadow> {
     opacity?: number;
     @Prop()
     color?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart","shadow":true})
-class ApexChart extends ApexChartElement<globalThis.ApexChart> {
+class ApexChart {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const dropShadowChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-drop-shadow') ?? []
+        this.dropShadow = (dropShadowChildren.at(0) as any)?.getData()
+        const eventsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-events') ?? []
+        this.events = (eventsChildren.at(0) as any)?.getData()
+        const brushChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-brush') ?? []
+        this.brush = (brushChildren.at(0) as any)?.getData()
+        const localesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-locales-list') ?? []
+        this.locales = localesChildren.map(el => (el as any).getData())
+        const sparklineChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-sparkline') ?? []
+        this.sparkline = (sparklineChildren.at(0) as any)?.getData()
+        const toolbarChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar') ?? []
+        this.toolbar = (toolbarChildren.at(0) as any)?.getData()
+        const zoomChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-zoom') ?? []
+        this.zoom = (zoomChildren.at(0) as any)?.getData()
+        const selectionChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-selection') ?? []
+        this.selection = (selectionChildren.at(0) as any)?.getData()
+        const animationsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-animations') ?? []
+        this.animations = (animationsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexChart> {
@@ -189,82 +463,273 @@ class ApexChart extends ApexChartElement<globalThis.ApexChart> {
     stackType?: "normal" | "100%";
     @Prop()
     stackOnlyBar?: boolean;
+    @Prop()
+    dropShadow?: ApexDropShadow & { enabledOnSeries?: number[] | undefined; color?: string | string[] | undefined; };
+    @Prop()
+    events?: { animationEnd?(chart: any, options?: any): void; beforeMount?(chart: any, options?: any): void; mounted?(chart: any, options?: any): void; updated?(chart: any, options?: any): void; mouseMove?(e: any, chart?: any, options?: any): void; mouseLeave?(e: any, chart?: any, options?: any): void; click?(e: any, chart?: any, options?: any): void; xAxisLabelClick?(e: any, chart?: any, options?: any): void; legendClick?(chart: any, seriesIndex?: number | undefined, options?: any): void; markerClick?(e: any, chart?: any, options?: any): void; selection?(chart: any, options?: any): void; dataPointSelection?(e: any, chart?: any, options?: any): void; dataPointMouseEnter?(e: any, chart?: any, options?: any): void; dataPointMouseLeave?(e: any, chart?: any, options?: any): void; beforeZoom?(chart: any, options?: any): void; beforeResetZoom?(chart: any, options?: any): void; zoomed?(chart: any, options?: any): void; scrolled?(chart: any, options?: any): void; brushScrolled?(chart: any, options?: any): void; };
+    @Prop()
+    brush?: { enabled?: boolean | undefined; autoScaleYaxis?: boolean | undefined; target?: string | undefined; targets?: string[] | undefined; };
+    @Prop()
+    locales?: ApexLocale[];
+    @Prop()
+    sparkline?: { enabled?: boolean | undefined; };
+    @Prop()
+    toolbar?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; tools?: { download?: string | boolean | undefined; selection?: string | boolean | undefined; zoom?: string | boolean | undefined; zoomin?: string | boolean | undefined; zoomout?: string | boolean | undefined; pan?: string | boolean | undefined; reset?: string | boolean | undefined; customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[] | undefined; } | undefined; export?: { csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; } | undefined; svg?: { filename?: string | undefined; } | undefined; png?: { filename?: string | undefined; } | undefined; width?: number | undefined; scale?: number | undefined; } | undefined; autoSelected?: "zoom" | "selection" | "pan" | undefined; };
+    @Prop()
+    zoom?: { enabled?: boolean | undefined; type?: "x" | "y" | "xy" | undefined; autoScaleYaxis?: boolean | undefined; allowMouseWheelZoom?: boolean | undefined; zoomedArea?: { fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; } | undefined; } | undefined; };
+    @Prop()
+    selection?: { enabled?: boolean | undefined; type?: string | undefined; fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { width?: number | undefined; color?: string | undefined; opacity?: number | undefined; dashArray?: number | undefined; } | undefined; xaxis?: { min?: number | undefined; max?: number | undefined; } | undefined; yaxis?: { min?: number | undefined; max?: number | undefined; } | undefined; };
+    @Prop()
+    animations?: { enabled?: boolean | undefined; speed?: number | undefined; animateGradually?: { enabled?: boolean | undefined; delay?: number | undefined; } | undefined; dynamicAnimation?: { enabled?: boolean | undefined; speed?: number | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-drop-shadow","shadow":true})
-class ApexChartDropShadow extends ApexChartElement<Exclude<globalThis.ApexChart['dropShadow'], undefined>> {
+class ApexChartDropShadow {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const enabledOnSeriesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-drop-shadow-enabled-on-series-list') ?? []
+        this.enabledOnSeries = (enabledOnSeriesChildren.at(0) as any)?.getData()
+        const colorChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-drop-shadow-color-list') ?? []
+        this.color = (colorChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['dropShadow'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    enabledOnSeries?: number[] | undefined;
+    @Prop()
+    color?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-drop-shadow-enabled-on-series-list","shadow":true})
-class ApexChartDropShadowEnabledOnSeriesList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['enabledOnSeries'], undefined>, number[]>> {
+class ApexChartDropShadowEnabledOnSeriesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['enabledOnSeries'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-chart-drop-shadow-enabled-on-series-item","shadow":true})
-class ApexChartDropShadowEnabledOnSeriesItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['enabledOnSeries'], undefined>, number[]>[0]> {
+class ApexChartDropShadowEnabledOnSeriesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['enabledOnSeries'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-drop-shadow-color-list","shadow":true})
-class ApexChartDropShadowColorList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['color'], undefined>, string[]>> {
+class ApexChartDropShadowColorList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['color'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-chart-drop-shadow-color-item","shadow":true})
-class ApexChartDropShadowColorItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['color'], undefined>, string[]>[0]> {
+class ApexChartDropShadowColorItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexChart['dropShadow'], undefined>['color'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-events","shadow":true})
-class ApexChartEvents extends ApexChartElement<Exclude<globalThis.ApexChart['events'], undefined>> {
+class ApexChartEvents {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['events'], undefined>> {
         return {
         }
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-brush","shadow":true})
-class ApexChartBrush extends ApexChartElement<Exclude<globalThis.ApexChart['brush'], undefined>> {
+class ApexChartBrush {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const targetsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-brush-targets-list') ?? []
+        this.targets = targetsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['brush'], undefined>> {
@@ -281,47 +746,145 @@ class ApexChartBrush extends ApexChartElement<Exclude<globalThis.ApexChart['brus
     autoScaleYaxis?: boolean;
     @Prop()
     target?: string;
+    @Prop()
+    targets?: string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-brush-targets-list","shadow":true})
-class ApexChartBrushTargetsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['brush'], undefined>['targets'], undefined>> {
+class ApexChartBrushTargetsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['brush'], undefined>['targets'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-chart-brush-targets-item","shadow":true})
-class ApexChartBrushTargetsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['brush'], undefined>['targets'], undefined>[0]> {
+class ApexChartBrushTargetsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['brush'], undefined>['targets'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-locales-list","shadow":true})
-class ApexChartLocalesList extends ApexChartElement<Exclude<globalThis.ApexChart['locales'], undefined>> {
+class ApexChartLocalesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['locales'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexLocale> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-chart-sparkline","shadow":true})
-class ApexChartSparkline extends ApexChartElement<Exclude<globalThis.ApexChart['sparkline'], undefined>> {
+class ApexChartSparkline {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['sparkline'], undefined>> {
@@ -332,12 +895,38 @@ class ApexChartSparkline extends ApexChartElement<Exclude<globalThis.ApexChart['
 
     @Prop()
     enabled?: boolean;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar","shadow":true})
-class ApexChartToolbar extends ApexChartElement<Exclude<globalThis.ApexChart['toolbar'], undefined>> {
+class ApexChartToolbar {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const toolsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar-tools') ?? []
+        this.tools = (toolsChildren.at(0) as any)?.getData()
+        const exportChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar-export') ?? []
+        this.export = (exportChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['toolbar'], undefined>> {
@@ -357,12 +946,40 @@ class ApexChartToolbar extends ApexChartElement<Exclude<globalThis.ApexChart['to
     offsetY?: number;
     @Prop()
     autoSelected?: "zoom" | "selection" | "pan";
+    @Prop()
+    tools?: { download?: string | boolean | undefined; selection?: string | boolean | undefined; zoom?: string | boolean | undefined; zoomin?: string | boolean | undefined; zoomout?: string | boolean | undefined; pan?: string | boolean | undefined; reset?: string | boolean | undefined; customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[] | undefined; };
+    @Prop()
+    export?: { csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; } | undefined; svg?: { filename?: string | undefined; } | undefined; png?: { filename?: string | undefined; } | undefined; width?: number | undefined; scale?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar-tools","shadow":true})
-class ApexChartToolbarTools extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['tools'], undefined>> {
+class ApexChartToolbarTools {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const customIconsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar-tools-custom-icons-list') ?? []
+        this.customIcons = customIconsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['tools'], undefined>> {
@@ -391,24 +1008,80 @@ class ApexChartToolbarTools extends ApexChartElement<Exclude<Exclude<globalThis.
     pan?: string | boolean;
     @Prop()
     reset?: string | boolean;
+    @Prop()
+    customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar-tools-custom-icons-list","shadow":true})
-class ApexChartToolbarToolsCustomIconsList extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['tools'], undefined>['customIcons'], undefined>> {
+class ApexChartToolbarToolsCustomIconsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['tools'], undefined>['customIcons'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+                icon?: string
+                title?: string
+                index?: number
+                class?: string
+                click?(chart?: any, options?: any, e?: any): any
+              }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-chart-toolbar-tools-custom-icons-item","shadow":true})
-class ApexChartToolbarToolsCustomIconsItem extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['tools'], undefined>['customIcons'], undefined>[0]> {
+class ApexChartToolbarToolsCustomIconsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['tools'], undefined>['customIcons'], undefined>[0]> {
@@ -428,12 +1101,40 @@ class ApexChartToolbarToolsCustomIconsItem extends ApexChartElement<Exclude<Excl
     index?: number;
     @Prop()
     class?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar-export","shadow":true})
-class ApexChartToolbarExport extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>> {
+class ApexChartToolbarExport {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const csvChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar-export-csv') ?? []
+        this.csv = (csvChildren.at(0) as any)?.getData()
+        const svgChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar-export-svg') ?? []
+        this.svg = (svgChildren.at(0) as any)?.getData()
+        const pngChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-toolbar-export-png') ?? []
+        this.png = (pngChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>> {
@@ -447,12 +1148,40 @@ class ApexChartToolbarExport extends ApexChartElement<Exclude<Exclude<globalThis
     width?: number;
     @Prop()
     scale?: number;
+    @Prop()
+    csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; };
+    @Prop()
+    svg?: { filename?: string | undefined; };
+    @Prop()
+    png?: { filename?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar-export-csv","shadow":true})
-class ApexChartToolbarExportCsv extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>['csv'], undefined>> {
+class ApexChartToolbarExportCsv {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>['csv'], undefined>> {
@@ -472,12 +1201,34 @@ class ApexChartToolbarExportCsv extends ApexChartElement<Exclude<Exclude<Exclude
     headerCategory?: string;
     @Prop()
     headerValue?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar-export-svg","shadow":true})
-class ApexChartToolbarExportSvg extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>['svg'], undefined>> {
+class ApexChartToolbarExportSvg {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>['svg'], undefined>> {
@@ -488,12 +1239,34 @@ class ApexChartToolbarExportSvg extends ApexChartElement<Exclude<Exclude<Exclude
 
     @Prop()
     filename?: string | undefined;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-toolbar-export-png","shadow":true})
-class ApexChartToolbarExportPng extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>['png'], undefined>> {
+class ApexChartToolbarExportPng {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['toolbar'], undefined>['export'], undefined>['png'], undefined>> {
@@ -504,12 +1277,36 @@ class ApexChartToolbarExportPng extends ApexChartElement<Exclude<Exclude<Exclude
 
     @Prop()
     filename?: string | undefined;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-zoom","shadow":true})
-class ApexChartZoom extends ApexChartElement<Exclude<globalThis.ApexChart['zoom'], undefined>> {
+class ApexChartZoom {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const zoomedAreaChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-zoom-zoomed-area') ?? []
+        this.zoomedArea = (zoomedAreaChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['zoom'], undefined>> {
@@ -529,24 +1326,79 @@ class ApexChartZoom extends ApexChartElement<Exclude<globalThis.ApexChart['zoom'
     autoScaleYaxis?: boolean;
     @Prop()
     allowMouseWheelZoom?: boolean;
+    @Prop()
+    zoomedArea?: { fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-zoom-zoomed-area","shadow":true})
-class ApexChartZoomZoomedArea extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['zoom'], undefined>['zoomedArea'], undefined>> {
+class ApexChartZoomZoomedArea {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const fillChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-zoom-zoomed-area-fill') ?? []
+        this.fill = (fillChildren.at(0) as any)?.getData()
+        const strokeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-zoom-zoomed-area-stroke') ?? []
+        this.stroke = (strokeChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['zoom'], undefined>['zoomedArea'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    fill?: { color?: string | undefined; opacity?: number | undefined; };
+    @Prop()
+    stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-zoom-zoomed-area-fill","shadow":true})
-class ApexChartZoomZoomedAreaFill extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['zoom'], undefined>['zoomedArea'], undefined>['fill'], undefined>> {
+class ApexChartZoomZoomedAreaFill {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['zoom'], undefined>['zoomedArea'], undefined>['fill'], undefined>> {
@@ -560,12 +1412,34 @@ class ApexChartZoomZoomedAreaFill extends ApexChartElement<Exclude<Exclude<Exclu
     color?: string;
     @Prop()
     opacity?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-zoom-zoomed-area-stroke","shadow":true})
-class ApexChartZoomZoomedAreaStroke extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexChart['zoom'], undefined>['zoomedArea'], undefined>['stroke'], undefined>> {
+class ApexChartZoomZoomedAreaStroke {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexChart['zoom'], undefined>['zoomedArea'], undefined>['stroke'], undefined>> {
@@ -582,12 +1456,42 @@ class ApexChartZoomZoomedAreaStroke extends ApexChartElement<Exclude<Exclude<Exc
     opacity?: number;
     @Prop()
     width?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-selection","shadow":true})
-class ApexChartSelection extends ApexChartElement<Exclude<globalThis.ApexChart['selection'], undefined>> {
+class ApexChartSelection {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const fillChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-selection-fill') ?? []
+        this.fill = (fillChildren.at(0) as any)?.getData()
+        const strokeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-selection-stroke') ?? []
+        this.stroke = (strokeChildren.at(0) as any)?.getData()
+        const xaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-selection-xaxis') ?? []
+        this.xaxis = (xaxisChildren.at(0) as any)?.getData()
+        const yaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-selection-yaxis') ?? []
+        this.yaxis = (yaxisChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['selection'], undefined>> {
@@ -601,12 +1505,42 @@ class ApexChartSelection extends ApexChartElement<Exclude<globalThis.ApexChart['
     enabled?: boolean;
     @Prop()
     type?: string;
+    @Prop()
+    fill?: { color?: string | undefined; opacity?: number | undefined; };
+    @Prop()
+    stroke?: { width?: number | undefined; color?: string | undefined; opacity?: number | undefined; dashArray?: number | undefined; };
+    @Prop()
+    xaxis?: { min?: number | undefined; max?: number | undefined; };
+    @Prop()
+    yaxis?: { min?: number | undefined; max?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-selection-fill","shadow":true})
-class ApexChartSelectionFill extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['fill'], undefined>> {
+class ApexChartSelectionFill {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['fill'], undefined>> {
@@ -620,12 +1554,34 @@ class ApexChartSelectionFill extends ApexChartElement<Exclude<Exclude<globalThis
     color?: string;
     @Prop()
     opacity?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-selection-stroke","shadow":true})
-class ApexChartSelectionStroke extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['stroke'], undefined>> {
+class ApexChartSelectionStroke {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['stroke'], undefined>> {
@@ -645,12 +1601,34 @@ class ApexChartSelectionStroke extends ApexChartElement<Exclude<Exclude<globalTh
     opacity?: number;
     @Prop()
     dashArray?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-selection-xaxis","shadow":true})
-class ApexChartSelectionXaxis extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['xaxis'], undefined>> {
+class ApexChartSelectionXaxis {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['xaxis'], undefined>> {
@@ -664,12 +1642,34 @@ class ApexChartSelectionXaxis extends ApexChartElement<Exclude<Exclude<globalThi
     min?: number;
     @Prop()
     max?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-selection-yaxis","shadow":true})
-class ApexChartSelectionYaxis extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['yaxis'], undefined>> {
+class ApexChartSelectionYaxis {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['selection'], undefined>['yaxis'], undefined>> {
@@ -683,12 +1683,38 @@ class ApexChartSelectionYaxis extends ApexChartElement<Exclude<Exclude<globalThi
     min?: number;
     @Prop()
     max?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-animations","shadow":true})
-class ApexChartAnimations extends ApexChartElement<Exclude<globalThis.ApexChart['animations'], undefined>> {
+class ApexChartAnimations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const animateGraduallyChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-animations-animate-gradually') ?? []
+        this.animateGradually = (animateGraduallyChildren.at(0) as any)?.getData()
+        const dynamicAnimationChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-chart-animations-dynamic-animation') ?? []
+        this.dynamicAnimation = (dynamicAnimationChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexChart['animations'], undefined>> {
@@ -702,12 +1728,38 @@ class ApexChartAnimations extends ApexChartElement<Exclude<globalThis.ApexChart[
     enabled?: boolean;
     @Prop()
     speed?: number;
+    @Prop()
+    animateGradually?: { enabled?: boolean | undefined; delay?: number | undefined; };
+    @Prop()
+    dynamicAnimation?: { enabled?: boolean | undefined; speed?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-animations-animate-gradually","shadow":true})
-class ApexChartAnimationsAnimateGradually extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['animations'], undefined>['animateGradually'], undefined>> {
+class ApexChartAnimationsAnimateGradually {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['animations'], undefined>['animateGradually'], undefined>> {
@@ -721,12 +1773,34 @@ class ApexChartAnimationsAnimateGradually extends ApexChartElement<Exclude<Exclu
     enabled?: boolean;
     @Prop()
     delay?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-chart-animations-dynamic-animation","shadow":true})
-class ApexChartAnimationsDynamicAnimation extends ApexChartElement<Exclude<Exclude<globalThis.ApexChart['animations'], undefined>['dynamicAnimation'], undefined>> {
+class ApexChartAnimationsDynamicAnimation {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexChart['animations'], undefined>['dynamicAnimation'], undefined>> {
@@ -740,36 +1814,116 @@ class ApexChartAnimationsDynamicAnimation extends ApexChartElement<Exclude<Exclu
     enabled?: boolean;
     @Prop()
     speed?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-states","shadow":true})
-class ApexStates extends ApexChartElement<globalThis.ApexStates> {
+class ApexStates {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const hoverChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-states-hover') ?? []
+        this.hover = (hoverChildren.at(0) as any)?.getData()
+        const activeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-states-active') ?? []
+        this.active = (activeChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexStates> {
         return {
         }
     }
+
+    @Prop()
+    hover?: { filter?: { type?: string | undefined; } | undefined; };
+    @Prop()
+    active?: { allowMultipleDataPointsSelection?: boolean | undefined; filter?: { type?: string | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-states-hover","shadow":true})
-class ApexStatesHover extends ApexChartElement<Exclude<globalThis.ApexStates['hover'], undefined>> {
+class ApexStatesHover {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const filterChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-states-hover-filter') ?? []
+        this.filter = (filterChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexStates['hover'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    filter?: { type?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-states-hover-filter","shadow":true})
-class ApexStatesHoverFilter extends ApexChartElement<Exclude<Exclude<globalThis.ApexStates['hover'], undefined>['filter'], undefined>> {
+class ApexStatesHoverFilter {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexStates['hover'], undefined>['filter'], undefined>> {
@@ -780,12 +1934,36 @@ class ApexStatesHoverFilter extends ApexChartElement<Exclude<Exclude<globalThis.
 
     @Prop()
     type?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-states-active","shadow":true})
-class ApexStatesActive extends ApexChartElement<Exclude<globalThis.ApexStates['active'], undefined>> {
+class ApexStatesActive {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const filterChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-states-active-filter') ?? []
+        this.filter = (filterChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexStates['active'], undefined>> {
@@ -796,12 +1974,36 @@ class ApexStatesActive extends ApexChartElement<Exclude<globalThis.ApexStates['a
 
     @Prop()
     allowMultipleDataPointsSelection?: boolean;
+    @Prop()
+    filter?: { type?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-states-active-filter","shadow":true})
-class ApexStatesActiveFilter extends ApexChartElement<Exclude<Exclude<globalThis.ApexStates['active'], undefined>['filter'], undefined>> {
+class ApexStatesActiveFilter {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexStates['active'], undefined>['filter'], undefined>> {
@@ -812,12 +2014,36 @@ class ApexStatesActiveFilter extends ApexChartElement<Exclude<Exclude<globalThis
 
     @Prop()
     type?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-title-subtitle","shadow":true})
-class ApexTitleSubtitle extends ApexChartElement<globalThis.ApexTitleSubtitle> {
+class ApexTitleSubtitle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-title-subtitle-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexTitleSubtitle> {
@@ -843,12 +2069,36 @@ class ApexTitleSubtitle extends ApexChartElement<globalThis.ApexTitleSubtitle> {
     offsetY?: number;
     @Prop()
     floating?: boolean;
+    @Prop()
+    style?: { fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-title-subtitle-style","shadow":true})
-class ApexTitleSubtitleStyle extends ApexChartElement<Exclude<globalThis.ApexTitleSubtitle['style'], undefined>> {
+class ApexTitleSubtitleStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTitleSubtitle['style'], undefined>> {
@@ -868,30 +2118,107 @@ class ApexTitleSubtitleStyle extends ApexChartElement<Exclude<globalThis.ApexTit
     fontWeight?: string | number;
     @Prop()
     color?: string;
-}
 
-@Component({"tag":"apex-axis-chart-series-list","shadow":true})
-class ApexAxisChartSeriesList extends ApexChartElement<globalThis.ApexAxisChartSeries> {
-    @Element()
-    element!: HTMLElement;
-
-    @Method()
-    async getData(): Promise<globalThis.ApexAxisChartSeries> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
-function QuerySelectorAll<T>() {
-    return function<T>(target: ApexChartElement<T>, propertyKey: string) {
-        
+@Component({"tag":"apex-axis-chart-series-list","shadow":true})
+class ApexAxisChartSeriesList {
+    @Element()
+    element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
+
+    @Method()
+    async getData(): Promise<globalThis.ApexAxisChartSeries> {
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+         name?: string
+         type?: string
+         color?: string
+         group?: string
+         hidden?: boolean
+         zIndex?: number
+         parsing?: ApexParsing;
+         data:
+         | (number | null)[]
+         | {
+           x: any;
+           y: any;
+           fill?: ApexFill;
+           fillColor?: string;
+           strokeColor?: string;
+           meta?: any;
+           goals?: {
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }[];
+           barHeightOffset?: number;
+           columnWidthOffset?: number;
+         }[]
+         | [number, number | null][]
+         | [number, (number | null)[]][]
+         | number[][]
+         | Record<string, any>[];
+        }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item","shadow":true})
-class ApexAxisChartSeriesItem extends ApexChartElement<globalThis.ApexAxisChartSeries[0]> {
+class ApexAxisChartSeriesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const dataChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-axis-chart-series-item-data-1-list') ?? []
+        this.data = (dataChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexAxisChartSeries[0]> {
@@ -905,9 +2232,6 @@ class ApexAxisChartSeriesItem extends ApexChartElement<globalThis.ApexAxisChartS
         }
     }
 
-    @QuerySelectorAll()
-    get data(): Array<HTMLElement> { return [] }
-
     @Prop()
     name?: string;
     @Prop()
@@ -920,42 +2244,78 @@ class ApexAxisChartSeriesItem extends ApexChartElement<globalThis.ApexAxisChartS
     hidden?: boolean;
     @Prop()
     zIndex?: number;
+    @Prop()
+    parsing?: ApexParsing;
+    @Prop()
+    data: (number | null)[] | { x: any; y: any; fill?: ApexFill | undefined; fillColor?: string | undefined; strokeColor?: string | undefined; meta?: any; goals?: { name?: string | undefined; value: number; strokeHeight?: number | undefined; strokeWidth?: number | undefined; strokeColor?: string | undefined; strokeDashArray?: number | undefined; strokeLineCap?: "butt" | "square" | "round" | undefined; }[] | undefined; barHeightOffset?: number | undefined; columnWidthOffset?: number | undefined; }[] | [number, number | null][] | [number, (number | null)[]][] | number[][] | Record<string, any>[] = undefined;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-1-list","shadow":true})
-class ApexAxisChartSeriesItemData1List extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, (number | null)[]>> {
+class ApexAxisChartSeriesItemData1List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, (number | null)[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<(number | null)> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-2-list","shadow":true})
-class ApexAxisChartSeriesItemData2List extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
-       x: any;
-       y: any;
-       fill?: ApexFill;
-       fillColor?: string;
-       strokeColor?: string;
-       meta?: any;
-       goals?: {
-         name?: string,
-         value: number,
-         strokeHeight?: number;
-         strokeWidth?: number;
-         strokeColor?: string;
-         strokeDashArray?: number;
-         strokeLineCap?: 'butt' | 'square' | 'round'
-       }[];
-       barHeightOffset?: number;
-       columnWidthOffset?: number;
-     }[]>> {
+class ApexAxisChartSeriesItemData2List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
@@ -977,33 +2337,59 @@ class ApexAxisChartSeriesItemData2List extends ApexChartElement<Extract<Exclude<
            barHeightOffset?: number;
            columnWidthOffset?: number;
          }[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+           x: any;
+           y: any;
+           fill?: ApexFill;
+           fillColor?: string;
+           strokeColor?: string;
+           meta?: any;
+           goals?: {
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }[];
+           barHeightOffset?: number;
+           columnWidthOffset?: number;
+         }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-2-item","shadow":true})
-class ApexAxisChartSeriesItemData2Item extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
-       x: any;
-       y: any;
-       fill?: ApexFill;
-       fillColor?: string;
-       strokeColor?: string;
-       meta?: any;
-       goals?: {
-         name?: string,
-         value: number,
-         strokeHeight?: number;
-         strokeWidth?: number;
-         strokeColor?: string;
-         strokeDashArray?: number;
-         strokeLineCap?: 'butt' | 'square' | 'round'
-       }[];
-       barHeightOffset?: number;
-       columnWidthOffset?: number;
-     }[]>[0]> {
+class ApexAxisChartSeriesItemData2Item {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const goalsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-axis-chart-series-item-data-2-item-goals-list') ?? []
+        this.goals = goalsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
@@ -1037,9 +2423,9 @@ class ApexAxisChartSeriesItemData2Item extends ApexChartElement<Extract<Exclude<
     }
 
     @Prop()
-    x?: any;
+    x: any = null;
     @Prop()
-    y?: any;
+    y: any = null;
     @Prop()
     fillColor?: string;
     @Prop()
@@ -1050,30 +2436,40 @@ class ApexAxisChartSeriesItemData2Item extends ApexChartElement<Extract<Exclude<
     barHeightOffset?: number;
     @Prop()
     columnWidthOffset?: number;
+    @Prop()
+    fill?: ApexFill;
+    @Prop()
+    goals?: { name?: string | undefined; value: number; strokeHeight?: number | undefined; strokeWidth?: number | undefined; strokeColor?: string | undefined; strokeDashArray?: number | undefined; strokeLineCap?: "butt" | "square" | "round" | undefined; }[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-2-item-goals-list","shadow":true})
-class ApexAxisChartSeriesItemData2ItemGoalsList extends ApexChartElement<Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
-       x: any;
-       y: any;
-       fill?: ApexFill;
-       fillColor?: string;
-       strokeColor?: string;
-       meta?: any;
-       goals?: {
-         name?: string,
-         value: number,
-         strokeHeight?: number;
-         strokeWidth?: number;
-         strokeColor?: string;
-         strokeDashArray?: number;
-         strokeLineCap?: 'butt' | 'square' | 'round'
-       }[];
-       barHeightOffset?: number;
-       columnWidthOffset?: number;
-     }[]>[0]['goals'], undefined>> {
+class ApexAxisChartSeriesItemData2ItemGoalsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
@@ -1095,53 +2491,47 @@ class ApexAxisChartSeriesItemData2ItemGoalsList extends ApexChartElement<Exclude
            barHeightOffset?: number;
            columnWidthOffset?: number;
          }[]>[0]['goals'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
-type A = Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
-    x: any;
-    y: any;
-    fill?: ApexFill;
-    fillColor?: string;
-    strokeColor?: string;
-    meta?: any;
-    goals?: {
-      name?: string,
-      value: number,
-      strokeHeight?: number;
-      strokeWidth?: number;
-      strokeColor?: string;
-      strokeDashArray?: number;
-      strokeLineCap?: 'butt' | 'square' | 'round'
-    }[];
-    barHeightOffset?: number;
-    columnWidthOffset?: number;
-  }[]>[0]['goals'], undefined>
-
 @Component({"tag":"apex-axis-chart-series-item-data-2-item-goals-item","shadow":true})
-class ApexAxisChartSeriesItemData2ItemGoalsItem extends ApexChartElement<Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
-       x: any;
-       y: any;
-       fill?: ApexFill;
-       fillColor?: string;
-       strokeColor?: string;
-       meta?: any;
-       goals?: {
-         name?: string,
-         value: number,
-         strokeHeight?: number;
-         strokeWidth?: number;
-         strokeColor?: string;
-         strokeDashArray?: number;
-         strokeLineCap?: 'butt' | 'square' | 'round'
-       }[];
-       barHeightOffset?: number;
-       columnWidthOffset?: number;
-     }[]>[0]['goals'], undefined>[0]> {
+class ApexAxisChartSeriesItemData2ItemGoalsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, {
@@ -1177,7 +2567,7 @@ class ApexAxisChartSeriesItemData2ItemGoalsItem extends ApexChartElement<Exclude
     @Prop()
     name?: string;
     @Prop()
-    value?: number;
+    value: number = 0;
     @Prop()
     strokeHeight?: number;
     @Prop()
@@ -1188,106 +2578,336 @@ class ApexAxisChartSeriesItemData2ItemGoalsItem extends ApexChartElement<Exclude
     strokeDashArray?: number;
     @Prop()
     strokeLineCap?: "butt" | "square" | "round";
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-3-list","shadow":true})
-class ApexAxisChartSeriesItemData3List extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, [number, number | null][]>> {
+class ApexAxisChartSeriesItemData3List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, [number, number | null][]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<[number, number | null]> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-4-list","shadow":true})
-class ApexAxisChartSeriesItemData4List extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, [number, (number | null)[]][]>> {
+class ApexAxisChartSeriesItemData4List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, [number, (number | null)[]][]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<[number, (number | null)[]]> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-5-list","shadow":true})
-class ApexAxisChartSeriesItemData5List extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, number[][]>> {
+class ApexAxisChartSeriesItemData5List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, number[][]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number[]> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-5-item-list","shadow":true})
-class ApexAxisChartSeriesItemData5ItemList extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, number[][]>[0]> {
+class ApexAxisChartSeriesItemData5ItemList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, number[][]>[0]> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-5-item-item","shadow":true})
-class ApexAxisChartSeriesItemData5ItemItem extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, number[][]>[0][0]> {
+class ApexAxisChartSeriesItemData5ItemItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, number[][]>[0][0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-axis-chart-series-item-data-6-list","shadow":true})
-class ApexAxisChartSeriesItemData6List extends ApexChartElement<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, Record<string, any>[]>> {
+class ApexAxisChartSeriesItemData6List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]['data'], undefined>, Record<string, any>[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<Record<string, any>> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-non-axis-chart-series-list","shadow":true})
-class ApexNonAxisChartSeriesList extends ApexChartElement<Extract<globalThis.ApexNonAxisChartSeries, number[]>> {
+class ApexNonAxisChartSeriesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<globalThis.ApexNonAxisChartSeries, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-non-axis-chart-series-item","shadow":true})
-class ApexNonAxisChartSeriesItem extends ApexChartElement<Extract<globalThis.ApexNonAxisChartSeries, number[]>[0]> {
+class ApexNonAxisChartSeriesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<globalThis.ApexNonAxisChartSeries, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-stroke","shadow":true})
-class ApexStroke extends ApexChartElement<globalThis.ApexStroke> {
+class ApexStroke {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const curveChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-stroke-curve-list') ?? []
+        this.curve = (curveChildren.at(0) as any)?.getData()
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-stroke-colors-1-list') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+        const widthChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-stroke-width-list') ?? []
+        this.width = (widthChildren.at(0) as any)?.getData()
+        const dashArrayChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-stroke-dash-array-list') ?? []
+        this.dashArray = (dashArrayChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexStroke> {
@@ -1301,188 +2921,613 @@ class ApexStroke extends ApexChartElement<globalThis.ApexStroke> {
     show?: boolean;
     @Prop()
     lineCap?: "butt" | "square" | "round";
+    @Prop()
+    curve?: "smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic" | ("smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic")[];
+    @Prop()
+    colors?: any[] | string[];
+    @Prop()
+    width?: number | number[];
+    @Prop()
+    dashArray?: number | number[];
+    @Prop()
+    fill?: ApexFill;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-stroke-curve-list","shadow":true})
-class ApexStrokeCurveList extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['curve'], undefined>, ('smooth' | 'straight' | 'stepline' | 'linestep' | 'monotoneCubic')[]>> {
+class ApexStrokeCurveList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['curve'], undefined>, ('smooth' | 'straight' | 'stepline' | 'linestep' | 'monotoneCubic')[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<('smooth' | 'straight' | 'stepline' | 'linestep' | 'monotoneCubic')> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-stroke-colors-1-list","shadow":true})
-class ApexStrokeColors1List extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, any[]>> {
+class ApexStrokeColors1List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, any[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<any> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-stroke-colors-1-item","shadow":true})
-class ApexStrokeColors1Item extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, any[]>[0]> {
+class ApexStrokeColors1Item {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, any[]>[0]> {
         return this.element.innerText as any
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-stroke-colors-2-list","shadow":true})
-class ApexStrokeColors2List extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, string[]>> {
+class ApexStrokeColors2List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-stroke-colors-2-item","shadow":true})
-class ApexStrokeColors2Item extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, string[]>[0]> {
+class ApexStrokeColors2Item {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['colors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-stroke-width-list","shadow":true})
-class ApexStrokeWidthList extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['width'], undefined>, number[]>> {
+class ApexStrokeWidthList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['width'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-stroke-width-item","shadow":true})
-class ApexStrokeWidthItem extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['width'], undefined>, number[]>[0]> {
+class ApexStrokeWidthItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['width'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-stroke-dash-array-list","shadow":true})
-class ApexStrokeDashArrayList extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['dashArray'], undefined>, number[]>> {
+class ApexStrokeDashArrayList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['dashArray'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-stroke-dash-array-item","shadow":true})
-class ApexStrokeDashArrayItem extends ApexChartElement<Extract<Exclude<globalThis.ApexStroke['dashArray'], undefined>, number[]>[0]> {
+class ApexStrokeDashArrayItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexStroke['dashArray'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-annotations","shadow":true})
-class ApexAnnotations extends ApexChartElement<globalThis.ApexAnnotations> {
+class ApexAnnotations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const yaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-annotations-yaxis-list') ?? []
+        this.yaxis = yaxisChildren.map(el => (el as any).getData())
+        const xaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-annotations-xaxis-list') ?? []
+        this.xaxis = xaxisChildren.map(el => (el as any).getData())
+        const pointsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-annotations-points-list') ?? []
+        this.points = pointsChildren.map(el => (el as any).getData())
+        const textsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-annotations-texts-list') ?? []
+        this.texts = textsChildren.map(el => (el as any).getData())
+        const imagesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-annotations-images-list') ?? []
+        this.images = imagesChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexAnnotations> {
         return {
         }
     }
+
+    @Prop()
+    yaxis?: YAxisAnnotations[];
+    @Prop()
+    xaxis?: XAxisAnnotations[];
+    @Prop()
+    points?: PointAnnotations[];
+    @Prop()
+    texts?: TextAnnotations[];
+    @Prop()
+    images?: ImageAnnotations[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-annotations-yaxis-list","shadow":true})
-class ApexAnnotationsYaxisList extends ApexChartElement<Exclude<globalThis.ApexAnnotations['yaxis'], undefined>> {
+class ApexAnnotationsYaxisList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexAnnotations['yaxis'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<YAxisAnnotations> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-annotations-xaxis-list","shadow":true})
-class ApexAnnotationsXaxisList extends ApexChartElement<Exclude<globalThis.ApexAnnotations['xaxis'], undefined>> {
+class ApexAnnotationsXaxisList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexAnnotations['xaxis'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<XAxisAnnotations> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-annotations-points-list","shadow":true})
-class ApexAnnotationsPointsList extends ApexChartElement<Exclude<globalThis.ApexAnnotations['points'], undefined>> {
+class ApexAnnotationsPointsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexAnnotations['points'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<PointAnnotations> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-annotations-texts-list","shadow":true})
-class ApexAnnotationsTextsList extends ApexChartElement<Exclude<globalThis.ApexAnnotations['texts'], undefined>> {
+class ApexAnnotationsTextsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexAnnotations['texts'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<TextAnnotations> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-annotations-images-list","shadow":true})
-class ApexAnnotationsImagesList extends ApexChartElement<Exclude<globalThis.ApexAnnotations['images'], undefined>> {
+class ApexAnnotationsImagesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexAnnotations['images'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ImageAnnotations> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"annotation-label","shadow":true})
-class AnnotationLabel extends ApexChartElement<globalThis.AnnotationLabel> {
+class AnnotationLabel {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const textChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'annotation-label-text-list') ?? []
+        this.text = (textChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.AnnotationLabel> {
@@ -1514,35 +3559,117 @@ class AnnotationLabel extends ApexChartElement<globalThis.AnnotationLabel> {
     position?: string;
     @Prop()
     orientation?: string;
+    @Prop()
+    text?: string | string[];
+    @Prop()
+    style?: AnnotationStyle;
+    @Prop()
+    mouseEnter?: Function;
+    @Prop()
+    mouseLeave?: Function;
+    @Prop()
+    click?: Function;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"annotation-label-text-list","shadow":true})
-class AnnotationLabelTextList extends ApexChartElement<Extract<Exclude<globalThis.AnnotationLabel['text'], undefined>, string[]>> {
+class AnnotationLabelTextList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.AnnotationLabel['text'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"annotation-label-text-item","shadow":true})
-class AnnotationLabelTextItem extends ApexChartElement<Extract<Exclude<globalThis.AnnotationLabel['text'], undefined>, string[]>[0]> {
+class AnnotationLabelTextItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.AnnotationLabel['text'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"annotation-style","shadow":true})
-class AnnotationStyle extends ApexChartElement<globalThis.AnnotationStyle> {
+class AnnotationStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const paddingChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'annotation-style-padding') ?? []
+        this.padding = (paddingChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.AnnotationStyle> {
@@ -1568,12 +3695,36 @@ class AnnotationStyle extends ApexChartElement<globalThis.AnnotationStyle> {
     fontSize?: string;
     @Prop()
     cssClass?: string;
+    @Prop()
+    padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"annotation-style-padding","shadow":true})
-class AnnotationStylePadding extends ApexChartElement<Exclude<globalThis.AnnotationStyle['padding'], undefined>> {
+class AnnotationStylePadding {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.AnnotationStyle['padding'], undefined>> {
@@ -1593,12 +3744,34 @@ class AnnotationStylePadding extends ApexChartElement<Exclude<globalThis.Annotat
     top?: number;
     @Prop()
     bottom?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"x-axis-annotations","shadow":true})
-class XAxisAnnotations extends ApexChartElement<globalThis.XAxisAnnotations> {
+class XAxisAnnotations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.XAxisAnnotations> {
@@ -1636,12 +3809,36 @@ class XAxisAnnotations extends ApexChartElement<globalThis.XAxisAnnotations> {
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    label?: AnnotationLabel;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"y-axis-annotations","shadow":true})
-class YAxisAnnotations extends ApexChartElement<globalThis.YAxisAnnotations> {
+class YAxisAnnotations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.YAxisAnnotations> {
@@ -1685,12 +3882,40 @@ class YAxisAnnotations extends ApexChartElement<globalThis.YAxisAnnotations> {
     width?: string | number;
     @Prop()
     yAxisIndex?: number;
+    @Prop()
+    label?: AnnotationLabel;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"point-annotations","shadow":true})
-class PointAnnotations extends ApexChartElement<globalThis.PointAnnotations> {
+class PointAnnotations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const markerChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'point-annotations-marker') ?? []
+        this.marker = (markerChildren.at(0) as any)?.getData()
+        const imageChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'point-annotations-image') ?? []
+        this.image = (imageChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.PointAnnotations> {
@@ -1713,12 +3938,46 @@ class PointAnnotations extends ApexChartElement<globalThis.PointAnnotations> {
     yAxisIndex?: number;
     @Prop()
     seriesIndex?: number;
+    @Prop()
+    mouseEnter?: Function;
+    @Prop()
+    mouseLeave?: Function;
+    @Prop()
+    click?: Function;
+    @Prop()
+    marker?: { size?: number | undefined; fillColor?: string | undefined; strokeColor?: string | undefined; strokeWidth?: number | undefined; shape?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; cssClass?: string | undefined; };
+    @Prop()
+    label?: AnnotationLabel;
+    @Prop()
+    image?: { path?: string | undefined; width?: number | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"point-annotations-marker","shadow":true})
-class PointAnnotationsMarker extends ApexChartElement<Exclude<globalThis.PointAnnotations['marker'], undefined>> {
+class PointAnnotationsMarker {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.PointAnnotations['marker'], undefined>> {
@@ -1750,12 +4009,34 @@ class PointAnnotationsMarker extends ApexChartElement<Exclude<globalThis.PointAn
     offsetY?: number;
     @Prop()
     cssClass?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"point-annotations-image","shadow":true})
-class PointAnnotationsImage extends ApexChartElement<Exclude<globalThis.PointAnnotations['image'], undefined>> {
+class PointAnnotationsImage {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.PointAnnotations['image'], undefined>> {
@@ -1778,12 +4059,34 @@ class PointAnnotationsImage extends ApexChartElement<Exclude<globalThis.PointAnn
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"text-annotations","shadow":true})
-class TextAnnotations extends ApexChartElement<globalThis.TextAnnotations> {
+class TextAnnotations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.TextAnnotations> {
@@ -1839,12 +4142,34 @@ class TextAnnotations extends ApexChartElement<globalThis.TextAnnotations> {
     paddingTop?: number;
     @Prop()
     paddingBottom?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"image-annotations","shadow":true})
-class ImageAnnotations extends ApexChartElement<globalThis.ImageAnnotations> {
+class ImageAnnotations {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.ImageAnnotations> {
@@ -1867,12 +4192,36 @@ class ImageAnnotations extends ApexChartElement<globalThis.ImageAnnotations> {
     width?: number;
     @Prop()
     height?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale","shadow":true})
-class ApexLocale extends ApexChartElement<globalThis.ApexLocale> {
+class ApexLocale {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const optionsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-locale-options') ?? []
+        this.options = (optionsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexLocale> {
@@ -1883,116 +4232,375 @@ class ApexLocale extends ApexChartElement<globalThis.ApexLocale> {
 
     @Prop()
     name?: string;
+    @Prop()
+    options?: { months?: string[] | undefined; shortMonths?: string[] | undefined; days?: string[] | undefined; shortDays?: string[] | undefined; toolbar?: { download?: string | undefined; selection?: string | undefined; selectionZoom?: string | undefined; zoomIn?: string | undefined; zoomOut?: string | undefined; pan?: string | undefined; reset?: string | undefined; exportToSVG?: string | undefined; exportToPNG?: string | undefined; exportToCSV?: string | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale-options","shadow":true})
-class ApexLocaleOptions extends ApexChartElement<Exclude<globalThis.ApexLocale['options'], undefined>> {
+class ApexLocaleOptions {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const monthsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-locale-options-months-list') ?? []
+        this.months = monthsChildren.map(el => (el as any).getData())
+        const shortMonthsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-locale-options-short-months-list') ?? []
+        this.shortMonths = shortMonthsChildren.map(el => (el as any).getData())
+        const daysChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-locale-options-days-list') ?? []
+        this.days = daysChildren.map(el => (el as any).getData())
+        const shortDaysChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-locale-options-short-days-list') ?? []
+        this.shortDays = shortDaysChildren.map(el => (el as any).getData())
+        const toolbarChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-locale-options-toolbar') ?? []
+        this.toolbar = (toolbarChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLocale['options'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    months?: string[];
+    @Prop()
+    shortMonths?: string[];
+    @Prop()
+    days?: string[];
+    @Prop()
+    shortDays?: string[];
+    @Prop()
+    toolbar?: { download?: string | undefined; selection?: string | undefined; selectionZoom?: string | undefined; zoomIn?: string | undefined; zoomOut?: string | undefined; pan?: string | undefined; reset?: string | undefined; exportToSVG?: string | undefined; exportToPNG?: string | undefined; exportToCSV?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale-options-months-list","shadow":true})
-class ApexLocaleOptionsMonthsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['months'], undefined>> {
+class ApexLocaleOptionsMonthsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['months'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-locale-options-months-item","shadow":true})
-class ApexLocaleOptionsMonthsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['months'], undefined>[0]> {
+class ApexLocaleOptionsMonthsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['months'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale-options-short-months-list","shadow":true})
-class ApexLocaleOptionsShortMonthsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortMonths'], undefined>> {
+class ApexLocaleOptionsShortMonthsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortMonths'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-locale-options-short-months-item","shadow":true})
-class ApexLocaleOptionsShortMonthsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortMonths'], undefined>[0]> {
+class ApexLocaleOptionsShortMonthsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortMonths'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale-options-days-list","shadow":true})
-class ApexLocaleOptionsDaysList extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['days'], undefined>> {
+class ApexLocaleOptionsDaysList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['days'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-locale-options-days-item","shadow":true})
-class ApexLocaleOptionsDaysItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['days'], undefined>[0]> {
+class ApexLocaleOptionsDaysItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['days'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale-options-short-days-list","shadow":true})
-class ApexLocaleOptionsShortDaysList extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortDays'], undefined>> {
+class ApexLocaleOptionsShortDaysList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortDays'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-locale-options-short-days-item","shadow":true})
-class ApexLocaleOptionsShortDaysItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortDays'], undefined>[0]> {
+class ApexLocaleOptionsShortDaysItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['shortDays'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-locale-options-toolbar","shadow":true})
-class ApexLocaleOptionsToolbar extends ApexChartElement<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['toolbar'], undefined>> {
+class ApexLocaleOptionsToolbar {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLocale['options'], undefined>['toolbar'], undefined>> {
@@ -2030,24 +4638,119 @@ class ApexLocaleOptionsToolbar extends ApexChartElement<Exclude<Exclude<globalTh
     exportToPNG?: string;
     @Prop()
     exportToCSV?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options","shadow":true})
-class ApexPlotOptions extends ApexChartElement<globalThis.ApexPlotOptions> {
+class ApexPlotOptions {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const lineChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-line') ?? []
+        this.line = (lineChildren.at(0) as any)?.getData()
+        const areaChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-area') ?? []
+        this.area = (areaChildren.at(0) as any)?.getData()
+        const barChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar') ?? []
+        this.bar = (barChildren.at(0) as any)?.getData()
+        const bubbleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bubble') ?? []
+        this.bubble = (bubbleChildren.at(0) as any)?.getData()
+        const candlestickChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-candlestick') ?? []
+        this.candlestick = (candlestickChildren.at(0) as any)?.getData()
+        const boxPlotChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-box-plot') ?? []
+        this.boxPlot = (boxPlotChildren.at(0) as any)?.getData()
+        const heatmapChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-heatmap') ?? []
+        this.heatmap = (heatmapChildren.at(0) as any)?.getData()
+        const treemapChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap') ?? []
+        this.treemap = (treemapChildren.at(0) as any)?.getData()
+        const pieChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie') ?? []
+        this.pie = (pieChildren.at(0) as any)?.getData()
+        const polarAreaChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-polar-area') ?? []
+        this.polarArea = (polarAreaChildren.at(0) as any)?.getData()
+        const radarChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar') ?? []
+        this.radar = (radarChildren.at(0) as any)?.getData()
+        const radialBarChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar') ?? []
+        this.radialBar = (radialBarChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexPlotOptions> {
         return {
         }
     }
+
+    @Prop()
+    line?: { isSlopeChart?: boolean | undefined; colors?: { threshold?: number | undefined; colorAboveThreshold?: string | undefined; colorBelowThreshold?: string | undefined; } | undefined; };
+    @Prop()
+    area?: { fillTo?: "origin" | "end" | undefined; };
+    @Prop()
+    bar?: { horizontal?: boolean | undefined; columnWidth?: string | number | undefined; barHeight?: string | number | undefined; distributed?: boolean | undefined; borderRadius?: number | undefined; borderRadiusApplication?: "around" | "end" | undefined; borderRadiusWhenStacked?: "all" | "last" | undefined; hideZeroBarsWhenGrouped?: boolean | undefined; rangeBarOverlap?: boolean | undefined; rangeBarGroupRows?: boolean | undefined; isDumbbell?: boolean | undefined; dumbbellColors?: string[][] | undefined; isFunnel?: boolean | undefined; isFunnel3d?: boolean | undefined; colors?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[] | undefined; backgroundBarColors?: string[] | undefined; backgroundBarOpacity?: number | undefined; backgroundBarRadius?: number | undefined; } | undefined; dataLabels?: { maxItems?: number | undefined; hideOverflowingLabels?: boolean | undefined; position?: string | undefined; orientation?: "horizontal" | "vertical" | undefined; total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; } | undefined; } | undefined; };
+    @Prop()
+    bubble?: { zScaling?: boolean | undefined; minBubbleRadius?: number | undefined; maxBubbleRadius?: number | undefined; };
+    @Prop()
+    candlestick?: { type?: string | undefined; colors?: { upward?: string | string[] | undefined; downward?: string | string[] | undefined; } | undefined; wick?: { useFillColor?: boolean | undefined; } | undefined; };
+    @Prop()
+    boxPlot?: { colors?: { upper?: string | string[] | undefined; lower?: string | string[] | undefined; } | undefined; };
+    @Prop()
+    heatmap?: { radius?: number | undefined; enableShades?: boolean | undefined; shadeIntensity?: number | undefined; reverseNegativeShade?: boolean | undefined; distributed?: boolean | undefined; useFillColorAsStroke?: boolean | undefined; colorScale?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; inverse?: boolean | undefined; min?: number | undefined; max?: number | undefined; } | undefined; };
+    @Prop()
+    treemap?: { enableShades?: boolean | undefined; shadeIntensity?: number | undefined; distributed?: boolean | undefined; reverseNegativeShade?: boolean | undefined; useFillColorAsStroke?: boolean | undefined; dataLabels?: { format?: "scale" | "truncate" | undefined; } | undefined; borderRadius?: number | undefined; colorScale?: { inverse?: boolean | undefined; ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; min?: number | undefined; max?: number | undefined; } | undefined; seriesTitle?: { show?: boolean | undefined; offsetY?: number | undefined; offsetX?: number | undefined; borderColor?: string | undefined; borderWidth?: number | undefined; borderRadius?: number | undefined; style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; } | undefined; } | undefined; };
+    @Prop()
+    pie?: { startAngle?: number | undefined; endAngle?: number | undefined; customScale?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; expandOnClick?: boolean | undefined; dataLabels?: { offset?: number | undefined; minAngleToShowLabel?: number | undefined; } | undefined; donut?: { size?: string | undefined; background?: string | undefined; labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; } | undefined; } | undefined; };
+    @Prop()
+    polarArea?: { rings?: { strokeWidth?: number | undefined; strokeColor?: string | undefined; } | undefined; spokes?: { strokeWidth?: number | undefined; connectorColors?: string | string[] | undefined; } | undefined; };
+    @Prop()
+    radar?: { size?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; polygons?: { strokeColors?: string | string[] | undefined; strokeWidth?: string | string[] | undefined; connectorColors?: string | string[] | undefined; fill?: { colors?: string[] | undefined; } | undefined; } | undefined; };
+    @Prop()
+    radialBar?: { inverseOrder?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; hollow?: { margin?: number | undefined; size?: string | undefined; background?: string | undefined; image?: string | undefined; imageWidth?: number | undefined; imageHeight?: number | undefined; imageOffsetX?: number | undefined; imageOffsetY?: number | undefined; imageClipped?: boolean | undefined; position?: "front" | "back" | undefined; dropShadow?: ApexDropShadow | undefined; } | undefined; track?: { show?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; background?: string | string[] | undefined; strokeWidth?: string | undefined; opacity?: number | undefined; margin?: number | undefined; dropShadow?: ApexDropShadow | undefined; } | undefined; dataLabels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; } | undefined; value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; } | undefined; total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; } | undefined; } | undefined; barLabels?: { enabled?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; useSeriesColors?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?: ((barName: string, opts?: any) => string) | undefined; onClick?: ((barName: string, opts?: any) => void) | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-line","shadow":true})
-class ApexPlotOptionsLine extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['line'], undefined>> {
+class ApexPlotOptionsLine {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-line-colors') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['line'], undefined>> {
@@ -2058,12 +4761,36 @@ class ApexPlotOptionsLine extends ApexChartElement<Exclude<globalThis.ApexPlotOp
 
     @Prop()
     isSlopeChart?: boolean;
+    @Prop()
+    colors?: { threshold?: number | undefined; colorAboveThreshold?: string | undefined; colorBelowThreshold?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-line-colors","shadow":true})
-class ApexPlotOptionsLineColors extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['line'], undefined>['colors'], undefined>> {
+class ApexPlotOptionsLineColors {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['line'], undefined>['colors'], undefined>> {
@@ -2080,12 +4807,34 @@ class ApexPlotOptionsLineColors extends ApexChartElement<Exclude<Exclude<globalT
     colorAboveThreshold?: string;
     @Prop()
     colorBelowThreshold?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-area","shadow":true})
-class ApexPlotOptionsArea extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['area'], undefined>> {
+class ApexPlotOptionsArea {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['area'], undefined>> {
@@ -2096,12 +4845,40 @@ class ApexPlotOptionsArea extends ApexChartElement<Exclude<globalThis.ApexPlotOp
 
     @Prop()
     fillTo?: "origin" | "end";
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar","shadow":true})
-class ApexPlotOptionsBar extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['bar'], undefined>> {
+class ApexPlotOptionsBar {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const dumbbellColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-dumbbell-colors-list') ?? []
+        this.dumbbellColors = dumbbellColorsChildren.map(el => (el as any).getData())
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-colors') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+        const dataLabelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-data-labels') ?? []
+        this.dataLabels = (dataLabelsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['bar'], undefined>> {
@@ -2148,47 +4925,153 @@ class ApexPlotOptionsBar extends ApexChartElement<Exclude<globalThis.ApexPlotOpt
     isFunnel?: boolean;
     @Prop()
     isFunnel3d?: boolean;
+    @Prop()
+    dumbbellColors?: string[][];
+    @Prop()
+    colors?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[] | undefined; backgroundBarColors?: string[] | undefined; backgroundBarOpacity?: number | undefined; backgroundBarRadius?: number | undefined; };
+    @Prop()
+    dataLabels?: { maxItems?: number | undefined; hideOverflowingLabels?: boolean | undefined; position?: string | undefined; orientation?: "horizontal" | "vertical" | undefined; total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-dumbbell-colors-list","shadow":true})
-class ApexPlotOptionsBarDumbbellColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dumbbellColors'], undefined>> {
+class ApexPlotOptionsBarDumbbellColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dumbbellColors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string[]> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-bar-dumbbell-colors-item-list","shadow":true})
-class ApexPlotOptionsBarDumbbellColorsItemList extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dumbbellColors'], undefined>[0]> {
+class ApexPlotOptionsBarDumbbellColorsItemList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dumbbellColors'], undefined>[0]> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-bar-dumbbell-colors-item-item","shadow":true})
-class ApexPlotOptionsBarDumbbellColorsItemItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dumbbellColors'], undefined>[0][0]> {
+class ApexPlotOptionsBarDumbbellColorsItemItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dumbbellColors'], undefined>[0][0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-colors","shadow":true})
-class ApexPlotOptionsBarColors extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>> {
+class ApexPlotOptionsBarColors {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const rangesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-colors-ranges-list') ?? []
+        this.ranges = rangesChildren.map(el => (el as any).getData())
+        const backgroundBarColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-colors-background-bar-colors-list') ?? []
+        this.backgroundBarColors = backgroundBarColorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>> {
@@ -2202,24 +5085,80 @@ class ApexPlotOptionsBarColors extends ApexChartElement<Exclude<Exclude<globalTh
     backgroundBarOpacity?: number;
     @Prop()
     backgroundBarRadius?: number;
+    @Prop()
+    ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[];
+    @Prop()
+    backgroundBarColors?: string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-colors-ranges-list","shadow":true})
-class ApexPlotOptionsBarColorsRangesList extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['ranges'], undefined>> {
+class ApexPlotOptionsBarColorsRangesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['ranges'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+                from?: number
+                to?: number
+                color?: string
+              }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-bar-colors-ranges-item","shadow":true})
-class ApexPlotOptionsBarColorsRangesItem extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['ranges'], undefined>[0]> {
+class ApexPlotOptionsBarColorsRangesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['ranges'], undefined>[0]> {
@@ -2236,35 +5175,107 @@ class ApexPlotOptionsBarColorsRangesItem extends ApexChartElement<Exclude<Exclud
     to?: number;
     @Prop()
     color?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-colors-background-bar-colors-list","shadow":true})
-class ApexPlotOptionsBarColorsBackgroundBarColorsList extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['backgroundBarColors'], undefined>> {
+class ApexPlotOptionsBarColorsBackgroundBarColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['backgroundBarColors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-bar-colors-background-bar-colors-item","shadow":true})
-class ApexPlotOptionsBarColorsBackgroundBarColorsItem extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['backgroundBarColors'], undefined>[0]> {
+class ApexPlotOptionsBarColorsBackgroundBarColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['colors'], undefined>['backgroundBarColors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-data-labels","shadow":true})
-class ApexPlotOptionsBarDataLabels extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dataLabels'], undefined>> {
+class ApexPlotOptionsBarDataLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const totalChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-data-labels-total') ?? []
+        this.total = (totalChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dataLabels'], undefined>> {
@@ -2284,12 +5295,38 @@ class ApexPlotOptionsBarDataLabels extends ApexChartElement<Exclude<Exclude<glob
     position?: string;
     @Prop()
     orientation?: "horizontal" | "vertical";
+    @Prop()
+    total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-data-labels-total","shadow":true})
-class ApexPlotOptionsBarDataLabelsTotal extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dataLabels'], undefined>['total'], undefined>> {
+class ApexPlotOptionsBarDataLabelsTotal {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-bar-data-labels-total-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dataLabels'], undefined>['total'], undefined>> {
@@ -2306,12 +5343,36 @@ class ApexPlotOptionsBarDataLabelsTotal extends ApexChartElement<Exclude<Exclude
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bar-data-labels-total-style","shadow":true})
-class ApexPlotOptionsBarDataLabelsTotalStyle extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dataLabels'], undefined>['total'], undefined>['style'], undefined>> {
+class ApexPlotOptionsBarDataLabelsTotalStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['bar'], undefined>['dataLabels'], undefined>['total'], undefined>['style'], undefined>> {
@@ -2331,12 +5392,34 @@ class ApexPlotOptionsBarDataLabelsTotalStyle extends ApexChartElement<Exclude<Ex
     fontFamily?: string;
     @Prop()
     fontWeight?: string | number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-bubble","shadow":true})
-class ApexPlotOptionsBubble extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['bubble'], undefined>> {
+class ApexPlotOptionsBubble {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['bubble'], undefined>> {
@@ -2353,12 +5436,38 @@ class ApexPlotOptionsBubble extends ApexChartElement<Exclude<globalThis.ApexPlot
     minBubbleRadius?: number;
     @Prop()
     maxBubbleRadius?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-candlestick","shadow":true})
-class ApexPlotOptionsCandlestick extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>> {
+class ApexPlotOptionsCandlestick {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-candlestick-colors') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+        const wickChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-candlestick-wick') ?? []
+        this.wick = (wickChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>> {
@@ -2369,70 +5478,223 @@ class ApexPlotOptionsCandlestick extends ApexChartElement<Exclude<globalThis.Ape
 
     @Prop()
     type?: string;
+    @Prop()
+    colors?: { upward?: string | string[] | undefined; downward?: string | string[] | undefined; };
+    @Prop()
+    wick?: { useFillColor?: boolean | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-candlestick-colors","shadow":true})
-class ApexPlotOptionsCandlestickColors extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>> {
+class ApexPlotOptionsCandlestickColors {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const upwardChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-candlestick-colors-upward-list') ?? []
+        this.upward = (upwardChildren.at(0) as any)?.getData()
+        const downwardChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-candlestick-colors-downward-list') ?? []
+        this.downward = (downwardChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    upward?: string | string[];
+    @Prop()
+    downward?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-candlestick-colors-upward-list","shadow":true})
-class ApexPlotOptionsCandlestickColorsUpwardList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['upward'], undefined>, string[]>> {
+class ApexPlotOptionsCandlestickColorsUpwardList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['upward'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-candlestick-colors-upward-item","shadow":true})
-class ApexPlotOptionsCandlestickColorsUpwardItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['upward'], undefined>, string[]>[0]> {
+class ApexPlotOptionsCandlestickColorsUpwardItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['upward'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-candlestick-colors-downward-list","shadow":true})
-class ApexPlotOptionsCandlestickColorsDownwardList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['downward'], undefined>, string[]>> {
+class ApexPlotOptionsCandlestickColorsDownwardList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['downward'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-candlestick-colors-downward-item","shadow":true})
-class ApexPlotOptionsCandlestickColorsDownwardItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['downward'], undefined>, string[]>[0]> {
+class ApexPlotOptionsCandlestickColorsDownwardItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['colors'], undefined>['downward'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-candlestick-wick","shadow":true})
-class ApexPlotOptionsCandlestickWick extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['wick'], undefined>> {
+class ApexPlotOptionsCandlestickWick {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['candlestick'], undefined>['wick'], undefined>> {
@@ -2443,82 +5705,260 @@ class ApexPlotOptionsCandlestickWick extends ApexChartElement<Exclude<Exclude<gl
 
     @Prop()
     useFillColor?: boolean;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-box-plot","shadow":true})
-class ApexPlotOptionsBoxPlot extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>> {
+class ApexPlotOptionsBoxPlot {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-box-plot-colors') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    colors?: { upper?: string | string[] | undefined; lower?: string | string[] | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-box-plot-colors","shadow":true})
-class ApexPlotOptionsBoxPlotColors extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>> {
+class ApexPlotOptionsBoxPlotColors {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const upperChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-box-plot-colors-upper-list') ?? []
+        this.upper = (upperChildren.at(0) as any)?.getData()
+        const lowerChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-box-plot-colors-lower-list') ?? []
+        this.lower = (lowerChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    upper?: string | string[];
+    @Prop()
+    lower?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-box-plot-colors-upper-list","shadow":true})
-class ApexPlotOptionsBoxPlotColorsUpperList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['upper'], undefined>, string[]>> {
+class ApexPlotOptionsBoxPlotColorsUpperList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['upper'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-box-plot-colors-upper-item","shadow":true})
-class ApexPlotOptionsBoxPlotColorsUpperItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['upper'], undefined>, string[]>[0]> {
+class ApexPlotOptionsBoxPlotColorsUpperItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['upper'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-box-plot-colors-lower-list","shadow":true})
-class ApexPlotOptionsBoxPlotColorsLowerList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['lower'], undefined>, string[]>> {
+class ApexPlotOptionsBoxPlotColorsLowerList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['lower'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-box-plot-colors-lower-item","shadow":true})
-class ApexPlotOptionsBoxPlotColorsLowerItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['lower'], undefined>, string[]>[0]> {
+class ApexPlotOptionsBoxPlotColorsLowerItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['boxPlot'], undefined>['colors'], undefined>['lower'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-heatmap","shadow":true})
-class ApexPlotOptionsHeatmap extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>> {
+class ApexPlotOptionsHeatmap {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorScaleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-heatmap-color-scale') ?? []
+        this.colorScale = (colorScaleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>> {
@@ -2544,12 +5984,38 @@ class ApexPlotOptionsHeatmap extends ApexChartElement<Exclude<globalThis.ApexPlo
     distributed?: boolean;
     @Prop()
     useFillColorAsStroke?: boolean;
+    @Prop()
+    colorScale?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; inverse?: boolean | undefined; min?: number | undefined; max?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-heatmap-color-scale","shadow":true})
-class ApexPlotOptionsHeatmapColorScale extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>['colorScale'], undefined>> {
+class ApexPlotOptionsHeatmapColorScale {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const rangesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-heatmap-color-scale-ranges-list') ?? []
+        this.ranges = rangesChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>['colorScale'], undefined>> {
@@ -2566,24 +6032,80 @@ class ApexPlotOptionsHeatmapColorScale extends ApexChartElement<Exclude<Exclude<
     min?: number;
     @Prop()
     max?: number;
+    @Prop()
+    ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-heatmap-color-scale-ranges-list","shadow":true})
-class ApexPlotOptionsHeatmapColorScaleRangesList extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>['colorScale'], undefined>['ranges'], undefined>> {
+class ApexPlotOptionsHeatmapColorScaleRangesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>['colorScale'], undefined>['ranges'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+                from?: number
+                to?: number
+                color?: string
+                foreColor?: string
+                name?: string
+              }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-heatmap-color-scale-ranges-item","shadow":true})
-class ApexPlotOptionsHeatmapColorScaleRangesItem extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>['colorScale'], undefined>['ranges'], undefined>[0]> {
+class ApexPlotOptionsHeatmapColorScaleRangesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['heatmap'], undefined>['colorScale'], undefined>['ranges'], undefined>[0]> {
@@ -2606,12 +6128,40 @@ class ApexPlotOptionsHeatmapColorScaleRangesItem extends ApexChartElement<Exclud
     foreColor?: string;
     @Prop()
     name?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap","shadow":true})
-class ApexPlotOptionsTreemap extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>> {
+class ApexPlotOptionsTreemap {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const dataLabelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap-data-labels') ?? []
+        this.dataLabels = (dataLabelsChildren.at(0) as any)?.getData()
+        const colorScaleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap-color-scale') ?? []
+        this.colorScale = (colorScaleChildren.at(0) as any)?.getData()
+        const seriesTitleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap-series-title') ?? []
+        this.seriesTitle = (seriesTitleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>> {
@@ -2637,12 +6187,40 @@ class ApexPlotOptionsTreemap extends ApexChartElement<Exclude<globalThis.ApexPlo
     useFillColorAsStroke?: boolean;
     @Prop()
     borderRadius?: number;
+    @Prop()
+    dataLabels?: { format?: "scale" | "truncate" | undefined; };
+    @Prop()
+    colorScale?: { inverse?: boolean | undefined; ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; min?: number | undefined; max?: number | undefined; };
+    @Prop()
+    seriesTitle?: { show?: boolean | undefined; offsetY?: number | undefined; offsetX?: number | undefined; borderColor?: string | undefined; borderWidth?: number | undefined; borderRadius?: number | undefined; style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap-data-labels","shadow":true})
-class ApexPlotOptionsTreemapDataLabels extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['dataLabels'], undefined>> {
+class ApexPlotOptionsTreemapDataLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['dataLabels'], undefined>> {
@@ -2653,12 +6231,36 @@ class ApexPlotOptionsTreemapDataLabels extends ApexChartElement<Exclude<Exclude<
 
     @Prop()
     format?: "scale" | "truncate";
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap-color-scale","shadow":true})
-class ApexPlotOptionsTreemapColorScale extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['colorScale'], undefined>> {
+class ApexPlotOptionsTreemapColorScale {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const rangesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap-color-scale-ranges-list') ?? []
+        this.ranges = rangesChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['colorScale'], undefined>> {
@@ -2675,24 +6277,80 @@ class ApexPlotOptionsTreemapColorScale extends ApexChartElement<Exclude<Exclude<
     min?: number;
     @Prop()
     max?: number;
+    @Prop()
+    ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap-color-scale-ranges-list","shadow":true})
-class ApexPlotOptionsTreemapColorScaleRangesList extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['colorScale'], undefined>['ranges'], undefined>> {
+class ApexPlotOptionsTreemapColorScaleRangesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['colorScale'], undefined>['ranges'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{
+                from?: number
+                to?: number
+                color?: string
+                foreColor?: string
+                name?: string
+              }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-treemap-color-scale-ranges-item","shadow":true})
-class ApexPlotOptionsTreemapColorScaleRangesItem extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['colorScale'], undefined>['ranges'], undefined>[0]> {
+class ApexPlotOptionsTreemapColorScaleRangesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['colorScale'], undefined>['ranges'], undefined>[0]> {
@@ -2715,12 +6373,36 @@ class ApexPlotOptionsTreemapColorScaleRangesItem extends ApexChartElement<Exclud
     foreColor?: string;
     @Prop()
     name?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap-series-title","shadow":true})
-class ApexPlotOptionsTreemapSeriesTitle extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['seriesTitle'], undefined>> {
+class ApexPlotOptionsTreemapSeriesTitle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap-series-title-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['seriesTitle'], undefined>> {
@@ -2746,12 +6428,38 @@ class ApexPlotOptionsTreemapSeriesTitle extends ApexChartElement<Exclude<Exclude
     borderWidth?: number;
     @Prop()
     borderRadius?: number;
+    @Prop()
+    style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap-series-title-style","shadow":true})
-class ApexPlotOptionsTreemapSeriesTitleStyle extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['seriesTitle'], undefined>['style'], undefined>> {
+class ApexPlotOptionsTreemapSeriesTitleStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const paddingChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-treemap-series-title-style-padding') ?? []
+        this.padding = (paddingChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['seriesTitle'], undefined>['style'], undefined>> {
@@ -2777,12 +6485,36 @@ class ApexPlotOptionsTreemapSeriesTitleStyle extends ApexChartElement<Exclude<Ex
     fontWeight?: string | number;
     @Prop()
     cssClass?: string;
+    @Prop()
+    padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-treemap-series-title-style-padding","shadow":true})
-class ApexPlotOptionsTreemapSeriesTitleStylePadding extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['seriesTitle'], undefined>['style'], undefined>['padding'], undefined>> {
+class ApexPlotOptionsTreemapSeriesTitleStylePadding {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['treemap'], undefined>['seriesTitle'], undefined>['style'], undefined>['padding'], undefined>> {
@@ -2802,12 +6534,38 @@ class ApexPlotOptionsTreemapSeriesTitleStylePadding extends ApexChartElement<Exc
     top?: number;
     @Prop()
     bottom?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie","shadow":true})
-class ApexPlotOptionsPie extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['pie'], undefined>> {
+class ApexPlotOptionsPie {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const dataLabelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie-data-labels') ?? []
+        this.dataLabels = (dataLabelsChildren.at(0) as any)?.getData()
+        const donutChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie-donut') ?? []
+        this.donut = (donutChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['pie'], undefined>> {
@@ -2833,12 +6591,38 @@ class ApexPlotOptionsPie extends ApexChartElement<Exclude<globalThis.ApexPlotOpt
     offsetY?: number;
     @Prop()
     expandOnClick?: boolean;
+    @Prop()
+    dataLabels?: { offset?: number | undefined; minAngleToShowLabel?: number | undefined; };
+    @Prop()
+    donut?: { size?: string | undefined; background?: string | undefined; labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie-data-labels","shadow":true})
-class ApexPlotOptionsPieDataLabels extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['dataLabels'], undefined>> {
+class ApexPlotOptionsPieDataLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['dataLabels'], undefined>> {
@@ -2852,12 +6636,36 @@ class ApexPlotOptionsPieDataLabels extends ApexChartElement<Exclude<Exclude<glob
     offset?: number;
     @Prop()
     minAngleToShowLabel?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie-donut","shadow":true})
-class ApexPlotOptionsPieDonut extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>> {
+class ApexPlotOptionsPieDonut {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const labelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie-donut-labels') ?? []
+        this.labels = (labelsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>> {
@@ -2871,12 +6679,42 @@ class ApexPlotOptionsPieDonut extends ApexChartElement<Exclude<Exclude<globalThi
     size?: string;
     @Prop()
     background?: string;
+    @Prop()
+    labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie-donut-labels","shadow":true})
-class ApexPlotOptionsPieDonutLabels extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>> {
+class ApexPlotOptionsPieDonutLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const nameChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie-donut-labels-name') ?? []
+        this.name = (nameChildren.at(0) as any)?.getData()
+        const valueChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie-donut-labels-value') ?? []
+        this.value = (valueChildren.at(0) as any)?.getData()
+        const totalChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-pie-donut-labels-total') ?? []
+        this.total = (totalChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>> {
@@ -2887,12 +6725,40 @@ class ApexPlotOptionsPieDonutLabels extends ApexChartElement<Exclude<Exclude<Exc
 
     @Prop()
     show?: boolean;
+    @Prop()
+    name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; };
+    @Prop()
+    value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; };
+    @Prop()
+    total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie-donut-labels-name","shadow":true})
-class ApexPlotOptionsPieDonutLabelsName extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>['name'], undefined>> {
+class ApexPlotOptionsPieDonutLabelsName {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>['name'], undefined>> {
@@ -2918,12 +6784,34 @@ class ApexPlotOptionsPieDonutLabelsName extends ApexChartElement<Exclude<Exclude
     color?: string;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie-donut-labels-value","shadow":true})
-class ApexPlotOptionsPieDonutLabelsValue extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>['value'], undefined>> {
+class ApexPlotOptionsPieDonutLabelsValue {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>['value'], undefined>> {
@@ -2949,12 +6837,34 @@ class ApexPlotOptionsPieDonutLabelsValue extends ApexChartElement<Exclude<Exclud
     color?: string;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-pie-donut-labels-total","shadow":true})
-class ApexPlotOptionsPieDonutLabelsTotal extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>['total'], undefined>> {
+class ApexPlotOptionsPieDonutLabelsTotal {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['pie'], undefined>['donut'], undefined>['labels'], undefined>['total'], undefined>> {
@@ -2983,24 +6893,77 @@ class ApexPlotOptionsPieDonutLabelsTotal extends ApexChartElement<Exclude<Exclud
     label?: string;
     @Prop()
     color?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-polar-area","shadow":true})
-class ApexPlotOptionsPolarArea extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>> {
+class ApexPlotOptionsPolarArea {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const ringsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-polar-area-rings') ?? []
+        this.rings = (ringsChildren.at(0) as any)?.getData()
+        const spokesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-polar-area-spokes') ?? []
+        this.spokes = (spokesChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    rings?: { strokeWidth?: number | undefined; strokeColor?: string | undefined; };
+    @Prop()
+    spokes?: { strokeWidth?: number | undefined; connectorColors?: string | string[] | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-polar-area-rings","shadow":true})
-class ApexPlotOptionsPolarAreaRings extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['rings'], undefined>> {
+class ApexPlotOptionsPolarAreaRings {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['rings'], undefined>> {
@@ -3014,12 +6977,36 @@ class ApexPlotOptionsPolarAreaRings extends ApexChartElement<Exclude<Exclude<glo
     strokeWidth?: number;
     @Prop()
     strokeColor?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-polar-area-spokes","shadow":true})
-class ApexPlotOptionsPolarAreaSpokes extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['spokes'], undefined>> {
+class ApexPlotOptionsPolarAreaSpokes {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const connectorColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-polar-area-spokes-connector-colors-list') ?? []
+        this.connectorColors = (connectorColorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['spokes'], undefined>> {
@@ -3030,35 +7017,109 @@ class ApexPlotOptionsPolarAreaSpokes extends ApexChartElement<Exclude<Exclude<gl
 
     @Prop()
     strokeWidth?: number;
+    @Prop()
+    connectorColors?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-polar-area-spokes-connector-colors-list","shadow":true})
-class ApexPlotOptionsPolarAreaSpokesConnectorColorsList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['spokes'], undefined>['connectorColors'], undefined>, string[]>> {
+class ApexPlotOptionsPolarAreaSpokesConnectorColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['spokes'], undefined>['connectorColors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-polar-area-spokes-connector-colors-item","shadow":true})
-class ApexPlotOptionsPolarAreaSpokesConnectorColorsItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['spokes'], undefined>['connectorColors'], undefined>, string[]>[0]> {
+class ApexPlotOptionsPolarAreaSpokesConnectorColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['polarArea'], undefined>['spokes'], undefined>['connectorColors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar","shadow":true})
-class ApexPlotOptionsRadar extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['radar'], undefined>> {
+class ApexPlotOptionsRadar {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const polygonsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar-polygons') ?? []
+        this.polygons = (polygonsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['radar'], undefined>> {
@@ -3075,128 +7136,418 @@ class ApexPlotOptionsRadar extends ApexChartElement<Exclude<globalThis.ApexPlotO
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    polygons?: { strokeColors?: string | string[] | undefined; strokeWidth?: string | string[] | undefined; connectorColors?: string | string[] | undefined; fill?: { colors?: string[] | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons","shadow":true})
-class ApexPlotOptionsRadarPolygons extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>> {
+class ApexPlotOptionsRadarPolygons {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const strokeColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar-polygons-stroke-colors-list') ?? []
+        this.strokeColors = (strokeColorsChildren.at(0) as any)?.getData()
+        const strokeWidthChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar-polygons-stroke-width-list') ?? []
+        this.strokeWidth = (strokeWidthChildren.at(0) as any)?.getData()
+        const connectorColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar-polygons-connector-colors-list') ?? []
+        this.connectorColors = (connectorColorsChildren.at(0) as any)?.getData()
+        const fillChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar-polygons-fill') ?? []
+        this.fill = (fillChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    strokeColors?: string | string[];
+    @Prop()
+    strokeWidth?: string | string[];
+    @Prop()
+    connectorColors?: string | string[];
+    @Prop()
+    fill?: { colors?: string[] | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-stroke-colors-list","shadow":true})
-class ApexPlotOptionsRadarPolygonsStrokeColorsList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeColors'], undefined>, string[]>> {
+class ApexPlotOptionsRadarPolygonsStrokeColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeColors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-stroke-colors-item","shadow":true})
-class ApexPlotOptionsRadarPolygonsStrokeColorsItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeColors'], undefined>, string[]>[0]> {
+class ApexPlotOptionsRadarPolygonsStrokeColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeColors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-stroke-width-list","shadow":true})
-class ApexPlotOptionsRadarPolygonsStrokeWidthList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeWidth'], undefined>, string[]>> {
+class ApexPlotOptionsRadarPolygonsStrokeWidthList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeWidth'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-stroke-width-item","shadow":true})
-class ApexPlotOptionsRadarPolygonsStrokeWidthItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeWidth'], undefined>, string[]>[0]> {
+class ApexPlotOptionsRadarPolygonsStrokeWidthItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['strokeWidth'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-connector-colors-list","shadow":true})
-class ApexPlotOptionsRadarPolygonsConnectorColorsList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['connectorColors'], undefined>, string[]>> {
+class ApexPlotOptionsRadarPolygonsConnectorColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['connectorColors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-connector-colors-item","shadow":true})
-class ApexPlotOptionsRadarPolygonsConnectorColorsItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['connectorColors'], undefined>, string[]>[0]> {
+class ApexPlotOptionsRadarPolygonsConnectorColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['connectorColors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-fill","shadow":true})
-class ApexPlotOptionsRadarPolygonsFill extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['fill'], undefined>> {
+class ApexPlotOptionsRadarPolygonsFill {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radar-polygons-fill-colors-list') ?? []
+        this.colors = colorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['fill'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    colors?: string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-fill-colors-list","shadow":true})
-class ApexPlotOptionsRadarPolygonsFillColorsList extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['fill'], undefined>['colors'], undefined>> {
+class ApexPlotOptionsRadarPolygonsFillColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['fill'], undefined>['colors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-radar-polygons-fill-colors-item","shadow":true})
-class ApexPlotOptionsRadarPolygonsFillColorsItem extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['fill'], undefined>['colors'], undefined>[0]> {
+class ApexPlotOptionsRadarPolygonsFillColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radar'], undefined>['polygons'], undefined>['fill'], undefined>['colors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar","shadow":true})
-class ApexPlotOptionsRadialBar extends ApexChartElement<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>> {
+class ApexPlotOptionsRadialBar {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const hollowChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-hollow') ?? []
+        this.hollow = (hollowChildren.at(0) as any)?.getData()
+        const trackChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-track') ?? []
+        this.track = (trackChildren.at(0) as any)?.getData()
+        const dataLabelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-data-labels') ?? []
+        this.dataLabels = (dataLabelsChildren.at(0) as any)?.getData()
+        const barLabelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-bar-labels') ?? []
+        this.barLabels = (barLabelsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>> {
@@ -3219,12 +7570,42 @@ class ApexPlotOptionsRadialBar extends ApexChartElement<Exclude<globalThis.ApexP
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    hollow?: { margin?: number | undefined; size?: string | undefined; background?: string | undefined; image?: string | undefined; imageWidth?: number | undefined; imageHeight?: number | undefined; imageOffsetX?: number | undefined; imageOffsetY?: number | undefined; imageClipped?: boolean | undefined; position?: "front" | "back" | undefined; dropShadow?: ApexDropShadow | undefined; };
+    @Prop()
+    track?: { show?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; background?: string | string[] | undefined; strokeWidth?: string | undefined; opacity?: number | undefined; margin?: number | undefined; dropShadow?: ApexDropShadow | undefined; };
+    @Prop()
+    dataLabels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; } | undefined; value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; } | undefined; total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; } | undefined; };
+    @Prop()
+    barLabels?: { enabled?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; useSeriesColors?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?: ((barName: string, opts?: any) => string) | undefined; onClick?: ((barName: string, opts?: any) => void) | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-hollow","shadow":true})
-class ApexPlotOptionsRadialBarHollow extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['hollow'], undefined>> {
+class ApexPlotOptionsRadialBarHollow {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['hollow'], undefined>> {
@@ -3262,12 +7643,38 @@ class ApexPlotOptionsRadialBarHollow extends ApexChartElement<Exclude<Exclude<gl
     imageClipped?: boolean;
     @Prop()
     position?: "front" | "back";
+    @Prop()
+    dropShadow?: ApexDropShadow;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-track","shadow":true})
-class ApexPlotOptionsRadialBarTrack extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['track'], undefined>> {
+class ApexPlotOptionsRadialBarTrack {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const backgroundChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-track-background-list') ?? []
+        this.background = (backgroundChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['track'], undefined>> {
@@ -3293,35 +7700,115 @@ class ApexPlotOptionsRadialBarTrack extends ApexChartElement<Exclude<Exclude<glo
     opacity?: number;
     @Prop()
     margin?: number;
+    @Prop()
+    background?: string | string[];
+    @Prop()
+    dropShadow?: ApexDropShadow;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-track-background-list","shadow":true})
-class ApexPlotOptionsRadialBarTrackBackgroundList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['track'], undefined>['background'], undefined>, string[]>> {
+class ApexPlotOptionsRadialBarTrackBackgroundList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['track'], undefined>['background'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-track-background-item","shadow":true})
-class ApexPlotOptionsRadialBarTrackBackgroundItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['track'], undefined>['background'], undefined>, string[]>[0]> {
+class ApexPlotOptionsRadialBarTrackBackgroundItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['track'], undefined>['background'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-data-labels","shadow":true})
-class ApexPlotOptionsRadialBarDataLabels extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>> {
+class ApexPlotOptionsRadialBarDataLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const nameChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-data-labels-name') ?? []
+        this.name = (nameChildren.at(0) as any)?.getData()
+        const valueChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-data-labels-value') ?? []
+        this.value = (valueChildren.at(0) as any)?.getData()
+        const totalChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-plot-options-radial-bar-data-labels-total') ?? []
+        this.total = (totalChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>> {
@@ -3332,12 +7819,40 @@ class ApexPlotOptionsRadialBarDataLabels extends ApexChartElement<Exclude<Exclud
 
     @Prop()
     show?: boolean;
+    @Prop()
+    name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; };
+    @Prop()
+    value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; };
+    @Prop()
+    total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-data-labels-name","shadow":true})
-class ApexPlotOptionsRadialBarDataLabelsName extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>['name'], undefined>> {
+class ApexPlotOptionsRadialBarDataLabelsName {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>['name'], undefined>> {
@@ -3363,12 +7878,34 @@ class ApexPlotOptionsRadialBarDataLabelsName extends ApexChartElement<Exclude<Ex
     color?: string;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-data-labels-value","shadow":true})
-class ApexPlotOptionsRadialBarDataLabelsValue extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>['value'], undefined>> {
+class ApexPlotOptionsRadialBarDataLabelsValue {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>['value'], undefined>> {
@@ -3394,12 +7931,34 @@ class ApexPlotOptionsRadialBarDataLabelsValue extends ApexChartElement<Exclude<E
     color?: string;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-data-labels-total","shadow":true})
-class ApexPlotOptionsRadialBarDataLabelsTotal extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>['total'], undefined>> {
+class ApexPlotOptionsRadialBarDataLabelsTotal {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['dataLabels'], undefined>['total'], undefined>> {
@@ -3425,12 +7984,34 @@ class ApexPlotOptionsRadialBarDataLabelsTotal extends ApexChartElement<Exclude<E
     fontWeight?: string | number;
     @Prop()
     fontSize?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-plot-options-radial-bar-bar-labels","shadow":true})
-class ApexPlotOptionsRadialBarBarLabels extends ApexChartElement<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['barLabels'], undefined>> {
+class ApexPlotOptionsRadialBarBarLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexPlotOptions['radialBar'], undefined>['barLabels'], undefined>> {
@@ -3461,16 +8042,38 @@ class ApexPlotOptionsRadialBarBarLabels extends ApexChartElement<Exclude<Exclude
     fontWeight?: string | number;
     @Prop()
     fontSize?: string;
-    @Prop()
+    @Event()
     formatter?: (barName: string, opts?: any) => string;
-    @Prop()
+    @Event()
     onClick?: (barName: string, opts?: any) => void;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-color-stop","shadow":true})
-class ApexColorStop extends ApexChartElement<globalThis.ApexColorStop> {
+class ApexColorStop {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexColorStop> {
@@ -3482,98 +8085,321 @@ class ApexColorStop extends ApexChartElement<globalThis.ApexColorStop> {
     }
 
     @Prop()
-    offset?: number;
+    offset: number = 0;
     @Prop()
-    color?: string;
+    color: string = '';
     @Prop()
-    opacity?: number;
+    opacity: number = 0;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill","shadow":true})
-class ApexFill extends ApexChartElement<globalThis.ApexFill> {
+class ApexFill {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-colors-list') ?? []
+        this.colors = colorsChildren.map(el => (el as any).getData())
+        const opacityChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-opacity-list') ?? []
+        this.opacity = (opacityChildren.at(0) as any)?.getData()
+        const typeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-type-list') ?? []
+        this.type = (typeChildren.at(0) as any)?.getData()
+        const gradientChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-gradient') ?? []
+        this.gradient = (gradientChildren.at(0) as any)?.getData()
+        const imageChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-image') ?? []
+        this.image = (imageChildren.at(0) as any)?.getData()
+        const patternChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-pattern') ?? []
+        this.pattern = (patternChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexFill> {
         return {
         }
     }
+
+    @Prop()
+    colors?: any[];
+    @Prop()
+    opacity?: number | number[];
+    @Prop()
+    type?: string | string[];
+    @Prop()
+    gradient?: { shade?: string | undefined; type?: string | undefined; shadeIntensity?: number | undefined; gradientToColors?: string[] | undefined; inverseColors?: boolean | undefined; opacityFrom?: number | number[] | undefined; opacityTo?: number | number[] | undefined; stops?: number[] | undefined; colorStops?: ApexColorStop[] | ApexColorStop[][] | undefined; };
+    @Prop()
+    image?: { src?: string | string[] | undefined; width?: number | undefined; height?: number | undefined; };
+    @Prop()
+    pattern?: { style?: string | string[] | undefined; width?: number | undefined; height?: number | undefined; strokeWidth?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-colors-list","shadow":true})
-class ApexFillColorsList extends ApexChartElement<Exclude<globalThis.ApexFill['colors'], undefined>> {
+class ApexFillColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexFill['colors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<any> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-colors-item","shadow":true})
-class ApexFillColorsItem extends ApexChartElement<Exclude<globalThis.ApexFill['colors'], undefined>[0]> {
+class ApexFillColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexFill['colors'], undefined>[0]> {
         return this.element.innerText as any
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-opacity-list","shadow":true})
-class ApexFillOpacityList extends ApexChartElement<Extract<Exclude<globalThis.ApexFill['opacity'], undefined>, number[]>> {
+class ApexFillOpacityList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexFill['opacity'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-opacity-item","shadow":true})
-class ApexFillOpacityItem extends ApexChartElement<Extract<Exclude<globalThis.ApexFill['opacity'], undefined>, number[]>[0]> {
+class ApexFillOpacityItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexFill['opacity'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-type-list","shadow":true})
-class ApexFillTypeList extends ApexChartElement<Extract<Exclude<globalThis.ApexFill['type'], undefined>, string[]>> {
+class ApexFillTypeList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexFill['type'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-type-item","shadow":true})
-class ApexFillTypeItem extends ApexChartElement<Extract<Exclude<globalThis.ApexFill['type'], undefined>, string[]>[0]> {
+class ApexFillTypeItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexFill['type'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-gradient","shadow":true})
-class ApexFillGradient extends ApexChartElement<Exclude<globalThis.ApexFill['gradient'], undefined>> {
+class ApexFillGradient {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const gradientToColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-gradient-gradient-to-colors-list') ?? []
+        this.gradientToColors = gradientToColorsChildren.map(el => (el as any).getData())
+        const opacityFromChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-gradient-opacity-from-list') ?? []
+        this.opacityFrom = (opacityFromChildren.at(0) as any)?.getData()
+        const opacityToChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-gradient-opacity-to-list') ?? []
+        this.opacityTo = (opacityToChildren.at(0) as any)?.getData()
+        const stopsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-gradient-stops-list') ?? []
+        this.stops = stopsChildren.map(el => (el as any).getData())
+        const colorStopsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-gradient-color-stops-1-list') ?? []
+        this.colorStops = (colorStopsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexFill['gradient'], undefined>> {
@@ -3593,140 +8419,444 @@ class ApexFillGradient extends ApexChartElement<Exclude<globalThis.ApexFill['gra
     shadeIntensity?: number;
     @Prop()
     inverseColors?: boolean;
+    @Prop()
+    gradientToColors?: string[];
+    @Prop()
+    opacityFrom?: number | number[];
+    @Prop()
+    opacityTo?: number | number[];
+    @Prop()
+    stops?: number[];
+    @Prop()
+    colorStops?: ApexColorStop[] | ApexColorStop[][];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-gradient-gradient-to-colors-list","shadow":true})
-class ApexFillGradientGradientToColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['gradientToColors'], undefined>> {
+class ApexFillGradientGradientToColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['gradientToColors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-gradient-gradient-to-colors-item","shadow":true})
-class ApexFillGradientGradientToColorsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['gradientToColors'], undefined>[0]> {
+class ApexFillGradientGradientToColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['gradientToColors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-gradient-opacity-from-list","shadow":true})
-class ApexFillGradientOpacityFromList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityFrom'], undefined>, number[]>> {
+class ApexFillGradientOpacityFromList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityFrom'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-gradient-opacity-from-item","shadow":true})
-class ApexFillGradientOpacityFromItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityFrom'], undefined>, number[]>[0]> {
+class ApexFillGradientOpacityFromItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityFrom'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-gradient-opacity-to-list","shadow":true})
-class ApexFillGradientOpacityToList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityTo'], undefined>, number[]>> {
+class ApexFillGradientOpacityToList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityTo'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-gradient-opacity-to-item","shadow":true})
-class ApexFillGradientOpacityToItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityTo'], undefined>, number[]>[0]> {
+class ApexFillGradientOpacityToItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['opacityTo'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-gradient-stops-list","shadow":true})
-class ApexFillGradientStopsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['stops'], undefined>> {
+class ApexFillGradientStopsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['stops'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-gradient-stops-item","shadow":true})
-class ApexFillGradientStopsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['stops'], undefined>[0]> {
+class ApexFillGradientStopsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['stops'], undefined>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-gradient-color-stops-1-list","shadow":true})
-class ApexFillGradientColorStops1List extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['colorStops'], undefined>, ApexColorStop[][]>> {
+class ApexFillGradientColorStops1List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['colorStops'], undefined>, ApexColorStop[][]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexColorStop[]> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-gradient-color-stops-1-item-list","shadow":true})
-class ApexFillGradientColorStops1ItemList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['colorStops'], undefined>, ApexColorStop[][]>[0]> {
+class ApexFillGradientColorStops1ItemList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['colorStops'], undefined>, ApexColorStop[][]>[0]> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexColorStop> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-gradient-color-stops-2-list","shadow":true})
-class ApexFillGradientColorStops2List extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['colorStops'], undefined>, ApexColorStop[]>> {
+class ApexFillGradientColorStops2List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['gradient'], undefined>['colorStops'], undefined>, ApexColorStop[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexColorStop> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-image","shadow":true})
-class ApexFillImage extends ApexChartElement<Exclude<globalThis.ApexFill['image'], undefined>> {
+class ApexFillImage {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const srcChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-image-src-list') ?? []
+        this.src = (srcChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexFill['image'], undefined>> {
@@ -3740,35 +8870,109 @@ class ApexFillImage extends ApexChartElement<Exclude<globalThis.ApexFill['image'
     width?: number;
     @Prop()
     height?: number;
+    @Prop()
+    src?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-image-src-list","shadow":true})
-class ApexFillImageSrcList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['image'], undefined>['src'], undefined>, string[]>> {
+class ApexFillImageSrcList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['image'], undefined>['src'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-image-src-item","shadow":true})
-class ApexFillImageSrcItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['image'], undefined>['src'], undefined>, string[]>[0]> {
+class ApexFillImageSrcItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['image'], undefined>['src'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-pattern","shadow":true})
-class ApexFillPattern extends ApexChartElement<Exclude<globalThis.ApexFill['pattern'], undefined>> {
+class ApexFillPattern {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-fill-pattern-style-list') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexFill['pattern'], undefined>> {
@@ -3785,35 +8989,119 @@ class ApexFillPattern extends ApexChartElement<Exclude<globalThis.ApexFill['patt
     height?: number;
     @Prop()
     strokeWidth?: number;
+    @Prop()
+    style?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-fill-pattern-style-list","shadow":true})
-class ApexFillPatternStyleList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['pattern'], undefined>['style'], undefined>, string[]>> {
+class ApexFillPatternStyleList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['pattern'], undefined>['style'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-fill-pattern-style-item","shadow":true})
-class ApexFillPatternStyleItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexFill['pattern'], undefined>['style'], undefined>, string[]>[0]> {
+class ApexFillPatternStyleItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexFill['pattern'], undefined>['style'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend","shadow":true})
-class ApexLegend extends ApexChartElement<globalThis.ApexLegend> {
+class ApexLegend {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const customLegendItemsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-custom-legend-items-list') ?? []
+        this.customLegendItems = customLegendItemsChildren.map(el => (el as any).getData())
+        const labelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-labels') ?? []
+        this.labels = (labelsChildren.at(0) as any)?.getData()
+        const markersChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-markers') ?? []
+        this.markers = (markersChildren.at(0) as any)?.getData()
+        const itemMarginChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-item-margin') ?? []
+        this.itemMargin = (itemMarginChildren.at(0) as any)?.getData()
+        const onItemClickChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-on-item-click') ?? []
+        this.onItemClick = (onItemClickChildren.at(0) as any)?.getData()
+        const onItemHoverChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-on-item-hover') ?? []
+        this.onItemHover = (onItemHoverChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexLegend> {
@@ -3872,35 +9160,119 @@ class ApexLegend extends ApexChartElement<globalThis.ApexLegend> {
     clusterGroupedSeries?: boolean;
     @Prop()
     clusterGroupedSeriesOrientation?: string;
+    @Prop()
+    customLegendItems?: string[];
+    @Prop()
+    labels?: { colors?: string | string[] | undefined; useSeriesColors?: boolean | undefined; };
+    @Prop()
+    markers?: { size?: number | undefined; strokeWidth?: number | undefined; fillColors?: string[] | undefined; shape?: ApexMarkerShape | undefined; offsetX?: number | undefined; offsetY?: number | undefined; customHTML?(): any; onClick?(): void; };
+    @Prop()
+    itemMargin?: { horizontal?: number | undefined; vertical?: number | undefined; };
+    @Prop()
+    onItemClick?: { toggleDataSeries?: boolean | undefined; };
+    @Prop()
+    onItemHover?: { highlightDataSeries?: boolean | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-custom-legend-items-list","shadow":true})
-class ApexLegendCustomLegendItemsList extends ApexChartElement<Exclude<globalThis.ApexLegend['customLegendItems'], undefined>> {
+class ApexLegendCustomLegendItemsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['customLegendItems'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-legend-custom-legend-items-item","shadow":true})
-class ApexLegendCustomLegendItemsItem extends ApexChartElement<Exclude<globalThis.ApexLegend['customLegendItems'], undefined>[0]> {
+class ApexLegendCustomLegendItemsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['customLegendItems'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-labels","shadow":true})
-class ApexLegendLabels extends ApexChartElement<Exclude<globalThis.ApexLegend['labels'], undefined>> {
+class ApexLegendLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-labels-colors-list') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['labels'], undefined>> {
@@ -3911,35 +9283,109 @@ class ApexLegendLabels extends ApexChartElement<Exclude<globalThis.ApexLegend['l
 
     @Prop()
     useSeriesColors?: boolean;
+    @Prop()
+    colors?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-labels-colors-list","shadow":true})
-class ApexLegendLabelsColorsList extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexLegend['labels'], undefined>['colors'], undefined>, string[]>> {
+class ApexLegendLabelsColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexLegend['labels'], undefined>['colors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-legend-labels-colors-item","shadow":true})
-class ApexLegendLabelsColorsItem extends ApexChartElement<Extract<Exclude<Exclude<globalThis.ApexLegend['labels'], undefined>['colors'], undefined>, string[]>[0]> {
+class ApexLegendLabelsColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<globalThis.ApexLegend['labels'], undefined>['colors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-markers","shadow":true})
-class ApexLegendMarkers extends ApexChartElement<Exclude<globalThis.ApexLegend['markers'], undefined>> {
+class ApexLegendMarkers {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const fillColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-legend-markers-fill-colors-list') ?? []
+        this.fillColors = fillColorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['markers'], undefined>> {
@@ -3959,35 +9405,109 @@ class ApexLegendMarkers extends ApexChartElement<Exclude<globalThis.ApexLegend['
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    fillColors?: string[];
+    @Prop()
+    shape?: ApexMarkerShape;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-markers-fill-colors-list","shadow":true})
-class ApexLegendMarkersFillColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexLegend['markers'], undefined>['fillColors'], undefined>> {
+class ApexLegendMarkersFillColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLegend['markers'], undefined>['fillColors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-legend-markers-fill-colors-item","shadow":true})
-class ApexLegendMarkersFillColorsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexLegend['markers'], undefined>['fillColors'], undefined>[0]> {
+class ApexLegendMarkersFillColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexLegend['markers'], undefined>['fillColors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-item-margin","shadow":true})
-class ApexLegendItemMargin extends ApexChartElement<Exclude<globalThis.ApexLegend['itemMargin'], undefined>> {
+class ApexLegendItemMargin {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['itemMargin'], undefined>> {
@@ -4001,12 +9521,34 @@ class ApexLegendItemMargin extends ApexChartElement<Exclude<globalThis.ApexLegen
     horizontal?: number;
     @Prop()
     vertical?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-on-item-click","shadow":true})
-class ApexLegendOnItemClick extends ApexChartElement<Exclude<globalThis.ApexLegend['onItemClick'], undefined>> {
+class ApexLegendOnItemClick {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['onItemClick'], undefined>> {
@@ -4017,12 +9559,34 @@ class ApexLegendOnItemClick extends ApexChartElement<Exclude<globalThis.ApexLege
 
     @Prop()
     toggleDataSeries?: boolean;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-legend-on-item-hover","shadow":true})
-class ApexLegendOnItemHover extends ApexChartElement<Exclude<globalThis.ApexLegend['onItemHover'], undefined>> {
+class ApexLegendOnItemHover {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexLegend['onItemHover'], undefined>> {
@@ -4033,24 +9597,72 @@ class ApexLegendOnItemHover extends ApexChartElement<Exclude<globalThis.ApexLege
 
     @Prop()
     highlightDataSeries?: boolean;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-marker-shape-list","shadow":true})
-class ApexMarkerShapeList extends ApexChartElement<Extract<globalThis.ApexMarkerShape, MarkerShapeOptions[]>> {
+class ApexMarkerShapeList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<globalThis.ApexMarkerShape, MarkerShapeOptions[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<MarkerShapeOptions> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-discrete-point","shadow":true})
-class ApexDiscretePoint extends ApexChartElement<globalThis.ApexDiscretePoint> {
+class ApexDiscretePoint {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexDiscretePoint> {
@@ -4073,12 +9685,54 @@ class ApexDiscretePoint extends ApexChartElement<globalThis.ApexDiscretePoint> {
     strokeColor?: string;
     @Prop()
     size?: number;
+    @Prop()
+    shape?: ApexMarkerShape;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers","shadow":true})
-class ApexMarkers extends ApexChartElement<globalThis.ApexMarkers> {
+class ApexMarkers {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const sizeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-size-list') ?? []
+        this.size = (sizeChildren.at(0) as any)?.getData()
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-colors-list') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+        const strokeColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-stroke-colors-list') ?? []
+        this.strokeColors = (strokeColorsChildren.at(0) as any)?.getData()
+        const strokeWidthChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-stroke-width-list') ?? []
+        this.strokeWidth = (strokeWidthChildren.at(0) as any)?.getData()
+        const strokeOpacityChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-stroke-opacity-list') ?? []
+        this.strokeOpacity = (strokeOpacityChildren.at(0) as any)?.getData()
+        const strokeDashArrayChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-stroke-dash-array-list') ?? []
+        this.strokeDashArray = (strokeDashArrayChildren.at(0) as any)?.getData()
+        const fillOpacityChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-fill-opacity-list') ?? []
+        this.fillOpacity = (fillOpacityChildren.at(0) as any)?.getData()
+        const discreteChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-discrete-list') ?? []
+        this.discrete = discreteChildren.map(el => (el as any).getData())
+        const hoverChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-markers-hover') ?? []
+        this.hover = (hoverChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexMarkers> {
@@ -4095,185 +9749,589 @@ class ApexMarkers extends ApexChartElement<globalThis.ApexMarkers> {
     offsetY?: number;
     @Prop()
     showNullDataPoints?: boolean;
+    @Prop()
+    size?: number | number[];
+    @Prop()
+    colors?: string | string[];
+    @Prop()
+    strokeColors?: string | string[];
+    @Prop()
+    strokeWidth?: number | number[];
+    @Prop()
+    strokeOpacity?: number | number[];
+    @Prop()
+    strokeDashArray?: number | number[];
+    @Prop()
+    fillOpacity?: number | number[];
+    @Prop()
+    discrete?: ApexDiscretePoint[];
+    @Prop()
+    shape?: ApexMarkerShape;
+    @Prop()
+    hover?: { size?: number | undefined; sizeOffset?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-size-list","shadow":true})
-class ApexMarkersSizeList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['size'], undefined>, number[]>> {
+class ApexMarkersSizeList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['size'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-size-item","shadow":true})
-class ApexMarkersSizeItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['size'], undefined>, number[]>[0]> {
+class ApexMarkersSizeItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['size'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-colors-list","shadow":true})
-class ApexMarkersColorsList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['colors'], undefined>, string[]>> {
+class ApexMarkersColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['colors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-colors-item","shadow":true})
-class ApexMarkersColorsItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['colors'], undefined>, string[]>[0]> {
+class ApexMarkersColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['colors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-stroke-colors-list","shadow":true})
-class ApexMarkersStrokeColorsList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeColors'], undefined>, string[]>> {
+class ApexMarkersStrokeColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeColors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-stroke-colors-item","shadow":true})
-class ApexMarkersStrokeColorsItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeColors'], undefined>, string[]>[0]> {
+class ApexMarkersStrokeColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeColors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-stroke-width-list","shadow":true})
-class ApexMarkersStrokeWidthList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeWidth'], undefined>, number[]>> {
+class ApexMarkersStrokeWidthList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeWidth'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-stroke-width-item","shadow":true})
-class ApexMarkersStrokeWidthItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeWidth'], undefined>, number[]>[0]> {
+class ApexMarkersStrokeWidthItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeWidth'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-stroke-opacity-list","shadow":true})
-class ApexMarkersStrokeOpacityList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeOpacity'], undefined>, number[]>> {
+class ApexMarkersStrokeOpacityList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeOpacity'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-stroke-opacity-item","shadow":true})
-class ApexMarkersStrokeOpacityItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeOpacity'], undefined>, number[]>[0]> {
+class ApexMarkersStrokeOpacityItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeOpacity'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-stroke-dash-array-list","shadow":true})
-class ApexMarkersStrokeDashArrayList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeDashArray'], undefined>, number[]>> {
+class ApexMarkersStrokeDashArrayList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeDashArray'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-stroke-dash-array-item","shadow":true})
-class ApexMarkersStrokeDashArrayItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['strokeDashArray'], undefined>, number[]>[0]> {
+class ApexMarkersStrokeDashArrayItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['strokeDashArray'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-fill-opacity-list","shadow":true})
-class ApexMarkersFillOpacityList extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['fillOpacity'], undefined>, number[]>> {
+class ApexMarkersFillOpacityList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['fillOpacity'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-fill-opacity-item","shadow":true})
-class ApexMarkersFillOpacityItem extends ApexChartElement<Extract<Exclude<globalThis.ApexMarkers['fillOpacity'], undefined>, number[]>[0]> {
+class ApexMarkersFillOpacityItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexMarkers['fillOpacity'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-markers-discrete-list","shadow":true})
-class ApexMarkersDiscreteList extends ApexChartElement<Exclude<globalThis.ApexMarkers['discrete'], undefined>> {
+class ApexMarkersDiscreteList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexMarkers['discrete'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexDiscretePoint> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-markers-hover","shadow":true})
-class ApexMarkersHover extends ApexChartElement<Exclude<globalThis.ApexMarkers['hover'], undefined>> {
+class ApexMarkersHover {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexMarkers['hover'], undefined>> {
@@ -4287,12 +10345,36 @@ class ApexMarkersHover extends ApexChartElement<Exclude<globalThis.ApexMarkers['
     size?: number;
     @Prop()
     sizeOffset?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-no-data","shadow":true})
-class ApexNoData extends ApexChartElement<globalThis.ApexNoData> {
+class ApexNoData {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-no-data-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexNoData> {
@@ -4315,12 +10397,36 @@ class ApexNoData extends ApexChartElement<globalThis.ApexNoData> {
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-no-data-style","shadow":true})
-class ApexNoDataStyle extends ApexChartElement<Exclude<globalThis.ApexNoData['style'], undefined>> {
+class ApexNoDataStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexNoData['style'], undefined>> {
@@ -4337,12 +10443,36 @@ class ApexNoDataStyle extends ApexChartElement<Exclude<globalThis.ApexNoData['st
     fontSize?: string;
     @Prop()
     fontFamily?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-parsing","shadow":true})
-class ApexParsing extends ApexChartElement<globalThis.ApexParsing> {
+class ApexParsing {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const yChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-parsing-y-list') ?? []
+        this.y = (yChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexParsing> {
@@ -4356,35 +10486,113 @@ class ApexParsing extends ApexChartElement<globalThis.ApexParsing> {
     x?: string;
     @Prop()
     z?: string;
+    @Prop()
+    y?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-parsing-y-list","shadow":true})
-class ApexParsingYList extends ApexChartElement<Extract<Exclude<globalThis.ApexParsing['y'], undefined>, string[]>> {
+class ApexParsingYList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexParsing['y'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-parsing-y-item","shadow":true})
-class ApexParsingYItem extends ApexChartElement<Extract<Exclude<globalThis.ApexParsing['y'], undefined>, string[]>[0]> {
+class ApexParsingYItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexParsing['y'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-data-labels","shadow":true})
-class ApexDataLabels extends ApexChartElement<globalThis.ApexDataLabels> {
+class ApexDataLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const enabledOnSeriesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-data-labels-enabled-on-series-list') ?? []
+        this.enabledOnSeries = (enabledOnSeriesChildren.at(0) as any)?.getData()
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-data-labels-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+        const backgroundChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-data-labels-background') ?? []
+        this.background = (backgroundChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexDataLabels> {
@@ -4407,35 +10615,115 @@ class ApexDataLabels extends ApexChartElement<globalThis.ApexDataLabels> {
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    enabledOnSeries?: number[] | undefined;
+    @Prop()
+    style?: { fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; colors?: any[] | undefined; };
+    @Prop()
+    background?: { enabled?: boolean | undefined; foreColor?: string | undefined; backgroundColor?: string | undefined; borderRadius?: number | undefined; padding?: number | undefined; opacity?: number | undefined; borderWidth?: number | undefined; borderColor?: string | undefined; dropShadow?: ApexDropShadow | undefined; };
+    @Prop()
+    dropShadow?: ApexDropShadow;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-data-labels-enabled-on-series-list","shadow":true})
-class ApexDataLabelsEnabledOnSeriesList extends ApexChartElement<Extract<Exclude<globalThis.ApexDataLabels['enabledOnSeries'], undefined>, number[]>> {
+class ApexDataLabelsEnabledOnSeriesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexDataLabels['enabledOnSeries'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-data-labels-enabled-on-series-item","shadow":true})
-class ApexDataLabelsEnabledOnSeriesItem extends ApexChartElement<Extract<Exclude<globalThis.ApexDataLabels['enabledOnSeries'], undefined>, number[]>[0]> {
+class ApexDataLabelsEnabledOnSeriesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexDataLabels['enabledOnSeries'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-data-labels-style","shadow":true})
-class ApexDataLabelsStyle extends ApexChartElement<Exclude<globalThis.ApexDataLabels['style'], undefined>> {
+class ApexDataLabelsStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-data-labels-style-colors-list') ?? []
+        this.colors = colorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexDataLabels['style'], undefined>> {
@@ -4452,35 +10740,107 @@ class ApexDataLabelsStyle extends ApexChartElement<Exclude<globalThis.ApexDataLa
     fontFamily?: string;
     @Prop()
     fontWeight?: string | number;
+    @Prop()
+    colors?: any[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-data-labels-style-colors-list","shadow":true})
-class ApexDataLabelsStyleColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexDataLabels['style'], undefined>['colors'], undefined>> {
+class ApexDataLabelsStyleColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexDataLabels['style'], undefined>['colors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<any> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-data-labels-style-colors-item","shadow":true})
-class ApexDataLabelsStyleColorsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexDataLabels['style'], undefined>['colors'], undefined>[0]> {
+class ApexDataLabelsStyleColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexDataLabels['style'], undefined>['colors'], undefined>[0]> {
         return this.element.innerText as any
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-data-labels-background","shadow":true})
-class ApexDataLabelsBackground extends ApexChartElement<Exclude<globalThis.ApexDataLabels['background'], undefined>> {
+class ApexDataLabelsBackground {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexDataLabels['background'], undefined>> {
@@ -4512,12 +10872,36 @@ class ApexDataLabelsBackground extends ApexChartElement<Exclude<globalThis.ApexD
     borderWidth?: number;
     @Prop()
     borderColor?: string;
+    @Prop()
+    dropShadow?: ApexDropShadow;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-responsive","shadow":true})
-class ApexResponsive extends ApexChartElement<globalThis.ApexResponsive> {
+class ApexResponsive {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexResponsive> {
@@ -4531,36 +10915,127 @@ class ApexResponsive extends ApexChartElement<globalThis.ApexResponsive> {
     breakpoint?: number;
     @Prop()
     options?: any;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-y","shadow":true})
-class ApexTooltipY extends ApexChartElement<globalThis.ApexTooltipY> {
+class ApexTooltipY {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const titleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-y-title') ?? []
+        this.title = (titleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexTooltipY> {
         return {
         }
     }
+
+    @Prop()
+    title?: { formatter?(seriesName: string, opts?: any): string; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-y-title","shadow":true})
-class ApexTooltipYTitle extends ApexChartElement<Exclude<globalThis.ApexTooltipY['title'], undefined>> {
+class ApexTooltipYTitle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltipY['title'], undefined>> {
         return {
         }
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip","shadow":true})
-class ApexTooltip extends ApexChartElement<globalThis.ApexTooltip> {
+class ApexTooltip {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const enabledOnSeriesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-enabled-on-series-list') ?? []
+        this.enabledOnSeries = (enabledOnSeriesChildren.at(0) as any)?.getData()
+        const customChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-custom-list') ?? []
+        this.custom = (customChildren.at(0) as any)?.getData()
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+        const onDatasetHoverChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-on-dataset-hover') ?? []
+        this.onDatasetHover = (onDatasetHoverChildren.at(0) as any)?.getData()
+        const xChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-x') ?? []
+        this.x = (xChildren.at(0) as any)?.getData()
+        const yChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-y-list') ?? []
+        this.y = (yChildren.at(0) as any)?.getData()
+        const zChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-z') ?? []
+        this.z = (zChildren.at(0) as any)?.getData()
+        const markerChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-marker') ?? []
+        this.marker = (markerChildren.at(0) as any)?.getData()
+        const itemsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-items') ?? []
+        this.items = (itemsChildren.at(0) as any)?.getData()
+        const fixedChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-fixed') ?? []
+        this.fixed = (fixedChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexTooltip> {
@@ -4595,47 +11070,163 @@ class ApexTooltip extends ApexChartElement<globalThis.ApexTooltip> {
     cssClass?: string;
     @Prop()
     hideEmptySeries?: boolean;
+    @Prop()
+    enabledOnSeries?: number[] | undefined;
+    @Prop()
+    custom?: ((options: any) => any) | ((options: any) => any)[];
+    @Prop()
+    style?: { fontSize?: string | undefined; fontFamily?: string | undefined; };
+    @Prop()
+    onDatasetHover?: { highlightDataSeries?: boolean | undefined; };
+    @Prop()
+    x?: { show?: boolean | undefined; format?: string | undefined; formatter?(val: number, opts?: any): string; };
+    @Prop()
+    y?: ApexTooltipY | ApexTooltipY[];
+    @Prop()
+    z?: { title?: string | undefined; formatter?(val: number): string; };
+    @Prop()
+    marker?: { show?: boolean | undefined; fillColors?: string[] | undefined; };
+    @Prop()
+    items?: { display?: string | undefined; };
+    @Prop()
+    fixed?: { enabled?: boolean | undefined; position?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-enabled-on-series-list","shadow":true})
-class ApexTooltipEnabledOnSeriesList extends ApexChartElement<Extract<Exclude<globalThis.ApexTooltip['enabledOnSeries'], undefined>, number[]>> {
+class ApexTooltipEnabledOnSeriesList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexTooltip['enabledOnSeries'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-tooltip-enabled-on-series-item","shadow":true})
-class ApexTooltipEnabledOnSeriesItem extends ApexChartElement<Extract<Exclude<globalThis.ApexTooltip['enabledOnSeries'], undefined>, number[]>[0]> {
+class ApexTooltipEnabledOnSeriesItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexTooltip['enabledOnSeries'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-custom-list","shadow":true})
-class ApexTooltipCustomList extends ApexChartElement<Extract<Exclude<globalThis.ApexTooltip['custom'], undefined>, ((options: any) => any)[]>> {
+class ApexTooltipCustomList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexTooltip['custom'], undefined>, ((options: any) => any)[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<((options: any) => any)> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-tooltip-style","shadow":true})
-class ApexTooltipStyle extends ApexChartElement<Exclude<globalThis.ApexTooltip['style'], undefined>> {
+class ApexTooltipStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['style'], undefined>> {
@@ -4649,12 +11240,34 @@ class ApexTooltipStyle extends ApexChartElement<Exclude<globalThis.ApexTooltip['
     fontSize?: string;
     @Prop()
     fontFamily?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-on-dataset-hover","shadow":true})
-class ApexTooltipOnDatasetHover extends ApexChartElement<Exclude<globalThis.ApexTooltip['onDatasetHover'], undefined>> {
+class ApexTooltipOnDatasetHover {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['onDatasetHover'], undefined>> {
@@ -4665,12 +11278,34 @@ class ApexTooltipOnDatasetHover extends ApexChartElement<Exclude<globalThis.Apex
 
     @Prop()
     highlightDataSeries?: boolean;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-x","shadow":true})
-class ApexTooltipX extends ApexChartElement<Exclude<globalThis.ApexTooltip['x'], undefined>> {
+class ApexTooltipX {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['x'], undefined>> {
@@ -4684,24 +11319,72 @@ class ApexTooltipX extends ApexChartElement<Exclude<globalThis.ApexTooltip['x'],
     show?: boolean;
     @Prop()
     format?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-y-list","shadow":true})
-class ApexTooltipYList extends ApexChartElement<Extract<Exclude<globalThis.ApexTooltip['y'], undefined>, ApexTooltipY[]>> {
+class ApexTooltipYList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexTooltip['y'], undefined>, ApexTooltipY[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<ApexTooltipY> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-tooltip-z","shadow":true})
-class ApexTooltipZ extends ApexChartElement<Exclude<globalThis.ApexTooltip['z'], undefined>> {
+class ApexTooltipZ {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['z'], undefined>> {
@@ -4712,12 +11395,36 @@ class ApexTooltipZ extends ApexChartElement<Exclude<globalThis.ApexTooltip['z'],
 
     @Prop()
     title?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-marker","shadow":true})
-class ApexTooltipMarker extends ApexChartElement<Exclude<globalThis.ApexTooltip['marker'], undefined>> {
+class ApexTooltipMarker {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const fillColorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-tooltip-marker-fill-colors-list') ?? []
+        this.fillColors = fillColorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['marker'], undefined>> {
@@ -4728,35 +11435,107 @@ class ApexTooltipMarker extends ApexChartElement<Exclude<globalThis.ApexTooltip[
 
     @Prop()
     show?: boolean;
+    @Prop()
+    fillColors?: string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-marker-fill-colors-list","shadow":true})
-class ApexTooltipMarkerFillColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexTooltip['marker'], undefined>['fillColors'], undefined>> {
+class ApexTooltipMarkerFillColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexTooltip['marker'], undefined>['fillColors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-tooltip-marker-fill-colors-item","shadow":true})
-class ApexTooltipMarkerFillColorsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexTooltip['marker'], undefined>['fillColors'], undefined>[0]> {
+class ApexTooltipMarkerFillColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexTooltip['marker'], undefined>['fillColors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-items","shadow":true})
-class ApexTooltipItems extends ApexChartElement<Exclude<globalThis.ApexTooltip['items'], undefined>> {
+class ApexTooltipItems {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['items'], undefined>> {
@@ -4767,12 +11546,34 @@ class ApexTooltipItems extends ApexChartElement<Exclude<globalThis.ApexTooltip['
 
     @Prop()
     display?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-tooltip-fixed","shadow":true})
-class ApexTooltipFixed extends ApexChartElement<Exclude<globalThis.ApexTooltip['fixed'], undefined>> {
+class ApexTooltipFixed {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTooltip['fixed'], undefined>> {
@@ -4792,12 +11593,50 @@ class ApexTooltipFixed extends ApexChartElement<Exclude<globalThis.ApexTooltip['
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis","shadow":true})
-class ApexXAxis extends ApexChartElement<globalThis.ApexXAxis> {
+class ApexXAxis {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const overwriteCategoriesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-overwrite-categories-1-list') ?? []
+        this.overwriteCategories = (overwriteCategoriesChildren.at(0) as any)?.getData()
+        const labelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-labels') ?? []
+        this.labels = (labelsChildren.at(0) as any)?.getData()
+        const groupChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-group') ?? []
+        this.group = (groupChildren.at(0) as any)?.getData()
+        const axisBorderChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-axis-border') ?? []
+        this.axisBorder = (axisBorderChildren.at(0) as any)?.getData()
+        const axisTicksChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-axis-ticks') ?? []
+        this.axisTicks = (axisTicksChildren.at(0) as any)?.getData()
+        const titleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-title') ?? []
+        this.title = (titleChildren.at(0) as any)?.getData()
+        const crosshairsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-crosshairs') ?? []
+        this.crosshairs = (crosshairsChildren.at(0) as any)?.getData()
+        const tooltipChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-tooltip') ?? []
+        this.tooltip = (tooltipChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexXAxis> {
@@ -4847,58 +11686,196 @@ class ApexXAxis extends ApexChartElement<globalThis.ApexXAxis> {
     decimalsInFloat?: number;
     @Prop()
     position?: string;
+    @Prop()
+    overwriteCategories?: number[] | string[] | undefined;
+    @Prop()
+    labels?: { show?: boolean | undefined; rotate?: number | undefined; rotateAlways?: boolean | undefined; hideOverlappingLabels?: boolean | undefined; showDuplicates?: boolean | undefined; trim?: boolean | undefined; minHeight?: number | undefined; maxHeight?: number | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; } | undefined; offsetX?: number | undefined; offsetY?: number | undefined; format?: string | undefined; formatter?(value: string, timestamp?: number | undefined, opts?: any): string | string[]; datetimeUTC?: boolean | undefined; datetimeFormatter?: { year?: string | undefined; month?: string | undefined; day?: string | undefined; hour?: string | undefined; minute?: string | undefined; second?: string | undefined; } | undefined; };
+    @Prop()
+    group?: { groups?: { title: string; cols: number; }[] | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; } | undefined; };
+    @Prop()
+    axisBorder?: { show?: boolean | undefined; color?: string | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    @Prop()
+    axisTicks?: { show?: boolean | undefined; borderType?: string | undefined; color?: string | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    @Prop()
+    title?: { text?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; cssClass?: string | undefined; } | undefined; };
+    @Prop()
+    crosshairs?: { show?: boolean | undefined; width?: string | number | undefined; position?: string | undefined; opacity?: number | undefined; stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; } | undefined; fill?: { type?: string | undefined; color?: string | undefined; gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; } | undefined; } | undefined; dropShadow?: ApexDropShadow | undefined; };
+    @Prop()
+    tooltip?: { enabled?: boolean | undefined; offsetY?: number | undefined; formatter?(value: string, opts?: object | undefined): string; style?: { fontSize?: string | undefined; fontFamily?: string | undefined; } | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-overwrite-categories-1-list","shadow":true})
-class ApexXAxisOverwriteCategories1List extends ApexChartElement<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, number[]>> {
+class ApexXAxisOverwriteCategories1List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, number[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-x-axis-overwrite-categories-1-item","shadow":true})
-class ApexXAxisOverwriteCategories1Item extends ApexChartElement<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, number[]>[0]> {
+class ApexXAxisOverwriteCategories1Item {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, number[]>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-overwrite-categories-2-list","shadow":true})
-class ApexXAxisOverwriteCategories2List extends ApexChartElement<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, string[]>> {
+class ApexXAxisOverwriteCategories2List {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-x-axis-overwrite-categories-2-item","shadow":true})
-class ApexXAxisOverwriteCategories2Item extends ApexChartElement<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, string[]>[0]> {
+class ApexXAxisOverwriteCategories2Item {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexXAxis['overwriteCategories'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-labels","shadow":true})
-class ApexXAxisLabels extends ApexChartElement<Exclude<globalThis.ApexXAxis['labels'], undefined>> {
+class ApexXAxisLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-labels-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+        const datetimeFormatterChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-labels-datetime-formatter') ?? []
+        this.datetimeFormatter = (datetimeFormatterChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['labels'], undefined>> {
@@ -4942,12 +11919,40 @@ class ApexXAxisLabels extends ApexChartElement<Exclude<globalThis.ApexXAxis['lab
     format?: string;
     @Prop()
     datetimeUTC?: boolean;
+    @Prop()
+    style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; };
+    @Prop()
+    datetimeFormatter?: { year?: string | undefined; month?: string | undefined; day?: string | undefined; hour?: string | undefined; minute?: string | undefined; second?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-labels-style","shadow":true})
-class ApexXAxisLabelsStyle extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['style'], undefined>> {
+class ApexXAxisLabelsStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-labels-style-colors-list') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['style'], undefined>> {
@@ -4967,35 +11972,107 @@ class ApexXAxisLabelsStyle extends ApexChartElement<Exclude<Exclude<globalThis.A
     fontWeight?: string | number;
     @Prop()
     cssClass?: string;
+    @Prop()
+    colors?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-labels-style-colors-list","shadow":true})
-class ApexXAxisLabelsStyleColorsList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>> {
+class ApexXAxisLabelsStyleColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-x-axis-labels-style-colors-item","shadow":true})
-class ApexXAxisLabelsStyleColorsItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>[0]> {
+class ApexXAxisLabelsStyleColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-labels-datetime-formatter","shadow":true})
-class ApexXAxisLabelsDatetimeFormatter extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['datetimeFormatter'], undefined>> {
+class ApexXAxisLabelsDatetimeFormatter {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['labels'], undefined>['datetimeFormatter'], undefined>> {
@@ -5021,36 +12098,115 @@ class ApexXAxisLabelsDatetimeFormatter extends ApexChartElement<Exclude<Exclude<
     minute?: string;
     @Prop()
     second?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-group","shadow":true})
-class ApexXAxisGroup extends ApexChartElement<Exclude<globalThis.ApexXAxis['group'], undefined>> {
+class ApexXAxisGroup {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const groupsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-group-groups-list') ?? []
+        this.groups = groupsChildren.map(el => (el as any).getData())
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-group-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['group'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    groups?: { title: string; cols: number; }[];
+    @Prop()
+    style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-group-groups-list","shadow":true})
-class ApexXAxisGroupGroupsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['groups'], undefined>> {
+class ApexXAxisGroupGroupsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['groups'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<{ title: string, cols: number }> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-x-axis-group-groups-item","shadow":true})
-class ApexXAxisGroupGroupsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['groups'], undefined>[0]> {
+class ApexXAxisGroupGroupsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['groups'], undefined>[0]> {
@@ -5061,15 +12217,39 @@ class ApexXAxisGroupGroupsItem extends ApexChartElement<Exclude<Exclude<globalTh
     }
 
     @Prop()
-    title?: string;
+    title: string = '';
     @Prop()
-    cols?: number;
+    cols: number = 0;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-group-style","shadow":true})
-class ApexXAxisGroupStyle extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['style'], undefined>> {
+class ApexXAxisGroupStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-group-style-colors-list') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['style'], undefined>> {
@@ -5089,35 +12269,107 @@ class ApexXAxisGroupStyle extends ApexChartElement<Exclude<Exclude<globalThis.Ap
     fontWeight?: string | number;
     @Prop()
     cssClass?: string;
+    @Prop()
+    colors?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-group-style-colors-list","shadow":true})
-class ApexXAxisGroupStyleColorsList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['style'], undefined>['colors'], undefined>, string[]>> {
+class ApexXAxisGroupStyleColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['style'], undefined>['colors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-x-axis-group-style-colors-item","shadow":true})
-class ApexXAxisGroupStyleColorsItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['style'], undefined>['colors'], undefined>, string[]>[0]> {
+class ApexXAxisGroupStyleColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis['group'], undefined>['style'], undefined>['colors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-axis-border","shadow":true})
-class ApexXAxisAxisBorder extends ApexChartElement<Exclude<globalThis.ApexXAxis['axisBorder'], undefined>> {
+class ApexXAxisAxisBorder {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['axisBorder'], undefined>> {
@@ -5140,12 +12392,34 @@ class ApexXAxisAxisBorder extends ApexChartElement<Exclude<globalThis.ApexXAxis[
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-axis-ticks","shadow":true})
-class ApexXAxisAxisTicks extends ApexChartElement<Exclude<globalThis.ApexXAxis['axisTicks'], undefined>> {
+class ApexXAxisAxisTicks {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['axisTicks'], undefined>> {
@@ -5171,12 +12445,36 @@ class ApexXAxisAxisTicks extends ApexChartElement<Exclude<globalThis.ApexXAxis['
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-title","shadow":true})
-class ApexXAxisTitle extends ApexChartElement<Exclude<globalThis.ApexXAxis['title'], undefined>> {
+class ApexXAxisTitle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-title-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['title'], undefined>> {
@@ -5193,12 +12491,36 @@ class ApexXAxisTitle extends ApexChartElement<Exclude<globalThis.ApexXAxis['titl
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    style?: { color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; cssClass?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-title-style","shadow":true})
-class ApexXAxisTitleStyle extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['title'], undefined>['style'], undefined>> {
+class ApexXAxisTitleStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['title'], undefined>['style'], undefined>> {
@@ -5221,12 +12543,38 @@ class ApexXAxisTitleStyle extends ApexChartElement<Exclude<Exclude<globalThis.Ap
     fontSize?: string;
     @Prop()
     cssClass?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-crosshairs","shadow":true})
-class ApexXAxisCrosshairs extends ApexChartElement<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>> {
+class ApexXAxisCrosshairs {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const strokeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-crosshairs-stroke') ?? []
+        this.stroke = (strokeChildren.at(0) as any)?.getData()
+        const fillChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-crosshairs-fill') ?? []
+        this.fill = (fillChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>> {
@@ -5246,12 +12594,40 @@ class ApexXAxisCrosshairs extends ApexChartElement<Exclude<globalThis.ApexXAxis[
     position?: string;
     @Prop()
     opacity?: number;
+    @Prop()
+    stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; };
+    @Prop()
+    fill?: { type?: string | undefined; color?: string | undefined; gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; } | undefined; };
+    @Prop()
+    dropShadow?: ApexDropShadow;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-crosshairs-stroke","shadow":true})
-class ApexXAxisCrosshairsStroke extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['stroke'], undefined>> {
+class ApexXAxisCrosshairsStroke {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['stroke'], undefined>> {
@@ -5268,12 +12644,36 @@ class ApexXAxisCrosshairsStroke extends ApexChartElement<Exclude<Exclude<globalT
     width?: number;
     @Prop()
     dashArray?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-crosshairs-fill","shadow":true})
-class ApexXAxisCrosshairsFill extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>> {
+class ApexXAxisCrosshairsFill {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const gradientChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-crosshairs-fill-gradient') ?? []
+        this.gradient = (gradientChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>> {
@@ -5287,12 +12687,38 @@ class ApexXAxisCrosshairsFill extends ApexChartElement<Exclude<Exclude<globalThi
     type?: string;
     @Prop()
     color?: string;
+    @Prop()
+    gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-crosshairs-fill-gradient","shadow":true})
-class ApexXAxisCrosshairsFillGradient extends ApexChartElement<Exclude<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>['gradient'], undefined>> {
+class ApexXAxisCrosshairsFillGradient {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const stopsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-crosshairs-fill-gradient-stops-list') ?? []
+        this.stops = stopsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>['gradient'], undefined>> {
@@ -5312,35 +12738,109 @@ class ApexXAxisCrosshairsFillGradient extends ApexChartElement<Exclude<Exclude<E
     opacityFrom?: number;
     @Prop()
     opacityTo?: number;
+    @Prop()
+    stops?: number[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-crosshairs-fill-gradient-stops-list","shadow":true})
-class ApexXAxisCrosshairsFillGradientStopsList extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>['gradient'], undefined>['stops'], undefined>> {
+class ApexXAxisCrosshairsFillGradientStopsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>['gradient'], undefined>['stops'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<number> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-x-axis-crosshairs-fill-gradient-stops-item","shadow":true})
-class ApexXAxisCrosshairsFillGradientStopsItem extends ApexChartElement<Exclude<Exclude<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>['gradient'], undefined>['stops'], undefined>[0]> {
+class ApexXAxisCrosshairsFillGradientStopsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexXAxis['crosshairs'], undefined>['fill'], undefined>['gradient'], undefined>['stops'], undefined>[0]> {
         return parseFloat(this.element.innerText)
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-tooltip","shadow":true})
-class ApexXAxisTooltip extends ApexChartElement<Exclude<globalThis.ApexXAxis['tooltip'], undefined>> {
+class ApexXAxisTooltip {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-x-axis-tooltip-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexXAxis['tooltip'], undefined>> {
@@ -5354,12 +12854,36 @@ class ApexXAxisTooltip extends ApexChartElement<Exclude<globalThis.ApexXAxis['to
     enabled?: boolean;
     @Prop()
     offsetY?: number;
+    @Prop()
+    style?: { fontSize?: string | undefined; fontFamily?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-x-axis-tooltip-style","shadow":true})
-class ApexXAxisTooltipStyle extends ApexChartElement<Exclude<Exclude<globalThis.ApexXAxis['tooltip'], undefined>['style'], undefined>> {
+class ApexXAxisTooltipStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexXAxis['tooltip'], undefined>['style'], undefined>> {
@@ -5373,12 +12897,48 @@ class ApexXAxisTooltipStyle extends ApexChartElement<Exclude<Exclude<globalThis.
     fontSize?: string;
     @Prop()
     fontFamily?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis","shadow":true})
-class ApexYAxis extends ApexChartElement<globalThis.ApexYAxis> {
+class ApexYAxis {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const seriesNameChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-series-name-list') ?? []
+        this.seriesName = (seriesNameChildren.at(0) as any)?.getData()
+        const labelsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-labels') ?? []
+        this.labels = (labelsChildren.at(0) as any)?.getData()
+        const axisBorderChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-axis-border') ?? []
+        this.axisBorder = (axisBorderChildren.at(0) as any)?.getData()
+        const axisTicksChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-axis-ticks') ?? []
+        this.axisTicks = (axisTicksChildren.at(0) as any)?.getData()
+        const titleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-title') ?? []
+        this.title = (titleChildren.at(0) as any)?.getData()
+        const crosshairsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-crosshairs') ?? []
+        this.crosshairs = (crosshairsChildren.at(0) as any)?.getData()
+        const tooltipChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-tooltip') ?? []
+        this.tooltip = (tooltipChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexYAxis> {
@@ -5428,35 +12988,121 @@ class ApexYAxis extends ApexChartElement<globalThis.ApexYAxis> {
     floating?: boolean;
     @Prop()
     decimalsInFloat?: number;
+    @Prop()
+    seriesName?: string | string[];
+    @Prop()
+    labels?: { show?: boolean | undefined; showDuplicates?: boolean | undefined; minWidth?: number | undefined; maxWidth?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; rotate?: number | undefined; align?: "left" | "center" | "right" | undefined; padding?: number | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; } | undefined; formatter?(val: number, opts?: any): string | string[]; };
+    @Prop()
+    axisBorder?: { show?: boolean | undefined; color?: string | undefined; width?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    @Prop()
+    axisTicks?: { show?: boolean | undefined; color?: string | undefined; width?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    @Prop()
+    title?: { text?: string | undefined; rotate?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; } | undefined; };
+    @Prop()
+    crosshairs?: { show?: boolean | undefined; position?: string | undefined; stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; } | undefined; };
+    @Prop()
+    tooltip?: { enabled?: boolean | undefined; offsetX?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-series-name-list","shadow":true})
-class ApexYAxisSeriesNameList extends ApexChartElement<Extract<Exclude<globalThis.ApexYAxis['seriesName'], undefined>, string[]>> {
+class ApexYAxisSeriesNameList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexYAxis['seriesName'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-y-axis-series-name-item","shadow":true})
-class ApexYAxisSeriesNameItem extends ApexChartElement<Extract<Exclude<globalThis.ApexYAxis['seriesName'], undefined>, string[]>[0]> {
+class ApexYAxisSeriesNameItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<globalThis.ApexYAxis['seriesName'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-labels","shadow":true})
-class ApexYAxisLabels extends ApexChartElement<Exclude<globalThis.ApexYAxis['labels'], undefined>> {
+class ApexYAxisLabels {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-labels-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexYAxis['labels'], undefined>> {
@@ -5491,12 +13137,38 @@ class ApexYAxisLabels extends ApexChartElement<Exclude<globalThis.ApexYAxis['lab
     align?: "left" | "center" | "right";
     @Prop()
     padding?: number;
+    @Prop()
+    style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-labels-style","shadow":true})
-class ApexYAxisLabelsStyle extends ApexChartElement<Exclude<Exclude<globalThis.ApexYAxis['labels'], undefined>['style'], undefined>> {
+class ApexYAxisLabelsStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-labels-style-colors-list') ?? []
+        this.colors = (colorsChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexYAxis['labels'], undefined>['style'], undefined>> {
@@ -5516,35 +13188,107 @@ class ApexYAxisLabelsStyle extends ApexChartElement<Exclude<Exclude<globalThis.A
     fontFamily?: string;
     @Prop()
     cssClass?: string;
+    @Prop()
+    colors?: string | string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-labels-style-colors-list","shadow":true})
-class ApexYAxisLabelsStyleColorsList extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexYAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>> {
+class ApexYAxisLabelsStyleColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexYAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-y-axis-labels-style-colors-item","shadow":true})
-class ApexYAxisLabelsStyleColorsItem extends ApexChartElement<Extract<Exclude<Exclude<Exclude<globalThis.ApexYAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>[0]> {
+class ApexYAxisLabelsStyleColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexYAxis['labels'], undefined>['style'], undefined>['colors'], undefined>, string[]>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-axis-border","shadow":true})
-class ApexYAxisAxisBorder extends ApexChartElement<Exclude<globalThis.ApexYAxis['axisBorder'], undefined>> {
+class ApexYAxisAxisBorder {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexYAxis['axisBorder'], undefined>> {
@@ -5567,12 +13311,34 @@ class ApexYAxisAxisBorder extends ApexChartElement<Exclude<globalThis.ApexYAxis[
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-axis-ticks","shadow":true})
-class ApexYAxisAxisTicks extends ApexChartElement<Exclude<globalThis.ApexYAxis['axisTicks'], undefined>> {
+class ApexYAxisAxisTicks {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexYAxis['axisTicks'], undefined>> {
@@ -5595,12 +13361,36 @@ class ApexYAxisAxisTicks extends ApexChartElement<Exclude<globalThis.ApexYAxis['
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-title","shadow":true})
-class ApexYAxisTitle extends ApexChartElement<Exclude<globalThis.ApexYAxis['title'], undefined>> {
+class ApexYAxisTitle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const styleChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-title-style') ?? []
+        this.style = (styleChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexYAxis['title'], undefined>> {
@@ -5620,12 +13410,36 @@ class ApexYAxisTitle extends ApexChartElement<Exclude<globalThis.ApexYAxis['titl
     offsetX?: number;
     @Prop()
     offsetY?: number;
+    @Prop()
+    style?: { color?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-title-style","shadow":true})
-class ApexYAxisTitleStyle extends ApexChartElement<Exclude<Exclude<globalThis.ApexYAxis['title'], undefined>['style'], undefined>> {
+class ApexYAxisTitleStyle {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexYAxis['title'], undefined>['style'], undefined>> {
@@ -5648,12 +13462,36 @@ class ApexYAxisTitleStyle extends ApexChartElement<Exclude<Exclude<globalThis.Ap
     fontFamily?: string;
     @Prop()
     cssClass?: string;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-crosshairs","shadow":true})
-class ApexYAxisCrosshairs extends ApexChartElement<Exclude<globalThis.ApexYAxis['crosshairs'], undefined>> {
+class ApexYAxisCrosshairs {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const strokeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-y-axis-crosshairs-stroke') ?? []
+        this.stroke = (strokeChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexYAxis['crosshairs'], undefined>> {
@@ -5667,12 +13505,36 @@ class ApexYAxisCrosshairs extends ApexChartElement<Exclude<globalThis.ApexYAxis[
     show?: boolean;
     @Prop()
     position?: string;
+    @Prop()
+    stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-crosshairs-stroke","shadow":true})
-class ApexYAxisCrosshairsStroke extends ApexChartElement<Exclude<Exclude<globalThis.ApexYAxis['crosshairs'], undefined>['stroke'], undefined>> {
+class ApexYAxisCrosshairsStroke {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexYAxis['crosshairs'], undefined>['stroke'], undefined>> {
@@ -5689,12 +13551,34 @@ class ApexYAxisCrosshairsStroke extends ApexChartElement<Exclude<Exclude<globalT
     width?: number;
     @Prop()
     dashArray?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-y-axis-tooltip","shadow":true})
-class ApexYAxisTooltip extends ApexChartElement<Exclude<globalThis.ApexYAxis['tooltip'], undefined>> {
+class ApexYAxisTooltip {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexYAxis['tooltip'], undefined>> {
@@ -5708,12 +13592,34 @@ class ApexYAxisTooltip extends ApexChartElement<Exclude<globalThis.ApexYAxis['to
     enabled?: boolean;
     @Prop()
     offsetX?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-forecast-data-points","shadow":true})
-class ApexForecastDataPoints extends ApexChartElement<globalThis.ApexForecastDataPoints> {
+class ApexForecastDataPoints {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexForecastDataPoints> {
@@ -5733,12 +13639,44 @@ class ApexForecastDataPoints extends ApexChartElement<globalThis.ApexForecastDat
     strokeWidth?: number | undefined;
     @Prop()
     dashArray?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid","shadow":true})
-class ApexGrid extends ApexChartElement<globalThis.ApexGrid> {
+class ApexGrid {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const xaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-xaxis') ?? []
+        this.xaxis = (xaxisChildren.at(0) as any)?.getData()
+        const yaxisChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-yaxis') ?? []
+        this.yaxis = (yaxisChildren.at(0) as any)?.getData()
+        const rowChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-row') ?? []
+        this.row = (rowChildren.at(0) as any)?.getData()
+        const columnChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-column') ?? []
+        this.column = (columnChildren.at(0) as any)?.getData()
+        const paddingChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-padding') ?? []
+        this.padding = (paddingChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexGrid> {
@@ -5758,24 +13696,83 @@ class ApexGrid extends ApexChartElement<globalThis.ApexGrid> {
     strokeDashArray?: number;
     @Prop()
     position?: "front" | "back";
+    @Prop()
+    xaxis?: { lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; } | undefined; };
+    @Prop()
+    yaxis?: { lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; } | undefined; };
+    @Prop()
+    row?: { colors?: string[] | undefined; opacity?: number | undefined; };
+    @Prop()
+    column?: { colors?: string[] | undefined; opacity?: number | undefined; };
+    @Prop()
+    padding?: { top?: number | undefined; right?: number | undefined; bottom?: number | undefined; left?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-xaxis","shadow":true})
-class ApexGridXaxis extends ApexChartElement<Exclude<globalThis.ApexGrid['xaxis'], undefined>> {
+class ApexGridXaxis {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const linesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-xaxis-lines') ?? []
+        this.lines = (linesChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexGrid['xaxis'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-xaxis-lines","shadow":true})
-class ApexGridXaxisLines extends ApexChartElement<Exclude<Exclude<globalThis.ApexGrid['xaxis'], undefined>['lines'], undefined>> {
+class ApexGridXaxisLines {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexGrid['xaxis'], undefined>['lines'], undefined>> {
@@ -5792,24 +13789,73 @@ class ApexGridXaxisLines extends ApexChartElement<Exclude<Exclude<globalThis.Ape
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-yaxis","shadow":true})
-class ApexGridYaxis extends ApexChartElement<Exclude<globalThis.ApexGrid['yaxis'], undefined>> {
+class ApexGridYaxis {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const linesChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-yaxis-lines') ?? []
+        this.lines = (linesChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexGrid['yaxis'], undefined>> {
         return {
         }
     }
+
+    @Prop()
+    lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-yaxis-lines","shadow":true})
-class ApexGridYaxisLines extends ApexChartElement<Exclude<Exclude<globalThis.ApexGrid['yaxis'], undefined>['lines'], undefined>> {
+class ApexGridYaxisLines {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexGrid['yaxis'], undefined>['lines'], undefined>> {
@@ -5826,12 +13872,36 @@ class ApexGridYaxisLines extends ApexChartElement<Exclude<Exclude<globalThis.Ape
     offsetX?: number;
     @Prop()
     offsetY?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-row","shadow":true})
-class ApexGridRow extends ApexChartElement<Exclude<globalThis.ApexGrid['row'], undefined>> {
+class ApexGridRow {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-row-colors-list') ?? []
+        this.colors = colorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexGrid['row'], undefined>> {
@@ -5842,35 +13912,109 @@ class ApexGridRow extends ApexChartElement<Exclude<globalThis.ApexGrid['row'], u
 
     @Prop()
     opacity?: number;
+    @Prop()
+    colors?: string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-row-colors-list","shadow":true})
-class ApexGridRowColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexGrid['row'], undefined>['colors'], undefined>> {
+class ApexGridRowColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexGrid['row'], undefined>['colors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-grid-row-colors-item","shadow":true})
-class ApexGridRowColorsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexGrid['row'], undefined>['colors'], undefined>[0]> {
+class ApexGridRowColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexGrid['row'], undefined>['colors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-column","shadow":true})
-class ApexGridColumn extends ApexChartElement<Exclude<globalThis.ApexGrid['column'], undefined>> {
+class ApexGridColumn {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const colorsChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-grid-column-colors-list') ?? []
+        this.colors = colorsChildren.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexGrid['column'], undefined>> {
@@ -5881,35 +14025,107 @@ class ApexGridColumn extends ApexChartElement<Exclude<globalThis.ApexGrid['colum
 
     @Prop()
     opacity?: number;
+    @Prop()
+    colors?: string[];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-column-colors-list","shadow":true})
-class ApexGridColumnColorsList extends ApexChartElement<Exclude<Exclude<globalThis.ApexGrid['column'], undefined>['colors'], undefined>> {
+class ApexGridColumnColorsList {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const listItems: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'TODO') ?? []
+        this.listItems = listItems.map(el => (el as any).getData())
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexGrid['column'], undefined>['colors'], undefined>> {
-        const children = [...this.element.querySelectorAll('TODO')]
-        return []
+        return this.listItems
+    }
+
+    @Prop()
+    listItems: Array<string> = [];
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
     }
 }
 
 @Component({"tag":"apex-grid-column-colors-item","shadow":true})
-class ApexGridColumnColorsItem extends ApexChartElement<Exclude<Exclude<globalThis.ApexGrid['column'], undefined>['colors'], undefined>[0]> {
+class ApexGridColumnColorsItem {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<Exclude<globalThis.ApexGrid['column'], undefined>['colors'], undefined>[0]> {
         return this.element.innerText
     }
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-grid-padding","shadow":true})
-class ApexGridPadding extends ApexChartElement<Exclude<globalThis.ApexGrid['padding'], undefined>> {
+class ApexGridPadding {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexGrid['padding'], undefined>> {
@@ -5929,12 +14145,36 @@ class ApexGridPadding extends ApexChartElement<Exclude<globalThis.ApexGrid['padd
     bottom?: number;
     @Prop()
     left?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-theme","shadow":true})
-class ApexTheme extends ApexChartElement<globalThis.ApexTheme> {
+class ApexTheme {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+        const monochromeChildren: Array</*HTML*/Element> = this.slotElement?.assignedElements().filter(el => el.tagName.toLowerCase() === 'apex-theme-monochrome') ?? []
+        this.monochrome = (monochromeChildren.at(0) as any)?.getData()
+    }
 
     @Method()
     async getData(): Promise<globalThis.ApexTheme> {
@@ -5948,12 +14188,36 @@ class ApexTheme extends ApexChartElement<globalThis.ApexTheme> {
     mode?: "light" | "dark";
     @Prop()
     palette?: string;
+    @Prop()
+    monochrome?: { enabled?: boolean | undefined; color?: string | undefined; shadeTo?: "light" | "dark" | undefined; shadeIntensity?: number | undefined; };
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }
 
 @Component({"tag":"apex-theme-monochrome","shadow":true})
-class ApexThemeMonochrome extends ApexChartElement<Exclude<globalThis.ApexTheme['monochrome'], undefined>> {
+class ApexThemeMonochrome {
     @Element()
     element!: HTMLElement;
+    @Element()
+    slotElement!: HTMLSlotElement;
+
+    componentDidLoad() {
+        this.slotElement = this.element.shadowRoot?.querySelector('slot') as HTMLSlotElement
+        this.updateChildren()
+        this.observeChildren()
+    }
+
+    observeChildren() {
+        this.slotElement?.addEventListener('slotchange', () => this.updateChildren())
+    }
+
+    updateChildren() {
+    }
 
     @Method()
     async getData(): Promise<Exclude<globalThis.ApexTheme['monochrome'], undefined>> {
@@ -5973,4 +14237,11 @@ class ApexThemeMonochrome extends ApexChartElement<Exclude<globalThis.ApexTheme[
     shadeTo?: "light" | "dark";
     @Prop()
     shadeIntensity?: number;
+
+    render() {
+        return (
+        	<slot>
+        	</slot>
+        )
+    }
 }

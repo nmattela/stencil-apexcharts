@@ -42,9 +42,6 @@ export namespace Components {
          */
         "width"?: string | number;
     }
-    interface ApexChartElement {
-        "getData": () => Promise<any>;
-    }
 }
 declare global {
     interface HTMLApexChartElement extends Components.ApexChart, HTMLStencilElement {
@@ -53,15 +50,8 @@ declare global {
         prototype: HTMLApexChartElement;
         new (): HTMLApexChartElement;
     };
-    interface HTMLApexChartElementElement extends Components.ApexChartElement, HTMLStencilElement {
-    }
-    var HTMLApexChartElementElement: {
-        prototype: HTMLApexChartElementElement;
-        new (): HTMLApexChartElementElement;
-    };
     interface HTMLElementTagNameMap {
         "apex-chart": HTMLApexChartElement;
-        "apex-chart-element": HTMLApexChartElementElement;
     }
 }
 declare namespace LocalJSX {
@@ -87,11 +77,8 @@ declare namespace LocalJSX {
          */
         "width"?: string | number;
     }
-    interface ApexChartElement {
-    }
     interface IntrinsicElements {
         "apex-chart": ApexChart;
-        "apex-chart-element": ApexChartElement;
     }
 }
 export { LocalJSX as JSX };
@@ -99,7 +86,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "apex-chart": LocalJSX.ApexChart & JSXBase.HTMLAttributes<HTMLApexChartElement>;
-            "apex-chart-element": LocalJSX.ApexChartElement & JSXBase.HTMLAttributes<HTMLApexChartElementElement>;
         }
     }
 }
