@@ -45,7 +45,7 @@ if (typeof window !== 'undefined') {
 }
 
 @Component({
-  tag: "apex-chart",
+  tag: "apex-chart-old",
   styleUrl: "apex-chart.css",
   shadow: false,
 })

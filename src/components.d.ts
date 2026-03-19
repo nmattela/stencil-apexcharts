@@ -5,10 +5,366 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ApexOptions } from "apexcharts";
-export { ApexOptions } from "apexcharts";
+import { ApexOptions as ApexChartsApexOptions, ApexOptions } from "apexcharts";
+export { ApexOptions as ApexChartsApexOptions, ApexOptions } from "apexcharts";
 export namespace Components {
+    interface AnnotationLabel {
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "click"?: Function;
+        "getData": () => Promise<globalThis.AnnotationLabel>;
+        "mouseEnter"?: Function;
+        "mouseLeave"?: Function;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "orientation"?: string;
+        "position"?: string;
+        "style"?: AnnotationStyle;
+        "text"?: string | string[];
+        "textAnchor"?: string;
+    }
+    interface AnnotationLabelTextItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.AnnotationLabel["text"], undefined>, string[]>[0]>;
+    }
+    interface AnnotationLabelTextList {
+        "getData": () => Promise<Extract<Exclude<globalThis.AnnotationLabel["text"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface AnnotationStyle {
+        "background"?: string;
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<globalThis.AnnotationStyle>;
+        "padding"?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; };
+    }
+    interface AnnotationStylePadding {
+        "bottom"?: number;
+        "getData": () => Promise<Exclude<globalThis.AnnotationStyle["padding"], undefined>>;
+        "left"?: number;
+        "right"?: number;
+        "top"?: number;
+    }
+    interface ApexAnnotations {
+        "getData": () => Promise<globalThis.ApexAnnotations>;
+        "images"?: ImageAnnotations[];
+        "points"?: PointAnnotations[];
+        "texts"?: TextAnnotations[];
+        "xaxis"?: XAxisAnnotations[];
+        "yaxis"?: YAxisAnnotations[];
+    }
+    interface ApexAnnotationsImagesList {
+        "getData": () => Promise<Exclude<globalThis.ApexAnnotations["images"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ImageAnnotations>;
+    }
+    interface ApexAnnotationsPointsList {
+        "getData": () => Promise<Exclude<globalThis.ApexAnnotations["points"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.PointAnnotations>;
+    }
+    interface ApexAnnotationsTextsList {
+        "getData": () => Promise<Exclude<globalThis.ApexAnnotations["texts"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.TextAnnotations>;
+    }
+    interface ApexAnnotationsXaxisList {
+        "getData": () => Promise<Exclude<globalThis.ApexAnnotations["xaxis"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.XAxisAnnotations>;
+    }
+    interface ApexAnnotationsYaxisList {
+        "getData": () => Promise<Exclude<globalThis.ApexAnnotations["yaxis"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.YAxisAnnotations>;
+    }
+    interface ApexAxisChartSeriesItem {
+        "color"?: string;
+        /**
+          * @default []
+         */
+        "data": (number | null)[] | { x: any; y: any; fill?: ApexFill | undefined; fillColor?: string | undefined; strokeColor?: string | undefined; meta?: any; goals?: { name?: string | undefined; value: number; strokeHeight?: number | undefined; strokeWidth?: number | undefined; strokeColor?: string | undefined; strokeDashArray?: number | undefined; strokeLineCap?: "butt" | "square" | "round" | undefined; }[] | undefined; barHeightOffset?: number | undefined; columnWidthOffset?: number | undefined; }[] | [number, number | null][] | [number, (number | null)[]][] | number[][] | Record<string, any>[];
+        "getData": () => Promise<globalThis.ApexAxisChartSeries[0]>;
+        "group"?: string;
+        "hidden"?: boolean;
+        "name"?: string;
+        "parsing"?: ApexParsing;
+        "type"?: string;
+        "zIndex"?: number;
+    }
+    interface ApexAxisChartSeriesItemData1List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, (number | null)[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<(number | null)>;
+    }
+    interface ApexAxisChartSeriesItemData2Item {
+        "barHeightOffset"?: number;
+        "columnWidthOffset"?: number;
+        "fill"?: ApexFill;
+        "fillColor"?: string;
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, { x: any; y: any; fill?: globalThis.ApexFill; fillColor?: string; strokeColor?: string; meta?: any; goals?: { name?: string; value: number; strokeHeight?: number; strokeWidth?: number; strokeColor?: string; strokeDashArray?: number; strokeLineCap?: "butt" | "square" | "round"; }[]; barHeightOffset?: number; columnWidthOffset?: number; }[]>[0]>;
+        "goals"?: { name?: string | undefined; value: number; strokeHeight?: number | undefined; strokeWidth?: number | undefined; strokeColor?: string | undefined; strokeDashArray?: number | undefined; strokeLineCap?: "butt" | "square" | "round" | undefined; }[];
+        "meta"?: any;
+        "strokeColor"?: string;
+        /**
+          * @default null
+         */
+        "x": any;
+        /**
+          * @default null
+         */
+        "y": any;
+    }
+    interface ApexAxisChartSeriesItemData2ItemGoalsItem {
+        "getData": () => Promise<Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, { x: any; y: any; fill?: globalThis.ApexFill; fillColor?: string; strokeColor?: string; meta?: any; goals?: { name?: string; value: number; strokeHeight?: number; strokeWidth?: number; strokeColor?: string; strokeDashArray?: number; strokeLineCap?: "butt" | "square" | "round"; }[]; barHeightOffset?: number; columnWidthOffset?: number; }[]>[0]["goals"], undefined>[0]>;
+        "name"?: string;
+        "strokeColor"?: string;
+        "strokeDashArray"?: number;
+        "strokeHeight"?: number;
+        "strokeLineCap"?: "butt" | "square" | "round";
+        "strokeWidth"?: number;
+        /**
+          * @default 0
+         */
+        "value": number;
+    }
+    interface ApexAxisChartSeriesItemData2ItemGoalsList {
+        "getData": () => Promise<Exclude<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, { x: any; y: any; fill?: globalThis.ApexFill; fillColor?: string; strokeColor?: string; meta?: any; goals?: { name?: string; value: number; strokeHeight?: number; strokeWidth?: number; strokeColor?: string; strokeDashArray?: number; strokeLineCap?: "butt" | "square" | "round"; }[]; barHeightOffset?: number; columnWidthOffset?: number; }[]>[0]["goals"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }>;
+    }
+    interface ApexAxisChartSeriesItemData2List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, { x: any; y: any; fill?: globalThis.ApexFill; fillColor?: string; strokeColor?: string; meta?: any; goals?: { name?: string; value: number; strokeHeight?: number; strokeWidth?: number; strokeColor?: string; strokeDashArray?: number; strokeLineCap?: "butt" | "square" | "round"; }[]; barHeightOffset?: number; columnWidthOffset?: number; }[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+           x: any;
+           y: any;
+           fill?: globalThis.ApexFill;
+           fillColor?: string;
+           strokeColor?: string;
+           meta?: any;
+           goals?: {
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }[];
+           barHeightOffset?: number;
+           columnWidthOffset?: number;
+         }>;
+    }
+    interface ApexAxisChartSeriesItemData3List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, [number, number | null][]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<[number, number | null]>;
+    }
+    interface ApexAxisChartSeriesItemData4List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, [number, (number | null)[]][]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<[number, (number | null)[]]>;
+    }
+    interface ApexAxisChartSeriesItemData5ItemItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, number[][]>[0][0]>;
+    }
+    interface ApexAxisChartSeriesItemData5ItemList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, number[][]>[0]>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexAxisChartSeriesItemData5List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, number[][]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number[]>;
+    }
+    interface ApexAxisChartSeriesItemData6List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexAxisChartSeries[0]["data"], undefined>, globalThis.Record<string, any>[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.Record<string, any>>;
+    }
+    interface ApexAxisChartSeriesList {
+        "getData": () => Promise<globalThis.ApexAxisChartSeries>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+         name?: string
+         type?: string
+         color?: string
+         group?: string
+         hidden?: boolean
+         zIndex?: number
+         parsing?: globalThis.ApexParsing;
+         data:
+         | (number | null)[]
+         | {
+           x: any;
+           y: any;
+           fill?: globalThis.ApexFill;
+           fillColor?: string;
+           strokeColor?: string;
+           meta?: any;
+           goals?: {
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }[];
+           barHeightOffset?: number;
+           columnWidthOffset?: number;
+         }[]
+         | [number, number | null][]
+         | [number, (number | null)[]][]
+         | number[][]
+         | globalThis.Record<string, any>[];
+        }>;
+    }
     interface ApexChart {
+        "animations"?: { enabled?: boolean | undefined; speed?: number | undefined; animateGradually?: { enabled?: boolean | undefined; delay?: number | undefined; } | undefined; dynamicAnimation?: { enabled?: boolean | undefined; speed?: number | undefined; } | undefined; };
+        "background"?: string;
+        "brush"?: { enabled?: boolean | undefined; autoScaleYaxis?: boolean | undefined; target?: string | undefined; targets?: string[] | undefined; };
+        "defaultLocale"?: string;
+        "dropShadow"?: ApexDropShadow & { enabledOnSeries?: number[] | undefined; color?: string | string[] | undefined; };
+        "events"?: { animationEnd?(chart: any, options?: any): void; beforeMount?(chart: any, options?: any): void; mounted?(chart: any, options?: any): void; updated?(chart: any, options?: any): void; mouseMove?(e: any, chart?: any, options?: any): void; mouseLeave?(e: any, chart?: any, options?: any): void; click?(e: any, chart?: any, options?: any): void; xAxisLabelClick?(e: any, chart?: any, options?: any): void; legendClick?(chart: any, seriesIndex?: number | undefined, options?: any): void; markerClick?(e: any, chart?: any, options?: any): void; selection?(chart: any, options?: any): void; dataPointSelection?(e: any, chart?: any, options?: any): void; dataPointMouseEnter?(e: any, chart?: any, options?: any): void; dataPointMouseLeave?(e: any, chart?: any, options?: any): void; beforeZoom?(chart: any, options?: any): void; beforeResetZoom?(chart: any, options?: any): void; zoomed?(chart: any, options?: any): void; scrolled?(chart: any, options?: any): void; brushScrolled?(chart: any, options?: any): void; };
+        "fontFamily"?: string;
+        "foreColor"?: string;
+        "getData": () => Promise<globalThis.ApexChart>;
+        "group"?: string;
+        "height"?: string | number;
+        "id"?: string;
+        "injectStyleSheet"?: boolean;
+        "locales"?: ApexLocale[];
+        "nonce"?: string;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "parentHeightOffset"?: number;
+        "redrawOnParentResize"?: boolean;
+        "redrawOnWindowResize"?: boolean | Function;
+        "selection"?: { enabled?: boolean | undefined; type?: string | undefined; fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { width?: number | undefined; color?: string | undefined; opacity?: number | undefined; dashArray?: number | undefined; } | undefined; xaxis?: { min?: number | undefined; max?: number | undefined; } | undefined; yaxis?: { min?: number | undefined; max?: number | undefined; } | undefined; };
+        "sparkline"?: { enabled?: boolean | undefined; };
+        "stackOnlyBar"?: boolean;
+        "stackType"?: "normal" | "100%";
+        "stacked"?: boolean;
+        "toolbar"?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; tools?: { download?: string | boolean | undefined; selection?: string | boolean | undefined; zoom?: string | boolean | undefined; zoomin?: string | boolean | undefined; zoomout?: string | boolean | undefined; pan?: string | boolean | undefined; reset?: string | boolean | undefined; customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[] | undefined; } | undefined; export?: { csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; } | undefined; svg?: { filename?: string | undefined; } | undefined; png?: { filename?: string | undefined; } | undefined; width?: number | undefined; scale?: number | undefined; } | undefined; autoSelected?: "zoom" | "selection" | "pan" | undefined; };
+        "type"?: "line" | "area" | "bar" | "pie" | "donut" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap";
+        "width"?: string | number;
+        "zoom"?: { enabled?: boolean | undefined; type?: "x" | "y" | "xy" | undefined; autoScaleYaxis?: boolean | undefined; allowMouseWheelZoom?: boolean | undefined; zoomedArea?: { fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; } | undefined; } | undefined; };
+    }
+    interface ApexChartAnimations {
+        "animateGradually"?: { enabled?: boolean | undefined; delay?: number | undefined; };
+        "dynamicAnimation"?: { enabled?: boolean | undefined; speed?: number | undefined; };
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexChart["animations"], undefined>>;
+        "speed"?: number;
+    }
+    interface ApexChartAnimationsAnimateGradually {
+        "delay"?: number;
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["animations"], undefined>["animateGradually"], undefined>>;
+    }
+    interface ApexChartAnimationsDynamicAnimation {
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["animations"], undefined>["dynamicAnimation"], undefined>>;
+        "speed"?: number;
+    }
+    interface ApexChartBrush {
+        "autoScaleYaxis"?: boolean;
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexChart["brush"], undefined>>;
+        "target"?: string;
+        "targets"?: string[];
+    }
+    interface ApexChartBrushTargetsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["brush"], undefined>["targets"], undefined>[0]>;
+    }
+    interface ApexChartBrushTargetsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["brush"], undefined>["targets"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexChartDropShadow {
+        "color"?: string | string[];
+        "enabledOnSeries"?: number[] | undefined;
+        "getData": () => Promise<(Omit<NonNullable<Exclude<globalThis.ApexChart["dropShadow"], undefined>>, "color"> & { color?: string | string[]; })>;
+    }
+    interface ApexChartDropShadowColorItem {
+        "getData": () => Promise<Extract<Exclude<(Omit<NonNullable<Exclude<globalThis.ApexChart["dropShadow"], undefined>>, "color"> & { color?: string | string[]; })["color"], undefined>, string[]>[0]>;
+    }
+    interface ApexChartDropShadowColorList {
+        "getData": () => Promise<Extract<Exclude<(Omit<NonNullable<Exclude<globalThis.ApexChart["dropShadow"], undefined>>, "color"> & { color?: string | string[]; })["color"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexChartDropShadowEnabledOnSeriesItem {
+        "getData": () => Promise<Extract<Exclude<(Omit<NonNullable<Exclude<globalThis.ApexChart["dropShadow"], undefined>>, "color"> & { color?: string | string[]; })["enabledOnSeries"], undefined>, number[]>[0]>;
+    }
+    interface ApexChartDropShadowEnabledOnSeriesList {
+        "getData": () => Promise<Extract<Exclude<(Omit<NonNullable<Exclude<globalThis.ApexChart["dropShadow"], undefined>>, "color"> & { color?: string | string[]; })["enabledOnSeries"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexChartEvents {
+        "getData": () => Promise<Exclude<globalThis.ApexChart["events"], undefined>>;
+    }
+    interface ApexChartLocalesList {
+        "getData": () => Promise<Exclude<globalThis.ApexChart["locales"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexLocale>;
+    }
+    interface ApexChartOld {
         /**
           * Chart height
          */
@@ -42,20 +398,4529 @@ export namespace Components {
          */
         "width"?: string | number;
     }
+    interface ApexChartSelection {
+        "enabled"?: boolean;
+        "fill"?: { color?: string | undefined; opacity?: number | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexChart["selection"], undefined>>;
+        "stroke"?: { width?: number | undefined; color?: string | undefined; opacity?: number | undefined; dashArray?: number | undefined; };
+        "type"?: string;
+        "xaxis"?: { min?: number | undefined; max?: number | undefined; };
+        "yaxis"?: { min?: number | undefined; max?: number | undefined; };
+    }
+    interface ApexChartSelectionFill {
+        "color"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["selection"], undefined>["fill"], undefined>>;
+        "opacity"?: number;
+    }
+    interface ApexChartSelectionStroke {
+        "color"?: string;
+        "dashArray"?: number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["selection"], undefined>["stroke"], undefined>>;
+        "opacity"?: number;
+        "width"?: number;
+    }
+    interface ApexChartSelectionXaxis {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["selection"], undefined>["xaxis"], undefined>>;
+        "max"?: number;
+        "min"?: number;
+    }
+    interface ApexChartSelectionYaxis {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["selection"], undefined>["yaxis"], undefined>>;
+        "max"?: number;
+        "min"?: number;
+    }
+    interface ApexChartSparkline {
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexChart["sparkline"], undefined>>;
+    }
+    interface ApexChartToolbar {
+        "autoSelected"?: "zoom" | "selection" | "pan";
+        "export"?: { csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; } | undefined; svg?: { filename?: string | undefined; } | undefined; png?: { filename?: string | undefined; } | undefined; width?: number | undefined; scale?: number | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexChart["toolbar"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "tools"?: { download?: string | boolean | undefined; selection?: string | boolean | undefined; zoom?: string | boolean | undefined; zoomin?: string | boolean | undefined; zoomout?: string | boolean | undefined; pan?: string | boolean | undefined; reset?: string | boolean | undefined; customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[] | undefined; };
+    }
+    interface ApexChartToolbarExport {
+        "csv"?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; };
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["export"], undefined>>;
+        "png"?: { filename?: string | undefined; };
+        "scale"?: number;
+        "svg"?: { filename?: string | undefined; };
+        "width"?: number;
+    }
+    interface ApexChartToolbarExportCsv {
+        "columnDelimiter"?: string;
+        "filename"?: string | undefined;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["export"], undefined>["csv"], undefined>>;
+        "headerCategory"?: string;
+        "headerValue"?: string;
+    }
+    interface ApexChartToolbarExportPng {
+        "filename"?: string | undefined;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["export"], undefined>["png"], undefined>>;
+    }
+    interface ApexChartToolbarExportSvg {
+        "filename"?: string | undefined;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["export"], undefined>["svg"], undefined>>;
+    }
+    interface ApexChartToolbarTools {
+        "customIcons"?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[];
+        "download"?: string | boolean;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["tools"], undefined>>;
+        "pan"?: string | boolean;
+        "reset"?: string | boolean;
+        "selection"?: string | boolean;
+        "zoom"?: string | boolean;
+        "zoomin"?: string | boolean;
+        "zoomout"?: string | boolean;
+    }
+    interface ApexChartToolbarToolsCustomIconsItem {
+        "class"?: string;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["tools"], undefined>["customIcons"], undefined>[0]>;
+        "icon"?: string;
+        "index"?: number;
+        "title"?: string;
+    }
+    interface ApexChartToolbarToolsCustomIconsList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["toolbar"], undefined>["tools"], undefined>["customIcons"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+                icon?: string
+                title?: string
+                index?: number
+                class?: string
+                click?(chart?: any, options?: any, e?: any): any
+              }>;
+    }
+    interface ApexChartZoom {
+        "allowMouseWheelZoom"?: boolean;
+        "autoScaleYaxis"?: boolean;
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexChart["zoom"], undefined>>;
+        "type"?: "x" | "y" | "xy";
+        "zoomedArea"?: { fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; } | undefined; };
+    }
+    interface ApexChartZoomZoomedArea {
+        "fill"?: { color?: string | undefined; opacity?: number | undefined; };
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexChart["zoom"], undefined>["zoomedArea"], undefined>>;
+        "stroke"?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; };
+    }
+    interface ApexChartZoomZoomedAreaFill {
+        "color"?: string;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["zoom"], undefined>["zoomedArea"], undefined>["fill"], undefined>>;
+        "opacity"?: number;
+    }
+    interface ApexChartZoomZoomedAreaStroke {
+        "color"?: string;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexChart["zoom"], undefined>["zoomedArea"], undefined>["stroke"], undefined>>;
+        "opacity"?: number;
+        "width"?: number;
+    }
+    interface ApexColorStop {
+        /**
+          * @default ''
+         */
+        "color": string;
+        "getData": () => Promise<globalThis.ApexColorStop>;
+        /**
+          * @default 0
+         */
+        "offset": number;
+        /**
+          * @default 0
+         */
+        "opacity": number;
+    }
+    interface ApexDataLabels {
+        "background"?: { enabled?: boolean | undefined; foreColor?: string | undefined; backgroundColor?: string | undefined; borderRadius?: number | undefined; padding?: number | undefined; opacity?: number | undefined; borderWidth?: number | undefined; borderColor?: string | undefined; dropShadow?: ApexDropShadow | undefined; };
+        "distributed"?: boolean;
+        "dropShadow"?: ApexDropShadow;
+        "enabled"?: boolean;
+        "enabledOnSeries"?: number[] | undefined;
+        "getData": () => Promise<globalThis.ApexDataLabels>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; colors?: any[] | undefined; };
+        "textAnchor"?: "start" | "middle" | "end";
+    }
+    interface ApexDataLabelsBackground {
+        "backgroundColor"?: string;
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "dropShadow"?: ApexDropShadow;
+        "enabled"?: boolean;
+        "foreColor"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexDataLabels["background"], undefined>>;
+        "opacity"?: number;
+        "padding"?: number;
+    }
+    interface ApexDataLabelsEnabledOnSeriesItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexDataLabels["enabledOnSeries"], undefined>, number[]>[0]>;
+    }
+    interface ApexDataLabelsEnabledOnSeriesList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexDataLabels["enabledOnSeries"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexDataLabelsStyle {
+        "colors"?: any[];
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<globalThis.ApexDataLabels["style"], undefined>>;
+    }
+    interface ApexDataLabelsStyleColorsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexDataLabels["style"], undefined>["colors"], undefined>[0]>;
+    }
+    interface ApexDataLabelsStyleColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexDataLabels["style"], undefined>["colors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<any>;
+    }
+    interface ApexDiscretePoint {
+        "dataPointIndex"?: number;
+        "fillColor"?: string;
+        "getData": () => Promise<globalThis.ApexDiscretePoint>;
+        "seriesIndex"?: number;
+        "shape"?: ApexMarkerShape;
+        "size"?: number;
+        "strokeColor"?: string;
+    }
+    interface ApexDropShadow {
+        "blur"?: number;
+        "color"?: string;
+        "enabled"?: boolean;
+        "getData": () => Promise<globalThis.ApexDropShadow>;
+        "left"?: number;
+        "opacity"?: number;
+        "top"?: number;
+    }
+    interface ApexFill {
+        "colors"?: any[];
+        "getData": () => Promise<globalThis.ApexFill>;
+        "gradient"?: { shade?: string | undefined; type?: string | undefined; shadeIntensity?: number | undefined; gradientToColors?: string[] | undefined; inverseColors?: boolean | undefined; opacityFrom?: number | number[] | undefined; opacityTo?: number | number[] | undefined; stops?: number[] | undefined; colorStops?: ApexColorStop[] | ApexColorStop[][] | undefined; };
+        "image"?: { src?: string | string[] | undefined; width?: number | undefined; height?: number | undefined; };
+        "opacity"?: number | number[];
+        "pattern"?: { style?: string | string[] | undefined; width?: number | undefined; height?: number | undefined; strokeWidth?: number | undefined; };
+        "type"?: string | string[];
+    }
+    interface ApexFillColorsItem {
+        "getData": () => Promise<Exclude<globalThis.ApexFill["colors"], undefined>[0]>;
+    }
+    interface ApexFillColorsList {
+        "getData": () => Promise<Exclude<globalThis.ApexFill["colors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<any>;
+    }
+    interface ApexFillGradient {
+        "colorStops"?: ApexColorStop[] | ApexColorStop[][];
+        "getData": () => Promise<Exclude<globalThis.ApexFill["gradient"], undefined>>;
+        "gradientToColors"?: string[];
+        "inverseColors"?: boolean;
+        "opacityFrom"?: number | number[];
+        "opacityTo"?: number | number[];
+        "shade"?: string;
+        "shadeIntensity"?: number;
+        "stops"?: number[];
+        "type"?: string;
+    }
+    interface ApexFillGradientColorStops1ItemList {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["colorStops"], undefined>, globalThis.ApexColorStop[][]>[0]>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexColorStop>;
+    }
+    interface ApexFillGradientColorStops1List {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["colorStops"], undefined>, globalThis.ApexColorStop[][]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexColorStop[]>;
+    }
+    interface ApexFillGradientColorStops2List {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["colorStops"], undefined>, globalThis.ApexColorStop[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexColorStop>;
+    }
+    interface ApexFillGradientGradientToColorsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["gradientToColors"], undefined>[0]>;
+    }
+    interface ApexFillGradientGradientToColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["gradientToColors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexFillGradientOpacityFromItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["opacityFrom"], undefined>, number[]>[0]>;
+    }
+    interface ApexFillGradientOpacityFromList {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["opacityFrom"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexFillGradientOpacityToItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["opacityTo"], undefined>, number[]>[0]>;
+    }
+    interface ApexFillGradientOpacityToList {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["opacityTo"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexFillGradientStopsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["stops"], undefined>[0]>;
+    }
+    interface ApexFillGradientStopsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexFill["gradient"], undefined>["stops"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexFillImage {
+        "getData": () => Promise<Exclude<globalThis.ApexFill["image"], undefined>>;
+        "height"?: number;
+        "src"?: string | string[];
+        "width"?: number;
+    }
+    interface ApexFillImageSrcItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["image"], undefined>["src"], undefined>, string[]>[0]>;
+    }
+    interface ApexFillImageSrcList {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["image"], undefined>["src"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexFillOpacityItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexFill["opacity"], undefined>, number[]>[0]>;
+    }
+    interface ApexFillOpacityList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexFill["opacity"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexFillPattern {
+        "getData": () => Promise<Exclude<globalThis.ApexFill["pattern"], undefined>>;
+        "height"?: number;
+        "strokeWidth"?: number;
+        "style"?: string | string[];
+        "width"?: number;
+    }
+    interface ApexFillPatternStyleItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["pattern"], undefined>["style"], undefined>, string[]>[0]>;
+    }
+    interface ApexFillPatternStyleList {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexFill["pattern"], undefined>["style"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexFillTypeItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexFill["type"], undefined>, string[]>[0]>;
+    }
+    interface ApexFillTypeList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexFill["type"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexForecastDataPoints {
+        "count"?: number;
+        "dashArray"?: number;
+        "fillOpacity"?: number;
+        "getData": () => Promise<globalThis.ApexForecastDataPoints>;
+        "strokeWidth"?: number | undefined;
+    }
+    interface ApexGrid {
+        "borderColor"?: string;
+        "column"?: { colors?: string[] | undefined; opacity?: number | undefined; };
+        "getData": () => Promise<globalThis.ApexGrid>;
+        "padding"?: { top?: number | undefined; right?: number | undefined; bottom?: number | undefined; left?: number | undefined; };
+        "position"?: "front" | "back";
+        "row"?: { colors?: string[] | undefined; opacity?: number | undefined; };
+        "show"?: boolean;
+        "strokeDashArray"?: number;
+        "xaxis"?: { lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; } | undefined; };
+        "yaxis"?: { lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; } | undefined; };
+    }
+    interface ApexGridColumn {
+        "colors"?: string[];
+        "getData": () => Promise<Exclude<globalThis.ApexGrid["column"], undefined>>;
+        "opacity"?: number;
+    }
+    interface ApexGridColumnColorsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexGrid["column"], undefined>["colors"], undefined>[0]>;
+    }
+    interface ApexGridColumnColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexGrid["column"], undefined>["colors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexGridPadding {
+        "bottom"?: number;
+        "getData": () => Promise<Exclude<globalThis.ApexGrid["padding"], undefined>>;
+        "left"?: number;
+        "right"?: number;
+        "top"?: number;
+    }
+    interface ApexGridRow {
+        "colors"?: string[];
+        "getData": () => Promise<Exclude<globalThis.ApexGrid["row"], undefined>>;
+        "opacity"?: number;
+    }
+    interface ApexGridRowColorsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexGrid["row"], undefined>["colors"], undefined>[0]>;
+    }
+    interface ApexGridRowColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexGrid["row"], undefined>["colors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexGridXaxis {
+        "getData": () => Promise<Exclude<globalThis.ApexGrid["xaxis"], undefined>>;
+        "lines"?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    }
+    interface ApexGridXaxisLines {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexGrid["xaxis"], undefined>["lines"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexGridYaxis {
+        "getData": () => Promise<Exclude<globalThis.ApexGrid["yaxis"], undefined>>;
+        "lines"?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    }
+    interface ApexGridYaxisLines {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexGrid["yaxis"], undefined>["lines"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexLegend {
+        "clusterGroupedSeries"?: boolean;
+        "clusterGroupedSeriesOrientation"?: string;
+        "customLegendItems"?: string[];
+        "floating"?: boolean;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<globalThis.ApexLegend>;
+        "height"?: number;
+        "horizontalAlign"?: "left" | "center" | "right";
+        "inverseOrder"?: boolean;
+        "itemMargin"?: { horizontal?: number | undefined; vertical?: number | undefined; };
+        "labels"?: { colors?: string | string[] | undefined; useSeriesColors?: boolean | undefined; };
+        "markers"?: { size?: number | undefined; strokeWidth?: number | undefined; fillColors?: string[] | undefined; shape?: ApexMarkerShape | undefined; offsetX?: number | undefined; offsetY?: number | undefined; customHTML?(): any; onClick?(): void; };
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "onItemClick"?: { toggleDataSeries?: boolean | undefined; };
+        "onItemHover"?: { highlightDataSeries?: boolean | undefined; };
+        "position"?: "top" | "right" | "bottom" | "left";
+        "show"?: boolean;
+        "showForNullSeries"?: boolean;
+        "showForSingleSeries"?: boolean;
+        "showForZeroSeries"?: boolean;
+        "width"?: number;
+    }
+    interface ApexLegendCustomLegendItemsItem {
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["customLegendItems"], undefined>[0]>;
+    }
+    interface ApexLegendCustomLegendItemsList {
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["customLegendItems"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLegendItemMargin {
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["itemMargin"], undefined>>;
+        "horizontal"?: number;
+        "vertical"?: number;
+    }
+    interface ApexLegendLabels {
+        "colors"?: string | string[];
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["labels"], undefined>>;
+        "useSeriesColors"?: boolean;
+    }
+    interface ApexLegendLabelsColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexLegend["labels"], undefined>["colors"], undefined>, string[]>[0]>;
+    }
+    interface ApexLegendLabelsColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<globalThis.ApexLegend["labels"], undefined>["colors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLegendMarkers {
+        "fillColors"?: string[];
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["markers"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "shape"?: ApexMarkerShape;
+        "size"?: number;
+        "strokeWidth"?: number;
+    }
+    interface ApexLegendMarkersFillColorsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLegend["markers"], undefined>["fillColors"], undefined>[0]>;
+    }
+    interface ApexLegendMarkersFillColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLegend["markers"], undefined>["fillColors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLegendOnItemClick {
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["onItemClick"], undefined>>;
+        "toggleDataSeries"?: boolean;
+    }
+    interface ApexLegendOnItemHover {
+        "getData": () => Promise<Exclude<globalThis.ApexLegend["onItemHover"], undefined>>;
+        "highlightDataSeries"?: boolean;
+    }
+    interface ApexLocale {
+        "getData": () => Promise<globalThis.ApexLocale>;
+        "name"?: string;
+        "options"?: { months?: string[] | undefined; shortMonths?: string[] | undefined; days?: string[] | undefined; shortDays?: string[] | undefined; toolbar?: { download?: string | undefined; selection?: string | undefined; selectionZoom?: string | undefined; zoomIn?: string | undefined; zoomOut?: string | undefined; pan?: string | undefined; reset?: string | undefined; exportToSVG?: string | undefined; exportToPNG?: string | undefined; exportToCSV?: string | undefined; } | undefined; };
+    }
+    interface ApexLocaleOptions {
+        "days"?: string[];
+        "getData": () => Promise<Exclude<globalThis.ApexLocale["options"], undefined>>;
+        "months"?: string[];
+        "shortDays"?: string[];
+        "shortMonths"?: string[];
+        "toolbar"?: { download?: string | undefined; selection?: string | undefined; selectionZoom?: string | undefined; zoomIn?: string | undefined; zoomOut?: string | undefined; pan?: string | undefined; reset?: string | undefined; exportToSVG?: string | undefined; exportToPNG?: string | undefined; exportToCSV?: string | undefined; };
+    }
+    interface ApexLocaleOptionsDaysItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["days"], undefined>[0]>;
+    }
+    interface ApexLocaleOptionsDaysList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["days"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLocaleOptionsMonthsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["months"], undefined>[0]>;
+    }
+    interface ApexLocaleOptionsMonthsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["months"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLocaleOptionsShortDaysItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["shortDays"], undefined>[0]>;
+    }
+    interface ApexLocaleOptionsShortDaysList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["shortDays"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLocaleOptionsShortMonthsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["shortMonths"], undefined>[0]>;
+    }
+    interface ApexLocaleOptionsShortMonthsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["shortMonths"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexLocaleOptionsToolbar {
+        "download"?: string;
+        "exportToCSV"?: string;
+        "exportToPNG"?: string;
+        "exportToSVG"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexLocale["options"], undefined>["toolbar"], undefined>>;
+        "pan"?: string;
+        "reset"?: string;
+        "selection"?: string;
+        "selectionZoom"?: string;
+        "zoomIn"?: string;
+        "zoomOut"?: string;
+    }
+    interface ApexMarkerShapeList {
+        "getData": () => Promise<Extract<globalThis.ApexMarkerShape, globalThis.MarkerShapeOptions[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.MarkerShapeOptions>;
+    }
+    interface ApexMarkers {
+        "colors"?: string | string[];
+        "discrete"?: ApexDiscretePoint[];
+        "fillOpacity"?: number | number[];
+        "getData": () => Promise<globalThis.ApexMarkers>;
+        "hover"?: { size?: number | undefined; sizeOffset?: number | undefined; };
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "shape"?: ApexMarkerShape;
+        "showNullDataPoints"?: boolean;
+        "size"?: number | number[];
+        "strokeColors"?: string | string[];
+        "strokeDashArray"?: number | number[];
+        "strokeOpacity"?: number | number[];
+        "strokeWidth"?: number | number[];
+    }
+    interface ApexMarkersColorsItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["colors"], undefined>, string[]>[0]>;
+    }
+    interface ApexMarkersColorsList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["colors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexMarkersDiscreteList {
+        "getData": () => Promise<Exclude<globalThis.ApexMarkers["discrete"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexDiscretePoint>;
+    }
+    interface ApexMarkersFillOpacityItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["fillOpacity"], undefined>, number[]>[0]>;
+    }
+    interface ApexMarkersFillOpacityList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["fillOpacity"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexMarkersHover {
+        "getData": () => Promise<Exclude<globalThis.ApexMarkers["hover"], undefined>>;
+        "size"?: number;
+        "sizeOffset"?: number;
+    }
+    interface ApexMarkersSizeItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["size"], undefined>, number[]>[0]>;
+    }
+    interface ApexMarkersSizeList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["size"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexMarkersStrokeColorsItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeColors"], undefined>, string[]>[0]>;
+    }
+    interface ApexMarkersStrokeColorsList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeColors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexMarkersStrokeDashArrayItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeDashArray"], undefined>, number[]>[0]>;
+    }
+    interface ApexMarkersStrokeDashArrayList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeDashArray"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexMarkersStrokeOpacityItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeOpacity"], undefined>, number[]>[0]>;
+    }
+    interface ApexMarkersStrokeOpacityList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeOpacity"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexMarkersStrokeWidthItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeWidth"], undefined>, number[]>[0]>;
+    }
+    interface ApexMarkersStrokeWidthList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexMarkers["strokeWidth"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexNoData {
+        "align"?: "left" | "right" | "center";
+        "getData": () => Promise<globalThis.ApexNoData>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; };
+        "text"?: string;
+        "verticalAlign"?: "top" | "middle" | "bottom";
+    }
+    interface ApexNoDataStyle {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexNoData["style"], undefined>>;
+    }
+    interface ApexNonAxisChartSeriesItem {
+        "getData": () => Promise<Extract<globalThis.ApexNonAxisChartSeries, number[]>[0]>;
+    }
+    interface ApexNonAxisChartSeriesList {
+        "getData": () => Promise<Extract<globalThis.ApexNonAxisChartSeries, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexOptions {
+        "annotations"?: ApexAnnotations;
+        "chart"?: ApexChart;
+        "colors"?: any[];
+        "dataLabels"?: ApexDataLabels;
+        "fill"?: ApexFill;
+        "forecastDataPoints"?: ApexForecastDataPoints;
+        "getData": () => Promise<ApexChartsApexOptions>;
+        "grid"?: ApexGrid;
+        "labels"?: string[];
+        "legend"?: ApexLegend;
+        "markers"?: ApexMarkers;
+        "noData"?: ApexNoData;
+        "parsing"?: ApexParsing;
+        "plotOptions"?: ApexPlotOptions;
+        "responsive"?: ApexResponsive[];
+        "series"?: ApexNonAxisChartSeries;
+        "states"?: ApexStates;
+        "stroke"?: ApexStroke;
+        "subtitle"?: ApexTitleSubtitle;
+        "theme"?: ApexTheme;
+        "title"?: ApexTitleSubtitle;
+        "tooltip"?: ApexTooltip;
+        "xaxis"?: ApexXAxis;
+        "yaxis"?: ApexYAxis | ApexYAxis[];
+    }
+    interface ApexOptionsColorsItem {
+        "getData": () => Promise<Exclude<ApexChartsApexOptions["colors"], undefined>[0]>;
+    }
+    interface ApexOptionsColorsList {
+        "getData": () => Promise<Exclude<ApexChartsApexOptions["colors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<any>;
+    }
+    interface ApexOptionsLabelsItem {
+        "getData": () => Promise<Exclude<ApexChartsApexOptions["labels"], undefined>[0]>;
+    }
+    interface ApexOptionsLabelsList {
+        "getData": () => Promise<Exclude<ApexChartsApexOptions["labels"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexOptionsResponsiveList {
+        "getData": () => Promise<Exclude<ApexChartsApexOptions["responsive"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexResponsive>;
+    }
+    interface ApexOptionsYaxisList {
+        "getData": () => Promise<Extract<Exclude<ApexChartsApexOptions["yaxis"], undefined>, globalThis.ApexYAxis[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexYAxis>;
+    }
+    interface ApexParsing {
+        "getData": () => Promise<globalThis.ApexParsing>;
+        "x"?: string;
+        "y"?: string | string[];
+        "z"?: string;
+    }
+    interface ApexParsingYItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexParsing["y"], undefined>, string[]>[0]>;
+    }
+    interface ApexParsingYList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexParsing["y"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptions {
+        "area"?: { fillTo?: "origin" | "end" | undefined; };
+        "bar"?: { horizontal?: boolean | undefined; columnWidth?: string | number | undefined; barHeight?: string | number | undefined; distributed?: boolean | undefined; borderRadius?: number | undefined; borderRadiusApplication?: "around" | "end" | undefined; borderRadiusWhenStacked?: "all" | "last" | undefined; hideZeroBarsWhenGrouped?: boolean | undefined; rangeBarOverlap?: boolean | undefined; rangeBarGroupRows?: boolean | undefined; isDumbbell?: boolean | undefined; dumbbellColors?: string[][] | undefined; isFunnel?: boolean | undefined; isFunnel3d?: boolean | undefined; colors?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[] | undefined; backgroundBarColors?: string[] | undefined; backgroundBarOpacity?: number | undefined; backgroundBarRadius?: number | undefined; } | undefined; dataLabels?: { maxItems?: number | undefined; hideOverflowingLabels?: boolean | undefined; position?: string | undefined; orientation?: "horizontal" | "vertical" | undefined; total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; } | undefined; } | undefined; };
+        "boxPlot"?: { colors?: { upper?: string | string[] | undefined; lower?: string | string[] | undefined; } | undefined; };
+        "bubble"?: { zScaling?: boolean | undefined; minBubbleRadius?: number | undefined; maxBubbleRadius?: number | undefined; };
+        "candlestick"?: { type?: string | undefined; colors?: { upward?: string | string[] | undefined; downward?: string | string[] | undefined; } | undefined; wick?: { useFillColor?: boolean | undefined; } | undefined; };
+        "getData": () => Promise<globalThis.ApexPlotOptions>;
+        "heatmap"?: { radius?: number | undefined; enableShades?: boolean | undefined; shadeIntensity?: number | undefined; reverseNegativeShade?: boolean | undefined; distributed?: boolean | undefined; useFillColorAsStroke?: boolean | undefined; colorScale?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; inverse?: boolean | undefined; min?: number | undefined; max?: number | undefined; } | undefined; };
+        "line"?: { isSlopeChart?: boolean | undefined; colors?: { threshold?: number | undefined; colorAboveThreshold?: string | undefined; colorBelowThreshold?: string | undefined; } | undefined; };
+        "pie"?: { startAngle?: number | undefined; endAngle?: number | undefined; customScale?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; expandOnClick?: boolean | undefined; dataLabels?: { offset?: number | undefined; minAngleToShowLabel?: number | undefined; } | undefined; donut?: { size?: string | undefined; background?: string | undefined; labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; } | undefined; } | undefined; };
+        "polarArea"?: { rings?: { strokeWidth?: number | undefined; strokeColor?: string | undefined; } | undefined; spokes?: { strokeWidth?: number | undefined; connectorColors?: string | string[] | undefined; } | undefined; };
+        "radar"?: { size?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; polygons?: { strokeColors?: string | string[] | undefined; strokeWidth?: string | string[] | undefined; connectorColors?: string | string[] | undefined; fill?: { colors?: string[] | undefined; } | undefined; } | undefined; };
+        "radialBar"?: { inverseOrder?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; hollow?: { margin?: number | undefined; size?: string | undefined; background?: string | undefined; image?: string | undefined; imageWidth?: number | undefined; imageHeight?: number | undefined; imageOffsetX?: number | undefined; imageOffsetY?: number | undefined; imageClipped?: boolean | undefined; position?: "front" | "back" | undefined; dropShadow?: ApexDropShadow | undefined; } | undefined; track?: { show?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; background?: string | string[] | undefined; strokeWidth?: string | undefined; opacity?: number | undefined; margin?: number | undefined; dropShadow?: ApexDropShadow | undefined; } | undefined; dataLabels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; } | undefined; value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; } | undefined; total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; } | undefined; } | undefined; barLabels?: { enabled?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; useSeriesColors?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?: ((barName: string, opts?: any) => string) | undefined; onClick?: ((barName: string, opts?: any) => void) | undefined; } | undefined; };
+        "treemap"?: { enableShades?: boolean | undefined; shadeIntensity?: number | undefined; distributed?: boolean | undefined; reverseNegativeShade?: boolean | undefined; useFillColorAsStroke?: boolean | undefined; dataLabels?: { format?: "scale" | "truncate" | undefined; } | undefined; borderRadius?: number | undefined; colorScale?: { inverse?: boolean | undefined; ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; min?: number | undefined; max?: number | undefined; } | undefined; seriesTitle?: { show?: boolean | undefined; offsetY?: number | undefined; offsetX?: number | undefined; borderColor?: string | undefined; borderWidth?: number | undefined; borderRadius?: number | undefined; style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; } | undefined; } | undefined; };
+    }
+    interface ApexPlotOptionsArea {
+        "fillTo"?: "origin" | "end";
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["area"], undefined>>;
+    }
+    interface ApexPlotOptionsBar {
+        "barHeight"?: string | number;
+        "borderRadius"?: number;
+        "borderRadiusApplication"?: "around" | "end";
+        "borderRadiusWhenStacked"?: "all" | "last";
+        "colors"?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[] | undefined; backgroundBarColors?: string[] | undefined; backgroundBarOpacity?: number | undefined; backgroundBarRadius?: number | undefined; };
+        "columnWidth"?: string | number;
+        "dataLabels"?: { maxItems?: number | undefined; hideOverflowingLabels?: boolean | undefined; position?: string | undefined; orientation?: "horizontal" | "vertical" | undefined; total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; } | undefined; };
+        "distributed"?: boolean;
+        "dumbbellColors"?: string[][];
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["bar"], undefined>>;
+        "hideZeroBarsWhenGrouped"?: boolean;
+        "horizontal"?: boolean;
+        "isDumbbell"?: boolean;
+        "isFunnel"?: boolean;
+        "isFunnel3d"?: boolean;
+        "rangeBarGroupRows"?: boolean;
+        "rangeBarOverlap"?: boolean;
+    }
+    interface ApexPlotOptionsBarColors {
+        "backgroundBarColors"?: string[];
+        "backgroundBarOpacity"?: number;
+        "backgroundBarRadius"?: number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["colors"], undefined>>;
+        "ranges"?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[];
+    }
+    interface ApexPlotOptionsBarColorsBackgroundBarColorsItem {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["colors"], undefined>["backgroundBarColors"], undefined>[0]>;
+    }
+    interface ApexPlotOptionsBarColorsBackgroundBarColorsList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["colors"], undefined>["backgroundBarColors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsBarColorsRangesItem {
+        "color"?: string;
+        "from"?: number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["colors"], undefined>["ranges"], undefined>[0]>;
+        "to"?: number;
+    }
+    interface ApexPlotOptionsBarColorsRangesList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["colors"], undefined>["ranges"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+                from?: number
+                to?: number
+                color?: string
+              }>;
+    }
+    interface ApexPlotOptionsBarDataLabels {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["dataLabels"], undefined>>;
+        "hideOverflowingLabels"?: boolean;
+        "maxItems"?: number;
+        "orientation"?: "horizontal" | "vertical";
+        "position"?: string;
+        "total"?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; };
+    }
+    interface ApexPlotOptionsBarDataLabelsTotal {
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["dataLabels"], undefined>["total"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; };
+    }
+    interface ApexPlotOptionsBarDataLabelsTotalStyle {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["dataLabels"], undefined>["total"], undefined>["style"], undefined>>;
+    }
+    interface ApexPlotOptionsBarDumbbellColorsItemItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["dumbbellColors"], undefined>[0][0]>;
+    }
+    interface ApexPlotOptionsBarDumbbellColorsItemList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["dumbbellColors"], undefined>[0]>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsBarDumbbellColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["bar"], undefined>["dumbbellColors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string[]>;
+    }
+    interface ApexPlotOptionsBoxPlot {
+        "colors"?: { upper?: string | string[] | undefined; lower?: string | string[] | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["boxPlot"], undefined>>;
+    }
+    interface ApexPlotOptionsBoxPlotColors {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["boxPlot"], undefined>["colors"], undefined>>;
+        "lower"?: string | string[];
+        "upper"?: string | string[];
+    }
+    interface ApexPlotOptionsBoxPlotColorsLowerItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["boxPlot"], undefined>["colors"], undefined>["lower"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsBoxPlotColorsLowerList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["boxPlot"], undefined>["colors"], undefined>["lower"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsBoxPlotColorsUpperItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["boxPlot"], undefined>["colors"], undefined>["upper"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsBoxPlotColorsUpperList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["boxPlot"], undefined>["colors"], undefined>["upper"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsBubble {
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["bubble"], undefined>>;
+        "maxBubbleRadius"?: number;
+        "minBubbleRadius"?: number;
+        "zScaling"?: boolean;
+    }
+    interface ApexPlotOptionsCandlestick {
+        "colors"?: { upward?: string | string[] | undefined; downward?: string | string[] | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>>;
+        "type"?: string;
+        "wick"?: { useFillColor?: boolean | undefined; };
+    }
+    interface ApexPlotOptionsCandlestickColors {
+        "downward"?: string | string[];
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>["colors"], undefined>>;
+        "upward"?: string | string[];
+    }
+    interface ApexPlotOptionsCandlestickColorsDownwardItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>["colors"], undefined>["downward"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsCandlestickColorsDownwardList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>["colors"], undefined>["downward"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsCandlestickColorsUpwardItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>["colors"], undefined>["upward"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsCandlestickColorsUpwardList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>["colors"], undefined>["upward"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsCandlestickWick {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["candlestick"], undefined>["wick"], undefined>>;
+        "useFillColor"?: boolean;
+    }
+    interface ApexPlotOptionsHeatmap {
+        "colorScale"?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; inverse?: boolean | undefined; min?: number | undefined; max?: number | undefined; };
+        "distributed"?: boolean;
+        "enableShades"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["heatmap"], undefined>>;
+        "radius"?: number;
+        "reverseNegativeShade"?: boolean;
+        "shadeIntensity"?: number;
+        "useFillColorAsStroke"?: boolean;
+    }
+    interface ApexPlotOptionsHeatmapColorScale {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["heatmap"], undefined>["colorScale"], undefined>>;
+        "inverse"?: boolean;
+        "max"?: number;
+        "min"?: number;
+        "ranges"?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[];
+    }
+    interface ApexPlotOptionsHeatmapColorScaleRangesItem {
+        "color"?: string;
+        "foreColor"?: string;
+        "from"?: number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["heatmap"], undefined>["colorScale"], undefined>["ranges"], undefined>[0]>;
+        "name"?: string;
+        "to"?: number;
+    }
+    interface ApexPlotOptionsHeatmapColorScaleRangesList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["heatmap"], undefined>["colorScale"], undefined>["ranges"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+                from?: number
+                to?: number
+                color?: string
+                foreColor?: string
+                name?: string
+              }>;
+    }
+    interface ApexPlotOptionsLine {
+        "colors"?: { threshold?: number | undefined; colorAboveThreshold?: string | undefined; colorBelowThreshold?: string | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["line"], undefined>>;
+        "isSlopeChart"?: boolean;
+    }
+    interface ApexPlotOptionsLineColors {
+        "colorAboveThreshold"?: string;
+        "colorBelowThreshold"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["line"], undefined>["colors"], undefined>>;
+        "threshold"?: number;
+    }
+    interface ApexPlotOptionsPie {
+        "customScale"?: number;
+        "dataLabels"?: { offset?: number | undefined; minAngleToShowLabel?: number | undefined; };
+        "donut"?: { size?: string | undefined; background?: string | undefined; labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; } | undefined; };
+        "endAngle"?: number;
+        "expandOnClick"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["pie"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "startAngle"?: number;
+    }
+    interface ApexPlotOptionsPieDataLabels {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["pie"], undefined>["dataLabels"], undefined>>;
+        "minAngleToShowLabel"?: number;
+        "offset"?: number;
+    }
+    interface ApexPlotOptionsPieDonut {
+        "background"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["pie"], undefined>["donut"], undefined>>;
+        "labels"?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; };
+        "size"?: string;
+    }
+    interface ApexPlotOptionsPieDonutLabels {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["pie"], undefined>["donut"], undefined>["labels"], undefined>>;
+        "name"?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; };
+        "show"?: boolean;
+        "total"?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; };
+        "value"?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; };
+    }
+    interface ApexPlotOptionsPieDonutLabelsName {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["pie"], undefined>["donut"], undefined>["labels"], undefined>["name"], undefined>>;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsPieDonutLabelsTotal {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["pie"], undefined>["donut"], undefined>["labels"], undefined>["total"], undefined>>;
+        "label"?: string;
+        "show"?: boolean;
+        "showAlways"?: boolean;
+    }
+    interface ApexPlotOptionsPieDonutLabelsValue {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["pie"], undefined>["donut"], undefined>["labels"], undefined>["value"], undefined>>;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsPolarArea {
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["polarArea"], undefined>>;
+        "rings"?: { strokeWidth?: number | undefined; strokeColor?: string | undefined; };
+        "spokes"?: { strokeWidth?: number | undefined; connectorColors?: string | string[] | undefined; };
+    }
+    interface ApexPlotOptionsPolarAreaRings {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["polarArea"], undefined>["rings"], undefined>>;
+        "strokeColor"?: string;
+        "strokeWidth"?: number;
+    }
+    interface ApexPlotOptionsPolarAreaSpokes {
+        "connectorColors"?: string | string[];
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["polarArea"], undefined>["spokes"], undefined>>;
+        "strokeWidth"?: number;
+    }
+    interface ApexPlotOptionsPolarAreaSpokesConnectorColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["polarArea"], undefined>["spokes"], undefined>["connectorColors"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsPolarAreaSpokesConnectorColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["polarArea"], undefined>["spokes"], undefined>["connectorColors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsRadar {
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["radar"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "polygons"?: { strokeColors?: string | string[] | undefined; strokeWidth?: string | string[] | undefined; connectorColors?: string | string[] | undefined; fill?: { colors?: string[] | undefined; } | undefined; };
+        "size"?: number;
+    }
+    interface ApexPlotOptionsRadarPolygons {
+        "connectorColors"?: string | string[];
+        "fill"?: { colors?: string[] | undefined; };
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>>;
+        "strokeColors"?: string | string[];
+        "strokeWidth"?: string | string[];
+    }
+    interface ApexPlotOptionsRadarPolygonsConnectorColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["connectorColors"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsRadarPolygonsConnectorColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["connectorColors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsRadarPolygonsFill {
+        "colors"?: string[];
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["fill"], undefined>>;
+    }
+    interface ApexPlotOptionsRadarPolygonsFillColorsItem {
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["fill"], undefined>["colors"], undefined>[0]>;
+    }
+    interface ApexPlotOptionsRadarPolygonsFillColorsList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["fill"], undefined>["colors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["strokeColors"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["strokeColors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeWidthItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["strokeWidth"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeWidthList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radar"], undefined>["polygons"], undefined>["strokeWidth"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsRadialBar {
+        "barLabels"?: { enabled?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; useSeriesColors?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?: ((barName: string, opts?: any) => string) | undefined; onClick?: ((barName: string, opts?: any) => void) | undefined; };
+        "dataLabels"?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; } | undefined; value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; } | undefined; total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; } | undefined; };
+        "endAngle"?: number;
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>>;
+        "hollow"?: { margin?: number | undefined; size?: string | undefined; background?: string | undefined; image?: string | undefined; imageWidth?: number | undefined; imageHeight?: number | undefined; imageOffsetX?: number | undefined; imageOffsetY?: number | undefined; imageClipped?: boolean | undefined; position?: "front" | "back" | undefined; dropShadow?: ApexDropShadow | undefined; };
+        "inverseOrder"?: boolean;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "startAngle"?: number;
+        "track"?: { show?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; background?: string | string[] | undefined; strokeWidth?: string | undefined; opacity?: number | undefined; margin?: number | undefined; dropShadow?: ApexDropShadow | undefined; };
+    }
+    interface ApexPlotOptionsRadialBarBarLabels {
+        "enabled"?: boolean;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["barLabels"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "useSeriesColors"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarDataLabels {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["dataLabels"], undefined>>;
+        "name"?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; };
+        "show"?: boolean;
+        "total"?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; };
+        "value"?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; };
+    }
+    interface ApexPlotOptionsRadialBarDataLabelsName {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["dataLabels"], undefined>["name"], undefined>>;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarDataLabelsTotal {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["dataLabels"], undefined>["total"], undefined>>;
+        "label"?: string;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarDataLabelsValue {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["dataLabels"], undefined>["value"], undefined>>;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarHollow {
+        "background"?: string;
+        "dropShadow"?: ApexDropShadow;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["hollow"], undefined>>;
+        "image"?: string;
+        "imageClipped"?: boolean;
+        "imageHeight"?: number;
+        "imageOffsetX"?: number;
+        "imageOffsetY"?: number;
+        "imageWidth"?: number;
+        "margin"?: number;
+        "position"?: "front" | "back";
+        "size"?: string;
+    }
+    interface ApexPlotOptionsRadialBarTrack {
+        "background"?: string | string[];
+        "dropShadow"?: ApexDropShadow;
+        "endAngle"?: number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["track"], undefined>>;
+        "margin"?: number;
+        "opacity"?: number;
+        "show"?: boolean;
+        "startAngle"?: number;
+        "strokeWidth"?: string;
+    }
+    interface ApexPlotOptionsRadialBarTrackBackgroundItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["track"], undefined>["background"], undefined>, string[]>[0]>;
+    }
+    interface ApexPlotOptionsRadialBarTrackBackgroundList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["radialBar"], undefined>["track"], undefined>["background"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexPlotOptionsTreemap {
+        "borderRadius"?: number;
+        "colorScale"?: { inverse?: boolean | undefined; ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; min?: number | undefined; max?: number | undefined; };
+        "dataLabels"?: { format?: "scale" | "truncate" | undefined; };
+        "distributed"?: boolean;
+        "enableShades"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>>;
+        "reverseNegativeShade"?: boolean;
+        "seriesTitle"?: { show?: boolean | undefined; offsetY?: number | undefined; offsetX?: number | undefined; borderColor?: string | undefined; borderWidth?: number | undefined; borderRadius?: number | undefined; style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; } | undefined; };
+        "shadeIntensity"?: number;
+        "useFillColorAsStroke"?: boolean;
+    }
+    interface ApexPlotOptionsTreemapColorScale {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["colorScale"], undefined>>;
+        "inverse"?: boolean;
+        "max"?: number;
+        "min"?: number;
+        "ranges"?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[];
+    }
+    interface ApexPlotOptionsTreemapColorScaleRangesItem {
+        "color"?: string;
+        "foreColor"?: string;
+        "from"?: number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["colorScale"], undefined>["ranges"], undefined>[0]>;
+        "name"?: string;
+        "to"?: number;
+    }
+    interface ApexPlotOptionsTreemapColorScaleRangesList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["colorScale"], undefined>["ranges"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{
+                from?: number
+                to?: number
+                color?: string
+                foreColor?: string
+                name?: string
+              }>;
+    }
+    interface ApexPlotOptionsTreemapDataLabels {
+        "format"?: "scale" | "truncate";
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["dataLabels"], undefined>>;
+    }
+    interface ApexPlotOptionsTreemapSeriesTitle {
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["seriesTitle"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "style"?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; };
+    }
+    interface ApexPlotOptionsTreemapSeriesTitleStyle {
+        "background"?: string;
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["seriesTitle"], undefined>["style"], undefined>>;
+        "padding"?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; };
+    }
+    interface ApexPlotOptionsTreemapSeriesTitleStylePadding {
+        "bottom"?: number;
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexPlotOptions["treemap"], undefined>["seriesTitle"], undefined>["style"], undefined>["padding"], undefined>>;
+        "left"?: number;
+        "right"?: number;
+        "top"?: number;
+    }
+    interface ApexResponsive {
+        "breakpoint"?: number;
+        "getData": () => Promise<globalThis.ApexResponsive>;
+        "options"?: any;
+    }
+    interface ApexStates {
+        "active"?: { allowMultipleDataPointsSelection?: boolean | undefined; filter?: { type?: string | undefined; } | undefined; };
+        "getData": () => Promise<globalThis.ApexStates>;
+        "hover"?: { filter?: { type?: string | undefined; } | undefined; };
+    }
+    interface ApexStatesActive {
+        "allowMultipleDataPointsSelection"?: boolean;
+        "filter"?: { type?: string | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexStates["active"], undefined>>;
+    }
+    interface ApexStatesActiveFilter {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexStates["active"], undefined>["filter"], undefined>>;
+        "type"?: string;
+    }
+    interface ApexStatesHover {
+        "filter"?: { type?: string | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexStates["hover"], undefined>>;
+    }
+    interface ApexStatesHoverFilter {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexStates["hover"], undefined>["filter"], undefined>>;
+        "type"?: string;
+    }
+    interface ApexStroke {
+        "colors"?: any[] | string[];
+        "curve"?: "smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic" | ("smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic")[];
+        "dashArray"?: number | number[];
+        "fill"?: ApexFill;
+        "getData": () => Promise<globalThis.ApexStroke>;
+        "lineCap"?: "butt" | "square" | "round";
+        "show"?: boolean;
+        "width"?: number | number[];
+    }
+    interface ApexStrokeColors1Item {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["colors"], undefined>, any[]>[0]>;
+    }
+    interface ApexStrokeColors1List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["colors"], undefined>, any[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<any>;
+    }
+    interface ApexStrokeColors2Item {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["colors"], undefined>, string[]>[0]>;
+    }
+    interface ApexStrokeColors2List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["colors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexStrokeCurveList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["curve"], undefined>, ("smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic")[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<('smooth' | 'straight' | 'stepline' | 'linestep' | 'monotoneCubic')>;
+    }
+    interface ApexStrokeDashArrayItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["dashArray"], undefined>, number[]>[0]>;
+    }
+    interface ApexStrokeDashArrayList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["dashArray"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexStrokeWidthItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["width"], undefined>, number[]>[0]>;
+    }
+    interface ApexStrokeWidthList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexStroke["width"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexTheme {
+        "getData": () => Promise<globalThis.ApexTheme>;
+        "mode"?: "light" | "dark";
+        "monochrome"?: { enabled?: boolean | undefined; color?: string | undefined; shadeTo?: "light" | "dark" | undefined; shadeIntensity?: number | undefined; };
+        "palette"?: string;
+    }
+    interface ApexThemeMonochrome {
+        "color"?: string;
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexTheme["monochrome"], undefined>>;
+        "shadeIntensity"?: number;
+        "shadeTo"?: "light" | "dark";
+    }
+    interface ApexTitleSubtitle {
+        "align"?: "left" | "center" | "right";
+        "floating"?: boolean;
+        "getData": () => Promise<globalThis.ApexTitleSubtitle>;
+        "margin"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; };
+        "text"?: string;
+    }
+    interface ApexTitleSubtitleStyle {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<globalThis.ApexTitleSubtitle["style"], undefined>>;
+    }
+    interface ApexTooltip {
+        "cssClass"?: string;
+        "custom"?: ((options: any) => any) | ((options: any) => any)[];
+        "enabled"?: boolean;
+        "enabledOnSeries"?: number[] | undefined;
+        "fillSeriesColor"?: boolean;
+        "fixed"?: { enabled?: boolean | undefined; position?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "followCursor"?: boolean;
+        "getData": () => Promise<globalThis.ApexTooltip>;
+        "hideEmptySeries"?: boolean;
+        "intersect"?: boolean;
+        "inverseOrder"?: boolean;
+        "items"?: { display?: string | undefined; };
+        "marker"?: { show?: boolean | undefined; fillColors?: string[] | undefined; };
+        "onDatasetHover"?: { highlightDataSeries?: boolean | undefined; };
+        "shared"?: boolean;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; };
+        "theme"?: string;
+        "x"?: { show?: boolean | undefined; format?: string | undefined; formatter?(val: number, opts?: any): string; };
+        "y"?: ApexTooltipY | ApexTooltipY[];
+        "z"?: { title?: string | undefined; formatter?(val: number): string; };
+    }
+    interface ApexTooltipCustomList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexTooltip["custom"], undefined>, ((options: any) => any)[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<((options: any) => any)>;
+    }
+    interface ApexTooltipEnabledOnSeriesItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexTooltip["enabledOnSeries"], undefined>, number[]>[0]>;
+    }
+    interface ApexTooltipEnabledOnSeriesList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexTooltip["enabledOnSeries"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexTooltipFixed {
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["fixed"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "position"?: string;
+    }
+    interface ApexTooltipItems {
+        "display"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["items"], undefined>>;
+    }
+    interface ApexTooltipMarker {
+        "fillColors"?: string[];
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["marker"], undefined>>;
+        "show"?: boolean;
+    }
+    interface ApexTooltipMarkerFillColorsItem {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexTooltip["marker"], undefined>["fillColors"], undefined>[0]>;
+    }
+    interface ApexTooltipMarkerFillColorsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexTooltip["marker"], undefined>["fillColors"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexTooltipOnDatasetHover {
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["onDatasetHover"], undefined>>;
+        "highlightDataSeries"?: boolean;
+    }
+    interface ApexTooltipStyle {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["style"], undefined>>;
+    }
+    interface ApexTooltipX {
+        "format"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["x"], undefined>>;
+        "show"?: boolean;
+    }
+    interface ApexTooltipY {
+        "getData": () => Promise<globalThis.ApexTooltipY>;
+        "title"?: { formatter?(seriesName: string, opts?: any): string; };
+    }
+    interface ApexTooltipYList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexTooltip["y"], undefined>, globalThis.ApexTooltipY[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<globalThis.ApexTooltipY>;
+    }
+    interface ApexTooltipYTitle {
+        "getData": () => Promise<Exclude<globalThis.ApexTooltipY["title"], undefined>>;
+    }
+    interface ApexTooltipZ {
+        "getData": () => Promise<Exclude<globalThis.ApexTooltip["z"], undefined>>;
+        "title"?: string;
+    }
+    interface ApexXAxis {
+        "axisBorder"?: { show?: boolean | undefined; color?: string | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "axisTicks"?: { show?: boolean | undefined; borderType?: string | undefined; color?: string | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "categories"?: any;
+        "crosshairs"?: { show?: boolean | undefined; width?: string | number | undefined; position?: string | undefined; opacity?: number | undefined; stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; } | undefined; fill?: { type?: string | undefined; color?: string | undefined; gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; } | undefined; } | undefined; dropShadow?: ApexDropShadow | undefined; };
+        "decimalsInFloat"?: number;
+        "floating"?: boolean;
+        "getData": () => Promise<globalThis.ApexXAxis>;
+        "group"?: { groups?: { title: string; cols: number; }[] | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; } | undefined; };
+        "labels"?: { show?: boolean | undefined; rotate?: number | undefined; rotateAlways?: boolean | undefined; hideOverlappingLabels?: boolean | undefined; showDuplicates?: boolean | undefined; trim?: boolean | undefined; minHeight?: number | undefined; maxHeight?: number | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; } | undefined; offsetX?: number | undefined; offsetY?: number | undefined; format?: string | undefined; formatter?(value: string, timestamp?: number | undefined, opts?: any): string | string[]; datetimeUTC?: boolean | undefined; datetimeFormatter?: { year?: string | undefined; month?: string | undefined; day?: string | undefined; hour?: string | undefined; minute?: string | undefined; second?: string | undefined; } | undefined; };
+        "max"?: number;
+        "min"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "overwriteCategories"?: number[] | string[] | undefined;
+        "position"?: string;
+        "range"?: number;
+        "sorted"?: boolean;
+        "stepSize"?: number;
+        "tickAmount"?: number | "dataPoints";
+        "tickPlacement"?: string;
+        "title"?: { text?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; cssClass?: string | undefined; } | undefined; };
+        "tooltip"?: { enabled?: boolean | undefined; offsetY?: number | undefined; formatter?(value: string, opts?: object | undefined): string; style?: { fontSize?: string | undefined; fontFamily?: string | undefined; } | undefined; };
+        "type"?: "category" | "datetime" | "numeric";
+    }
+    interface ApexXAxisAxisBorder {
+        "color"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["axisBorder"], undefined>>;
+        "height"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexXAxisAxisTicks {
+        "borderType"?: string;
+        "color"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["axisTicks"], undefined>>;
+        "height"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexXAxisCrosshairs {
+        "dropShadow"?: ApexDropShadow;
+        "fill"?: { type?: string | undefined; color?: string | undefined; gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; } | undefined; };
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["crosshairs"], undefined>>;
+        "opacity"?: number;
+        "position"?: string;
+        "show"?: boolean;
+        "stroke"?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; };
+        "width"?: string | number;
+    }
+    interface ApexXAxisCrosshairsFill {
+        "color"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["crosshairs"], undefined>["fill"], undefined>>;
+        "gradient"?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; };
+        "type"?: string;
+    }
+    interface ApexXAxisCrosshairsFillGradient {
+        "colorFrom"?: string;
+        "colorTo"?: string;
+        "getData": () => Promise<Exclude<Exclude<Exclude<globalThis.ApexXAxis["crosshairs"], undefined>["fill"], undefined>["gradient"], undefined>>;
+        "opacityFrom"?: number;
+        "opacityTo"?: number;
+        "stops"?: number[];
+    }
+    interface ApexXAxisCrosshairsFillGradientStopsItem {
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexXAxis["crosshairs"], undefined>["fill"], undefined>["gradient"], undefined>["stops"], undefined>[0]>;
+    }
+    interface ApexXAxisCrosshairsFillGradientStopsList {
+        "getData": () => Promise<Exclude<Exclude<Exclude<Exclude<globalThis.ApexXAxis["crosshairs"], undefined>["fill"], undefined>["gradient"], undefined>["stops"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexXAxisCrosshairsStroke {
+        "color"?: string;
+        "dashArray"?: number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["crosshairs"], undefined>["stroke"], undefined>>;
+        "width"?: number;
+    }
+    interface ApexXAxisGroup {
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["group"], undefined>>;
+        "groups"?: { title: string; cols: number; }[];
+        "style"?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; };
+    }
+    interface ApexXAxisGroupGroupsItem {
+        /**
+          * @default 0
+         */
+        "cols": number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["group"], undefined>["groups"], undefined>[0]>;
+        /**
+          * @default ''
+         */
+        "title": string;
+    }
+    interface ApexXAxisGroupGroupsList {
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["group"], undefined>["groups"], undefined>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<{ title: string, cols: number }>;
+    }
+    interface ApexXAxisGroupStyle {
+        "colors"?: string | string[];
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["group"], undefined>["style"], undefined>>;
+    }
+    interface ApexXAxisGroupStyleColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis["group"], undefined>["style"], undefined>["colors"], undefined>, string[]>[0]>;
+    }
+    interface ApexXAxisGroupStyleColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis["group"], undefined>["style"], undefined>["colors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexXAxisLabels {
+        "datetimeFormatter"?: { year?: string | undefined; month?: string | undefined; day?: string | undefined; hour?: string | undefined; minute?: string | undefined; second?: string | undefined; };
+        "datetimeUTC"?: boolean;
+        "format"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["labels"], undefined>>;
+        "hideOverlappingLabels"?: boolean;
+        "maxHeight"?: number;
+        "minHeight"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "rotate"?: number;
+        "rotateAlways"?: boolean;
+        "show"?: boolean;
+        "showDuplicates"?: boolean;
+        "style"?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; };
+        "trim"?: boolean;
+    }
+    interface ApexXAxisLabelsDatetimeFormatter {
+        "day"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["labels"], undefined>["datetimeFormatter"], undefined>>;
+        "hour"?: string;
+        "minute"?: string;
+        "month"?: string;
+        "second"?: string;
+        "year"?: string;
+    }
+    interface ApexXAxisLabelsStyle {
+        "colors"?: string | string[];
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["labels"], undefined>["style"], undefined>>;
+    }
+    interface ApexXAxisLabelsStyleColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis["labels"], undefined>["style"], undefined>["colors"], undefined>, string[]>[0]>;
+    }
+    interface ApexXAxisLabelsStyleColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexXAxis["labels"], undefined>["style"], undefined>["colors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexXAxisOverwriteCategories1Item {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexXAxis["overwriteCategories"], undefined>, number[]>[0]>;
+    }
+    interface ApexXAxisOverwriteCategories1List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexXAxis["overwriteCategories"], undefined>, number[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<number>;
+    }
+    interface ApexXAxisOverwriteCategories2Item {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexXAxis["overwriteCategories"], undefined>, string[]>[0]>;
+    }
+    interface ApexXAxisOverwriteCategories2List {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexXAxis["overwriteCategories"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexXAxisTitle {
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["title"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; cssClass?: string | undefined; };
+        "text"?: string;
+    }
+    interface ApexXAxisTitleStyle {
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["title"], undefined>["style"], undefined>>;
+    }
+    interface ApexXAxisTooltip {
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexXAxis["tooltip"], undefined>>;
+        "offsetY"?: number;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; };
+    }
+    interface ApexXAxisTooltipStyle {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexXAxis["tooltip"], undefined>["style"], undefined>>;
+    }
+    interface ApexYAxis {
+        "axisBorder"?: { show?: boolean | undefined; color?: string | undefined; width?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "axisTicks"?: { show?: boolean | undefined; color?: string | undefined; width?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "crosshairs"?: { show?: boolean | undefined; position?: string | undefined; stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; } | undefined; };
+        "decimalsInFloat"?: number;
+        "floating"?: boolean;
+        "forceNiceScale"?: boolean;
+        "getData": () => Promise<globalThis.ApexYAxis>;
+        "labels"?: { show?: boolean | undefined; showDuplicates?: boolean | undefined; minWidth?: number | undefined; maxWidth?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; rotate?: number | undefined; align?: "left" | "center" | "right" | undefined; padding?: number | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; } | undefined; formatter?(val: number, opts?: any): string | string[]; };
+        "logBase"?: number;
+        "logarithmic"?: boolean;
+        "max"?: number | ((max: number) => number);
+        "min"?: number | ((min: number) => number);
+        "opposite"?: boolean;
+        "reversed"?: boolean;
+        "seriesName"?: string | string[];
+        "show"?: boolean;
+        "showAlways"?: boolean;
+        "showForNullSeries"?: boolean;
+        "stepSize"?: number;
+        "tickAmount"?: number;
+        "title"?: { text?: string | undefined; rotate?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; } | undefined; };
+        "tooltip"?: { enabled?: boolean | undefined; offsetX?: number | undefined; };
+    }
+    interface ApexYAxisAxisBorder {
+        "color"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexYAxis["axisBorder"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "width"?: number;
+    }
+    interface ApexYAxisAxisTicks {
+        "color"?: string;
+        "getData": () => Promise<Exclude<globalThis.ApexYAxis["axisTicks"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "width"?: number;
+    }
+    interface ApexYAxisCrosshairs {
+        "getData": () => Promise<Exclude<globalThis.ApexYAxis["crosshairs"], undefined>>;
+        "position"?: string;
+        "show"?: boolean;
+        "stroke"?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; };
+    }
+    interface ApexYAxisCrosshairsStroke {
+        "color"?: string;
+        "dashArray"?: number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexYAxis["crosshairs"], undefined>["stroke"], undefined>>;
+        "width"?: number;
+    }
+    interface ApexYAxisLabels {
+        "align"?: "left" | "center" | "right";
+        "getData": () => Promise<Exclude<globalThis.ApexYAxis["labels"], undefined>>;
+        "maxWidth"?: number;
+        "minWidth"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "padding"?: number;
+        "rotate"?: number;
+        "show"?: boolean;
+        "showDuplicates"?: boolean;
+        "style"?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; };
+    }
+    interface ApexYAxisLabelsStyle {
+        "colors"?: string | string[];
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexYAxis["labels"], undefined>["style"], undefined>>;
+    }
+    interface ApexYAxisLabelsStyleColorsItem {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexYAxis["labels"], undefined>["style"], undefined>["colors"], undefined>, string[]>[0]>;
+    }
+    interface ApexYAxisLabelsStyleColorsList {
+        "getData": () => Promise<Extract<Exclude<Exclude<Exclude<globalThis.ApexYAxis["labels"], undefined>["style"], undefined>["colors"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexYAxisSeriesNameItem {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexYAxis["seriesName"], undefined>, string[]>[0]>;
+    }
+    interface ApexYAxisSeriesNameList {
+        "getData": () => Promise<Extract<Exclude<globalThis.ApexYAxis["seriesName"], undefined>, string[]>>;
+        /**
+          * @default []
+         */
+        "listItems": Array<string>;
+    }
+    interface ApexYAxisTitle {
+        "getData": () => Promise<Exclude<globalThis.ApexYAxis["title"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "rotate"?: number;
+        "style"?: { color?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; };
+        "text"?: string;
+    }
+    interface ApexYAxisTitleStyle {
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "getData": () => Promise<Exclude<Exclude<globalThis.ApexYAxis["title"], undefined>["style"], undefined>>;
+    }
+    interface ApexYAxisTooltip {
+        "enabled"?: boolean;
+        "getData": () => Promise<Exclude<globalThis.ApexYAxis["tooltip"], undefined>>;
+        "offsetX"?: number;
+    }
+    interface ImageAnnotations {
+        "getData": () => Promise<globalThis.ImageAnnotations>;
+        "height"?: number;
+        "path"?: string;
+        "width"?: number;
+        "x"?: number;
+        "y"?: number;
+    }
+    interface PointAnnotations {
+        "click"?: Function;
+        "getData": () => Promise<globalThis.PointAnnotations>;
+        "id"?: string | number;
+        "image"?: { path?: string | undefined; width?: number | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "label"?: AnnotationLabel;
+        "marker"?: { size?: number | undefined; fillColor?: string | undefined; strokeColor?: string | undefined; strokeWidth?: number | undefined; shape?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; cssClass?: string | undefined; };
+        "mouseEnter"?: Function;
+        "mouseLeave"?: Function;
+        "seriesIndex"?: number;
+        "x"?: string | number;
+        "y"?: number | null;
+        "yAxisIndex"?: number;
+    }
+    interface PointAnnotationsImage {
+        "getData": () => Promise<Exclude<globalThis.PointAnnotations["image"], undefined>>;
+        "height"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "path"?: string;
+        "width"?: number;
+    }
+    interface PointAnnotationsMarker {
+        "cssClass"?: string;
+        "fillColor"?: string;
+        "getData": () => Promise<Exclude<globalThis.PointAnnotations["marker"], undefined>>;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "shape"?: string;
+        "size"?: number;
+        "strokeColor"?: string;
+        "strokeWidth"?: number;
+    }
+    interface TextAnnotations {
+        "backgroundColor"?: string;
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "fontFamily"?: string | undefined;
+        "fontSize"?: string | number;
+        "fontWeight"?: string | number;
+        "foreColor"?: string;
+        "getData": () => Promise<globalThis.TextAnnotations>;
+        "paddingBottom"?: number;
+        "paddingLeft"?: number;
+        "paddingRight"?: number;
+        "paddingTop"?: number;
+        "text"?: string;
+        "textAnchor"?: string;
+        "x"?: number;
+        "y"?: number;
+    }
+    interface XAxisAnnotations {
+        "borderColor"?: string;
+        "borderWidth"?: number;
+        "fillColor"?: string;
+        "getData": () => Promise<globalThis.XAxisAnnotations>;
+        "id"?: string | number;
+        "label"?: AnnotationLabel;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "opacity"?: number;
+        "strokeDashArray"?: number;
+        "x"?: string | number | null;
+        "x2"?: string | number | null;
+    }
+    interface YAxisAnnotations {
+        "borderColor"?: string;
+        "borderWidth"?: number;
+        "fillColor"?: string;
+        "getData": () => Promise<globalThis.YAxisAnnotations>;
+        "id"?: string | number;
+        "label"?: AnnotationLabel;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "opacity"?: number;
+        "strokeDashArray"?: number;
+        "width"?: string | number;
+        "y"?: string | number | null;
+        "y2"?: string | number | null;
+        "yAxisIndex"?: number;
+    }
+}
+export interface ApexPlotOptionsRadialBarBarLabelsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLApexPlotOptionsRadialBarBarLabelsElement;
 }
 declare global {
+    interface HTMLAnnotationLabelElement extends Components.AnnotationLabel, HTMLStencilElement {
+    }
+    var HTMLAnnotationLabelElement: {
+        prototype: HTMLAnnotationLabelElement;
+        new (): HTMLAnnotationLabelElement;
+    };
+    interface HTMLAnnotationLabelTextItemElement extends Components.AnnotationLabelTextItem, HTMLStencilElement {
+    }
+    var HTMLAnnotationLabelTextItemElement: {
+        prototype: HTMLAnnotationLabelTextItemElement;
+        new (): HTMLAnnotationLabelTextItemElement;
+    };
+    interface HTMLAnnotationLabelTextListElement extends Components.AnnotationLabelTextList, HTMLStencilElement {
+    }
+    var HTMLAnnotationLabelTextListElement: {
+        prototype: HTMLAnnotationLabelTextListElement;
+        new (): HTMLAnnotationLabelTextListElement;
+    };
+    interface HTMLAnnotationStyleElement extends Components.AnnotationStyle, HTMLStencilElement {
+    }
+    var HTMLAnnotationStyleElement: {
+        prototype: HTMLAnnotationStyleElement;
+        new (): HTMLAnnotationStyleElement;
+    };
+    interface HTMLAnnotationStylePaddingElement extends Components.AnnotationStylePadding, HTMLStencilElement {
+    }
+    var HTMLAnnotationStylePaddingElement: {
+        prototype: HTMLAnnotationStylePaddingElement;
+        new (): HTMLAnnotationStylePaddingElement;
+    };
+    interface HTMLApexAnnotationsElement extends Components.ApexAnnotations, HTMLStencilElement {
+    }
+    var HTMLApexAnnotationsElement: {
+        prototype: HTMLApexAnnotationsElement;
+        new (): HTMLApexAnnotationsElement;
+    };
+    interface HTMLApexAnnotationsImagesListElement extends Components.ApexAnnotationsImagesList, HTMLStencilElement {
+    }
+    var HTMLApexAnnotationsImagesListElement: {
+        prototype: HTMLApexAnnotationsImagesListElement;
+        new (): HTMLApexAnnotationsImagesListElement;
+    };
+    interface HTMLApexAnnotationsPointsListElement extends Components.ApexAnnotationsPointsList, HTMLStencilElement {
+    }
+    var HTMLApexAnnotationsPointsListElement: {
+        prototype: HTMLApexAnnotationsPointsListElement;
+        new (): HTMLApexAnnotationsPointsListElement;
+    };
+    interface HTMLApexAnnotationsTextsListElement extends Components.ApexAnnotationsTextsList, HTMLStencilElement {
+    }
+    var HTMLApexAnnotationsTextsListElement: {
+        prototype: HTMLApexAnnotationsTextsListElement;
+        new (): HTMLApexAnnotationsTextsListElement;
+    };
+    interface HTMLApexAnnotationsXaxisListElement extends Components.ApexAnnotationsXaxisList, HTMLStencilElement {
+    }
+    var HTMLApexAnnotationsXaxisListElement: {
+        prototype: HTMLApexAnnotationsXaxisListElement;
+        new (): HTMLApexAnnotationsXaxisListElement;
+    };
+    interface HTMLApexAnnotationsYaxisListElement extends Components.ApexAnnotationsYaxisList, HTMLStencilElement {
+    }
+    var HTMLApexAnnotationsYaxisListElement: {
+        prototype: HTMLApexAnnotationsYaxisListElement;
+        new (): HTMLApexAnnotationsYaxisListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemElement extends Components.ApexAxisChartSeriesItem, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemElement: {
+        prototype: HTMLApexAxisChartSeriesItemElement;
+        new (): HTMLApexAxisChartSeriesItemElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData1ListElement extends Components.ApexAxisChartSeriesItemData1List, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData1ListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData1ListElement;
+        new (): HTMLApexAxisChartSeriesItemData1ListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData2ItemElement extends Components.ApexAxisChartSeriesItemData2Item, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData2ItemElement: {
+        prototype: HTMLApexAxisChartSeriesItemData2ItemElement;
+        new (): HTMLApexAxisChartSeriesItemData2ItemElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData2ItemGoalsItemElement extends Components.ApexAxisChartSeriesItemData2ItemGoalsItem, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData2ItemGoalsItemElement: {
+        prototype: HTMLApexAxisChartSeriesItemData2ItemGoalsItemElement;
+        new (): HTMLApexAxisChartSeriesItemData2ItemGoalsItemElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData2ItemGoalsListElement extends Components.ApexAxisChartSeriesItemData2ItemGoalsList, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData2ItemGoalsListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData2ItemGoalsListElement;
+        new (): HTMLApexAxisChartSeriesItemData2ItemGoalsListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData2ListElement extends Components.ApexAxisChartSeriesItemData2List, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData2ListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData2ListElement;
+        new (): HTMLApexAxisChartSeriesItemData2ListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData3ListElement extends Components.ApexAxisChartSeriesItemData3List, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData3ListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData3ListElement;
+        new (): HTMLApexAxisChartSeriesItemData3ListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData4ListElement extends Components.ApexAxisChartSeriesItemData4List, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData4ListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData4ListElement;
+        new (): HTMLApexAxisChartSeriesItemData4ListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData5ItemItemElement extends Components.ApexAxisChartSeriesItemData5ItemItem, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData5ItemItemElement: {
+        prototype: HTMLApexAxisChartSeriesItemData5ItemItemElement;
+        new (): HTMLApexAxisChartSeriesItemData5ItemItemElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData5ItemListElement extends Components.ApexAxisChartSeriesItemData5ItemList, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData5ItemListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData5ItemListElement;
+        new (): HTMLApexAxisChartSeriesItemData5ItemListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData5ListElement extends Components.ApexAxisChartSeriesItemData5List, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData5ListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData5ListElement;
+        new (): HTMLApexAxisChartSeriesItemData5ListElement;
+    };
+    interface HTMLApexAxisChartSeriesItemData6ListElement extends Components.ApexAxisChartSeriesItemData6List, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesItemData6ListElement: {
+        prototype: HTMLApexAxisChartSeriesItemData6ListElement;
+        new (): HTMLApexAxisChartSeriesItemData6ListElement;
+    };
+    interface HTMLApexAxisChartSeriesListElement extends Components.ApexAxisChartSeriesList, HTMLStencilElement {
+    }
+    var HTMLApexAxisChartSeriesListElement: {
+        prototype: HTMLApexAxisChartSeriesListElement;
+        new (): HTMLApexAxisChartSeriesListElement;
+    };
     interface HTMLApexChartElement extends Components.ApexChart, HTMLStencilElement {
     }
     var HTMLApexChartElement: {
         prototype: HTMLApexChartElement;
         new (): HTMLApexChartElement;
     };
+    interface HTMLApexChartAnimationsElement extends Components.ApexChartAnimations, HTMLStencilElement {
+    }
+    var HTMLApexChartAnimationsElement: {
+        prototype: HTMLApexChartAnimationsElement;
+        new (): HTMLApexChartAnimationsElement;
+    };
+    interface HTMLApexChartAnimationsAnimateGraduallyElement extends Components.ApexChartAnimationsAnimateGradually, HTMLStencilElement {
+    }
+    var HTMLApexChartAnimationsAnimateGraduallyElement: {
+        prototype: HTMLApexChartAnimationsAnimateGraduallyElement;
+        new (): HTMLApexChartAnimationsAnimateGraduallyElement;
+    };
+    interface HTMLApexChartAnimationsDynamicAnimationElement extends Components.ApexChartAnimationsDynamicAnimation, HTMLStencilElement {
+    }
+    var HTMLApexChartAnimationsDynamicAnimationElement: {
+        prototype: HTMLApexChartAnimationsDynamicAnimationElement;
+        new (): HTMLApexChartAnimationsDynamicAnimationElement;
+    };
+    interface HTMLApexChartBrushElement extends Components.ApexChartBrush, HTMLStencilElement {
+    }
+    var HTMLApexChartBrushElement: {
+        prototype: HTMLApexChartBrushElement;
+        new (): HTMLApexChartBrushElement;
+    };
+    interface HTMLApexChartBrushTargetsItemElement extends Components.ApexChartBrushTargetsItem, HTMLStencilElement {
+    }
+    var HTMLApexChartBrushTargetsItemElement: {
+        prototype: HTMLApexChartBrushTargetsItemElement;
+        new (): HTMLApexChartBrushTargetsItemElement;
+    };
+    interface HTMLApexChartBrushTargetsListElement extends Components.ApexChartBrushTargetsList, HTMLStencilElement {
+    }
+    var HTMLApexChartBrushTargetsListElement: {
+        prototype: HTMLApexChartBrushTargetsListElement;
+        new (): HTMLApexChartBrushTargetsListElement;
+    };
+    interface HTMLApexChartDropShadowElement extends Components.ApexChartDropShadow, HTMLStencilElement {
+    }
+    var HTMLApexChartDropShadowElement: {
+        prototype: HTMLApexChartDropShadowElement;
+        new (): HTMLApexChartDropShadowElement;
+    };
+    interface HTMLApexChartDropShadowColorItemElement extends Components.ApexChartDropShadowColorItem, HTMLStencilElement {
+    }
+    var HTMLApexChartDropShadowColorItemElement: {
+        prototype: HTMLApexChartDropShadowColorItemElement;
+        new (): HTMLApexChartDropShadowColorItemElement;
+    };
+    interface HTMLApexChartDropShadowColorListElement extends Components.ApexChartDropShadowColorList, HTMLStencilElement {
+    }
+    var HTMLApexChartDropShadowColorListElement: {
+        prototype: HTMLApexChartDropShadowColorListElement;
+        new (): HTMLApexChartDropShadowColorListElement;
+    };
+    interface HTMLApexChartDropShadowEnabledOnSeriesItemElement extends Components.ApexChartDropShadowEnabledOnSeriesItem, HTMLStencilElement {
+    }
+    var HTMLApexChartDropShadowEnabledOnSeriesItemElement: {
+        prototype: HTMLApexChartDropShadowEnabledOnSeriesItemElement;
+        new (): HTMLApexChartDropShadowEnabledOnSeriesItemElement;
+    };
+    interface HTMLApexChartDropShadowEnabledOnSeriesListElement extends Components.ApexChartDropShadowEnabledOnSeriesList, HTMLStencilElement {
+    }
+    var HTMLApexChartDropShadowEnabledOnSeriesListElement: {
+        prototype: HTMLApexChartDropShadowEnabledOnSeriesListElement;
+        new (): HTMLApexChartDropShadowEnabledOnSeriesListElement;
+    };
+    interface HTMLApexChartEventsElement extends Components.ApexChartEvents, HTMLStencilElement {
+    }
+    var HTMLApexChartEventsElement: {
+        prototype: HTMLApexChartEventsElement;
+        new (): HTMLApexChartEventsElement;
+    };
+    interface HTMLApexChartLocalesListElement extends Components.ApexChartLocalesList, HTMLStencilElement {
+    }
+    var HTMLApexChartLocalesListElement: {
+        prototype: HTMLApexChartLocalesListElement;
+        new (): HTMLApexChartLocalesListElement;
+    };
+    interface HTMLApexChartOldElement extends Components.ApexChartOld, HTMLStencilElement {
+    }
+    var HTMLApexChartOldElement: {
+        prototype: HTMLApexChartOldElement;
+        new (): HTMLApexChartOldElement;
+    };
+    interface HTMLApexChartSelectionElement extends Components.ApexChartSelection, HTMLStencilElement {
+    }
+    var HTMLApexChartSelectionElement: {
+        prototype: HTMLApexChartSelectionElement;
+        new (): HTMLApexChartSelectionElement;
+    };
+    interface HTMLApexChartSelectionFillElement extends Components.ApexChartSelectionFill, HTMLStencilElement {
+    }
+    var HTMLApexChartSelectionFillElement: {
+        prototype: HTMLApexChartSelectionFillElement;
+        new (): HTMLApexChartSelectionFillElement;
+    };
+    interface HTMLApexChartSelectionStrokeElement extends Components.ApexChartSelectionStroke, HTMLStencilElement {
+    }
+    var HTMLApexChartSelectionStrokeElement: {
+        prototype: HTMLApexChartSelectionStrokeElement;
+        new (): HTMLApexChartSelectionStrokeElement;
+    };
+    interface HTMLApexChartSelectionXaxisElement extends Components.ApexChartSelectionXaxis, HTMLStencilElement {
+    }
+    var HTMLApexChartSelectionXaxisElement: {
+        prototype: HTMLApexChartSelectionXaxisElement;
+        new (): HTMLApexChartSelectionXaxisElement;
+    };
+    interface HTMLApexChartSelectionYaxisElement extends Components.ApexChartSelectionYaxis, HTMLStencilElement {
+    }
+    var HTMLApexChartSelectionYaxisElement: {
+        prototype: HTMLApexChartSelectionYaxisElement;
+        new (): HTMLApexChartSelectionYaxisElement;
+    };
+    interface HTMLApexChartSparklineElement extends Components.ApexChartSparkline, HTMLStencilElement {
+    }
+    var HTMLApexChartSparklineElement: {
+        prototype: HTMLApexChartSparklineElement;
+        new (): HTMLApexChartSparklineElement;
+    };
+    interface HTMLApexChartToolbarElement extends Components.ApexChartToolbar, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarElement: {
+        prototype: HTMLApexChartToolbarElement;
+        new (): HTMLApexChartToolbarElement;
+    };
+    interface HTMLApexChartToolbarExportElement extends Components.ApexChartToolbarExport, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarExportElement: {
+        prototype: HTMLApexChartToolbarExportElement;
+        new (): HTMLApexChartToolbarExportElement;
+    };
+    interface HTMLApexChartToolbarExportCsvElement extends Components.ApexChartToolbarExportCsv, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarExportCsvElement: {
+        prototype: HTMLApexChartToolbarExportCsvElement;
+        new (): HTMLApexChartToolbarExportCsvElement;
+    };
+    interface HTMLApexChartToolbarExportPngElement extends Components.ApexChartToolbarExportPng, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarExportPngElement: {
+        prototype: HTMLApexChartToolbarExportPngElement;
+        new (): HTMLApexChartToolbarExportPngElement;
+    };
+    interface HTMLApexChartToolbarExportSvgElement extends Components.ApexChartToolbarExportSvg, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarExportSvgElement: {
+        prototype: HTMLApexChartToolbarExportSvgElement;
+        new (): HTMLApexChartToolbarExportSvgElement;
+    };
+    interface HTMLApexChartToolbarToolsElement extends Components.ApexChartToolbarTools, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarToolsElement: {
+        prototype: HTMLApexChartToolbarToolsElement;
+        new (): HTMLApexChartToolbarToolsElement;
+    };
+    interface HTMLApexChartToolbarToolsCustomIconsItemElement extends Components.ApexChartToolbarToolsCustomIconsItem, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarToolsCustomIconsItemElement: {
+        prototype: HTMLApexChartToolbarToolsCustomIconsItemElement;
+        new (): HTMLApexChartToolbarToolsCustomIconsItemElement;
+    };
+    interface HTMLApexChartToolbarToolsCustomIconsListElement extends Components.ApexChartToolbarToolsCustomIconsList, HTMLStencilElement {
+    }
+    var HTMLApexChartToolbarToolsCustomIconsListElement: {
+        prototype: HTMLApexChartToolbarToolsCustomIconsListElement;
+        new (): HTMLApexChartToolbarToolsCustomIconsListElement;
+    };
+    interface HTMLApexChartZoomElement extends Components.ApexChartZoom, HTMLStencilElement {
+    }
+    var HTMLApexChartZoomElement: {
+        prototype: HTMLApexChartZoomElement;
+        new (): HTMLApexChartZoomElement;
+    };
+    interface HTMLApexChartZoomZoomedAreaElement extends Components.ApexChartZoomZoomedArea, HTMLStencilElement {
+    }
+    var HTMLApexChartZoomZoomedAreaElement: {
+        prototype: HTMLApexChartZoomZoomedAreaElement;
+        new (): HTMLApexChartZoomZoomedAreaElement;
+    };
+    interface HTMLApexChartZoomZoomedAreaFillElement extends Components.ApexChartZoomZoomedAreaFill, HTMLStencilElement {
+    }
+    var HTMLApexChartZoomZoomedAreaFillElement: {
+        prototype: HTMLApexChartZoomZoomedAreaFillElement;
+        new (): HTMLApexChartZoomZoomedAreaFillElement;
+    };
+    interface HTMLApexChartZoomZoomedAreaStrokeElement extends Components.ApexChartZoomZoomedAreaStroke, HTMLStencilElement {
+    }
+    var HTMLApexChartZoomZoomedAreaStrokeElement: {
+        prototype: HTMLApexChartZoomZoomedAreaStrokeElement;
+        new (): HTMLApexChartZoomZoomedAreaStrokeElement;
+    };
+    interface HTMLApexColorStopElement extends Components.ApexColorStop, HTMLStencilElement {
+    }
+    var HTMLApexColorStopElement: {
+        prototype: HTMLApexColorStopElement;
+        new (): HTMLApexColorStopElement;
+    };
+    interface HTMLApexDataLabelsElement extends Components.ApexDataLabels, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsElement: {
+        prototype: HTMLApexDataLabelsElement;
+        new (): HTMLApexDataLabelsElement;
+    };
+    interface HTMLApexDataLabelsBackgroundElement extends Components.ApexDataLabelsBackground, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsBackgroundElement: {
+        prototype: HTMLApexDataLabelsBackgroundElement;
+        new (): HTMLApexDataLabelsBackgroundElement;
+    };
+    interface HTMLApexDataLabelsEnabledOnSeriesItemElement extends Components.ApexDataLabelsEnabledOnSeriesItem, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsEnabledOnSeriesItemElement: {
+        prototype: HTMLApexDataLabelsEnabledOnSeriesItemElement;
+        new (): HTMLApexDataLabelsEnabledOnSeriesItemElement;
+    };
+    interface HTMLApexDataLabelsEnabledOnSeriesListElement extends Components.ApexDataLabelsEnabledOnSeriesList, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsEnabledOnSeriesListElement: {
+        prototype: HTMLApexDataLabelsEnabledOnSeriesListElement;
+        new (): HTMLApexDataLabelsEnabledOnSeriesListElement;
+    };
+    interface HTMLApexDataLabelsStyleElement extends Components.ApexDataLabelsStyle, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsStyleElement: {
+        prototype: HTMLApexDataLabelsStyleElement;
+        new (): HTMLApexDataLabelsStyleElement;
+    };
+    interface HTMLApexDataLabelsStyleColorsItemElement extends Components.ApexDataLabelsStyleColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsStyleColorsItemElement: {
+        prototype: HTMLApexDataLabelsStyleColorsItemElement;
+        new (): HTMLApexDataLabelsStyleColorsItemElement;
+    };
+    interface HTMLApexDataLabelsStyleColorsListElement extends Components.ApexDataLabelsStyleColorsList, HTMLStencilElement {
+    }
+    var HTMLApexDataLabelsStyleColorsListElement: {
+        prototype: HTMLApexDataLabelsStyleColorsListElement;
+        new (): HTMLApexDataLabelsStyleColorsListElement;
+    };
+    interface HTMLApexDiscretePointElement extends Components.ApexDiscretePoint, HTMLStencilElement {
+    }
+    var HTMLApexDiscretePointElement: {
+        prototype: HTMLApexDiscretePointElement;
+        new (): HTMLApexDiscretePointElement;
+    };
+    interface HTMLApexDropShadowElement extends Components.ApexDropShadow, HTMLStencilElement {
+    }
+    var HTMLApexDropShadowElement: {
+        prototype: HTMLApexDropShadowElement;
+        new (): HTMLApexDropShadowElement;
+    };
+    interface HTMLApexFillElement extends Components.ApexFill, HTMLStencilElement {
+    }
+    var HTMLApexFillElement: {
+        prototype: HTMLApexFillElement;
+        new (): HTMLApexFillElement;
+    };
+    interface HTMLApexFillColorsItemElement extends Components.ApexFillColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexFillColorsItemElement: {
+        prototype: HTMLApexFillColorsItemElement;
+        new (): HTMLApexFillColorsItemElement;
+    };
+    interface HTMLApexFillColorsListElement extends Components.ApexFillColorsList, HTMLStencilElement {
+    }
+    var HTMLApexFillColorsListElement: {
+        prototype: HTMLApexFillColorsListElement;
+        new (): HTMLApexFillColorsListElement;
+    };
+    interface HTMLApexFillGradientElement extends Components.ApexFillGradient, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientElement: {
+        prototype: HTMLApexFillGradientElement;
+        new (): HTMLApexFillGradientElement;
+    };
+    interface HTMLApexFillGradientColorStops1ItemListElement extends Components.ApexFillGradientColorStops1ItemList, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientColorStops1ItemListElement: {
+        prototype: HTMLApexFillGradientColorStops1ItemListElement;
+        new (): HTMLApexFillGradientColorStops1ItemListElement;
+    };
+    interface HTMLApexFillGradientColorStops1ListElement extends Components.ApexFillGradientColorStops1List, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientColorStops1ListElement: {
+        prototype: HTMLApexFillGradientColorStops1ListElement;
+        new (): HTMLApexFillGradientColorStops1ListElement;
+    };
+    interface HTMLApexFillGradientColorStops2ListElement extends Components.ApexFillGradientColorStops2List, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientColorStops2ListElement: {
+        prototype: HTMLApexFillGradientColorStops2ListElement;
+        new (): HTMLApexFillGradientColorStops2ListElement;
+    };
+    interface HTMLApexFillGradientGradientToColorsItemElement extends Components.ApexFillGradientGradientToColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientGradientToColorsItemElement: {
+        prototype: HTMLApexFillGradientGradientToColorsItemElement;
+        new (): HTMLApexFillGradientGradientToColorsItemElement;
+    };
+    interface HTMLApexFillGradientGradientToColorsListElement extends Components.ApexFillGradientGradientToColorsList, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientGradientToColorsListElement: {
+        prototype: HTMLApexFillGradientGradientToColorsListElement;
+        new (): HTMLApexFillGradientGradientToColorsListElement;
+    };
+    interface HTMLApexFillGradientOpacityFromItemElement extends Components.ApexFillGradientOpacityFromItem, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientOpacityFromItemElement: {
+        prototype: HTMLApexFillGradientOpacityFromItemElement;
+        new (): HTMLApexFillGradientOpacityFromItemElement;
+    };
+    interface HTMLApexFillGradientOpacityFromListElement extends Components.ApexFillGradientOpacityFromList, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientOpacityFromListElement: {
+        prototype: HTMLApexFillGradientOpacityFromListElement;
+        new (): HTMLApexFillGradientOpacityFromListElement;
+    };
+    interface HTMLApexFillGradientOpacityToItemElement extends Components.ApexFillGradientOpacityToItem, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientOpacityToItemElement: {
+        prototype: HTMLApexFillGradientOpacityToItemElement;
+        new (): HTMLApexFillGradientOpacityToItemElement;
+    };
+    interface HTMLApexFillGradientOpacityToListElement extends Components.ApexFillGradientOpacityToList, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientOpacityToListElement: {
+        prototype: HTMLApexFillGradientOpacityToListElement;
+        new (): HTMLApexFillGradientOpacityToListElement;
+    };
+    interface HTMLApexFillGradientStopsItemElement extends Components.ApexFillGradientStopsItem, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientStopsItemElement: {
+        prototype: HTMLApexFillGradientStopsItemElement;
+        new (): HTMLApexFillGradientStopsItemElement;
+    };
+    interface HTMLApexFillGradientStopsListElement extends Components.ApexFillGradientStopsList, HTMLStencilElement {
+    }
+    var HTMLApexFillGradientStopsListElement: {
+        prototype: HTMLApexFillGradientStopsListElement;
+        new (): HTMLApexFillGradientStopsListElement;
+    };
+    interface HTMLApexFillImageElement extends Components.ApexFillImage, HTMLStencilElement {
+    }
+    var HTMLApexFillImageElement: {
+        prototype: HTMLApexFillImageElement;
+        new (): HTMLApexFillImageElement;
+    };
+    interface HTMLApexFillImageSrcItemElement extends Components.ApexFillImageSrcItem, HTMLStencilElement {
+    }
+    var HTMLApexFillImageSrcItemElement: {
+        prototype: HTMLApexFillImageSrcItemElement;
+        new (): HTMLApexFillImageSrcItemElement;
+    };
+    interface HTMLApexFillImageSrcListElement extends Components.ApexFillImageSrcList, HTMLStencilElement {
+    }
+    var HTMLApexFillImageSrcListElement: {
+        prototype: HTMLApexFillImageSrcListElement;
+        new (): HTMLApexFillImageSrcListElement;
+    };
+    interface HTMLApexFillOpacityItemElement extends Components.ApexFillOpacityItem, HTMLStencilElement {
+    }
+    var HTMLApexFillOpacityItemElement: {
+        prototype: HTMLApexFillOpacityItemElement;
+        new (): HTMLApexFillOpacityItemElement;
+    };
+    interface HTMLApexFillOpacityListElement extends Components.ApexFillOpacityList, HTMLStencilElement {
+    }
+    var HTMLApexFillOpacityListElement: {
+        prototype: HTMLApexFillOpacityListElement;
+        new (): HTMLApexFillOpacityListElement;
+    };
+    interface HTMLApexFillPatternElement extends Components.ApexFillPattern, HTMLStencilElement {
+    }
+    var HTMLApexFillPatternElement: {
+        prototype: HTMLApexFillPatternElement;
+        new (): HTMLApexFillPatternElement;
+    };
+    interface HTMLApexFillPatternStyleItemElement extends Components.ApexFillPatternStyleItem, HTMLStencilElement {
+    }
+    var HTMLApexFillPatternStyleItemElement: {
+        prototype: HTMLApexFillPatternStyleItemElement;
+        new (): HTMLApexFillPatternStyleItemElement;
+    };
+    interface HTMLApexFillPatternStyleListElement extends Components.ApexFillPatternStyleList, HTMLStencilElement {
+    }
+    var HTMLApexFillPatternStyleListElement: {
+        prototype: HTMLApexFillPatternStyleListElement;
+        new (): HTMLApexFillPatternStyleListElement;
+    };
+    interface HTMLApexFillTypeItemElement extends Components.ApexFillTypeItem, HTMLStencilElement {
+    }
+    var HTMLApexFillTypeItemElement: {
+        prototype: HTMLApexFillTypeItemElement;
+        new (): HTMLApexFillTypeItemElement;
+    };
+    interface HTMLApexFillTypeListElement extends Components.ApexFillTypeList, HTMLStencilElement {
+    }
+    var HTMLApexFillTypeListElement: {
+        prototype: HTMLApexFillTypeListElement;
+        new (): HTMLApexFillTypeListElement;
+    };
+    interface HTMLApexForecastDataPointsElement extends Components.ApexForecastDataPoints, HTMLStencilElement {
+    }
+    var HTMLApexForecastDataPointsElement: {
+        prototype: HTMLApexForecastDataPointsElement;
+        new (): HTMLApexForecastDataPointsElement;
+    };
+    interface HTMLApexGridElement extends Components.ApexGrid, HTMLStencilElement {
+    }
+    var HTMLApexGridElement: {
+        prototype: HTMLApexGridElement;
+        new (): HTMLApexGridElement;
+    };
+    interface HTMLApexGridColumnElement extends Components.ApexGridColumn, HTMLStencilElement {
+    }
+    var HTMLApexGridColumnElement: {
+        prototype: HTMLApexGridColumnElement;
+        new (): HTMLApexGridColumnElement;
+    };
+    interface HTMLApexGridColumnColorsItemElement extends Components.ApexGridColumnColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexGridColumnColorsItemElement: {
+        prototype: HTMLApexGridColumnColorsItemElement;
+        new (): HTMLApexGridColumnColorsItemElement;
+    };
+    interface HTMLApexGridColumnColorsListElement extends Components.ApexGridColumnColorsList, HTMLStencilElement {
+    }
+    var HTMLApexGridColumnColorsListElement: {
+        prototype: HTMLApexGridColumnColorsListElement;
+        new (): HTMLApexGridColumnColorsListElement;
+    };
+    interface HTMLApexGridPaddingElement extends Components.ApexGridPadding, HTMLStencilElement {
+    }
+    var HTMLApexGridPaddingElement: {
+        prototype: HTMLApexGridPaddingElement;
+        new (): HTMLApexGridPaddingElement;
+    };
+    interface HTMLApexGridRowElement extends Components.ApexGridRow, HTMLStencilElement {
+    }
+    var HTMLApexGridRowElement: {
+        prototype: HTMLApexGridRowElement;
+        new (): HTMLApexGridRowElement;
+    };
+    interface HTMLApexGridRowColorsItemElement extends Components.ApexGridRowColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexGridRowColorsItemElement: {
+        prototype: HTMLApexGridRowColorsItemElement;
+        new (): HTMLApexGridRowColorsItemElement;
+    };
+    interface HTMLApexGridRowColorsListElement extends Components.ApexGridRowColorsList, HTMLStencilElement {
+    }
+    var HTMLApexGridRowColorsListElement: {
+        prototype: HTMLApexGridRowColorsListElement;
+        new (): HTMLApexGridRowColorsListElement;
+    };
+    interface HTMLApexGridXaxisElement extends Components.ApexGridXaxis, HTMLStencilElement {
+    }
+    var HTMLApexGridXaxisElement: {
+        prototype: HTMLApexGridXaxisElement;
+        new (): HTMLApexGridXaxisElement;
+    };
+    interface HTMLApexGridXaxisLinesElement extends Components.ApexGridXaxisLines, HTMLStencilElement {
+    }
+    var HTMLApexGridXaxisLinesElement: {
+        prototype: HTMLApexGridXaxisLinesElement;
+        new (): HTMLApexGridXaxisLinesElement;
+    };
+    interface HTMLApexGridYaxisElement extends Components.ApexGridYaxis, HTMLStencilElement {
+    }
+    var HTMLApexGridYaxisElement: {
+        prototype: HTMLApexGridYaxisElement;
+        new (): HTMLApexGridYaxisElement;
+    };
+    interface HTMLApexGridYaxisLinesElement extends Components.ApexGridYaxisLines, HTMLStencilElement {
+    }
+    var HTMLApexGridYaxisLinesElement: {
+        prototype: HTMLApexGridYaxisLinesElement;
+        new (): HTMLApexGridYaxisLinesElement;
+    };
+    interface HTMLApexLegendElement extends Components.ApexLegend, HTMLStencilElement {
+    }
+    var HTMLApexLegendElement: {
+        prototype: HTMLApexLegendElement;
+        new (): HTMLApexLegendElement;
+    };
+    interface HTMLApexLegendCustomLegendItemsItemElement extends Components.ApexLegendCustomLegendItemsItem, HTMLStencilElement {
+    }
+    var HTMLApexLegendCustomLegendItemsItemElement: {
+        prototype: HTMLApexLegendCustomLegendItemsItemElement;
+        new (): HTMLApexLegendCustomLegendItemsItemElement;
+    };
+    interface HTMLApexLegendCustomLegendItemsListElement extends Components.ApexLegendCustomLegendItemsList, HTMLStencilElement {
+    }
+    var HTMLApexLegendCustomLegendItemsListElement: {
+        prototype: HTMLApexLegendCustomLegendItemsListElement;
+        new (): HTMLApexLegendCustomLegendItemsListElement;
+    };
+    interface HTMLApexLegendItemMarginElement extends Components.ApexLegendItemMargin, HTMLStencilElement {
+    }
+    var HTMLApexLegendItemMarginElement: {
+        prototype: HTMLApexLegendItemMarginElement;
+        new (): HTMLApexLegendItemMarginElement;
+    };
+    interface HTMLApexLegendLabelsElement extends Components.ApexLegendLabels, HTMLStencilElement {
+    }
+    var HTMLApexLegendLabelsElement: {
+        prototype: HTMLApexLegendLabelsElement;
+        new (): HTMLApexLegendLabelsElement;
+    };
+    interface HTMLApexLegendLabelsColorsItemElement extends Components.ApexLegendLabelsColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexLegendLabelsColorsItemElement: {
+        prototype: HTMLApexLegendLabelsColorsItemElement;
+        new (): HTMLApexLegendLabelsColorsItemElement;
+    };
+    interface HTMLApexLegendLabelsColorsListElement extends Components.ApexLegendLabelsColorsList, HTMLStencilElement {
+    }
+    var HTMLApexLegendLabelsColorsListElement: {
+        prototype: HTMLApexLegendLabelsColorsListElement;
+        new (): HTMLApexLegendLabelsColorsListElement;
+    };
+    interface HTMLApexLegendMarkersElement extends Components.ApexLegendMarkers, HTMLStencilElement {
+    }
+    var HTMLApexLegendMarkersElement: {
+        prototype: HTMLApexLegendMarkersElement;
+        new (): HTMLApexLegendMarkersElement;
+    };
+    interface HTMLApexLegendMarkersFillColorsItemElement extends Components.ApexLegendMarkersFillColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexLegendMarkersFillColorsItemElement: {
+        prototype: HTMLApexLegendMarkersFillColorsItemElement;
+        new (): HTMLApexLegendMarkersFillColorsItemElement;
+    };
+    interface HTMLApexLegendMarkersFillColorsListElement extends Components.ApexLegendMarkersFillColorsList, HTMLStencilElement {
+    }
+    var HTMLApexLegendMarkersFillColorsListElement: {
+        prototype: HTMLApexLegendMarkersFillColorsListElement;
+        new (): HTMLApexLegendMarkersFillColorsListElement;
+    };
+    interface HTMLApexLegendOnItemClickElement extends Components.ApexLegendOnItemClick, HTMLStencilElement {
+    }
+    var HTMLApexLegendOnItemClickElement: {
+        prototype: HTMLApexLegendOnItemClickElement;
+        new (): HTMLApexLegendOnItemClickElement;
+    };
+    interface HTMLApexLegendOnItemHoverElement extends Components.ApexLegendOnItemHover, HTMLStencilElement {
+    }
+    var HTMLApexLegendOnItemHoverElement: {
+        prototype: HTMLApexLegendOnItemHoverElement;
+        new (): HTMLApexLegendOnItemHoverElement;
+    };
+    interface HTMLApexLocaleElement extends Components.ApexLocale, HTMLStencilElement {
+    }
+    var HTMLApexLocaleElement: {
+        prototype: HTMLApexLocaleElement;
+        new (): HTMLApexLocaleElement;
+    };
+    interface HTMLApexLocaleOptionsElement extends Components.ApexLocaleOptions, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsElement: {
+        prototype: HTMLApexLocaleOptionsElement;
+        new (): HTMLApexLocaleOptionsElement;
+    };
+    interface HTMLApexLocaleOptionsDaysItemElement extends Components.ApexLocaleOptionsDaysItem, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsDaysItemElement: {
+        prototype: HTMLApexLocaleOptionsDaysItemElement;
+        new (): HTMLApexLocaleOptionsDaysItemElement;
+    };
+    interface HTMLApexLocaleOptionsDaysListElement extends Components.ApexLocaleOptionsDaysList, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsDaysListElement: {
+        prototype: HTMLApexLocaleOptionsDaysListElement;
+        new (): HTMLApexLocaleOptionsDaysListElement;
+    };
+    interface HTMLApexLocaleOptionsMonthsItemElement extends Components.ApexLocaleOptionsMonthsItem, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsMonthsItemElement: {
+        prototype: HTMLApexLocaleOptionsMonthsItemElement;
+        new (): HTMLApexLocaleOptionsMonthsItemElement;
+    };
+    interface HTMLApexLocaleOptionsMonthsListElement extends Components.ApexLocaleOptionsMonthsList, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsMonthsListElement: {
+        prototype: HTMLApexLocaleOptionsMonthsListElement;
+        new (): HTMLApexLocaleOptionsMonthsListElement;
+    };
+    interface HTMLApexLocaleOptionsShortDaysItemElement extends Components.ApexLocaleOptionsShortDaysItem, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsShortDaysItemElement: {
+        prototype: HTMLApexLocaleOptionsShortDaysItemElement;
+        new (): HTMLApexLocaleOptionsShortDaysItemElement;
+    };
+    interface HTMLApexLocaleOptionsShortDaysListElement extends Components.ApexLocaleOptionsShortDaysList, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsShortDaysListElement: {
+        prototype: HTMLApexLocaleOptionsShortDaysListElement;
+        new (): HTMLApexLocaleOptionsShortDaysListElement;
+    };
+    interface HTMLApexLocaleOptionsShortMonthsItemElement extends Components.ApexLocaleOptionsShortMonthsItem, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsShortMonthsItemElement: {
+        prototype: HTMLApexLocaleOptionsShortMonthsItemElement;
+        new (): HTMLApexLocaleOptionsShortMonthsItemElement;
+    };
+    interface HTMLApexLocaleOptionsShortMonthsListElement extends Components.ApexLocaleOptionsShortMonthsList, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsShortMonthsListElement: {
+        prototype: HTMLApexLocaleOptionsShortMonthsListElement;
+        new (): HTMLApexLocaleOptionsShortMonthsListElement;
+    };
+    interface HTMLApexLocaleOptionsToolbarElement extends Components.ApexLocaleOptionsToolbar, HTMLStencilElement {
+    }
+    var HTMLApexLocaleOptionsToolbarElement: {
+        prototype: HTMLApexLocaleOptionsToolbarElement;
+        new (): HTMLApexLocaleOptionsToolbarElement;
+    };
+    interface HTMLApexMarkerShapeListElement extends Components.ApexMarkerShapeList, HTMLStencilElement {
+    }
+    var HTMLApexMarkerShapeListElement: {
+        prototype: HTMLApexMarkerShapeListElement;
+        new (): HTMLApexMarkerShapeListElement;
+    };
+    interface HTMLApexMarkersElement extends Components.ApexMarkers, HTMLStencilElement {
+    }
+    var HTMLApexMarkersElement: {
+        prototype: HTMLApexMarkersElement;
+        new (): HTMLApexMarkersElement;
+    };
+    interface HTMLApexMarkersColorsItemElement extends Components.ApexMarkersColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersColorsItemElement: {
+        prototype: HTMLApexMarkersColorsItemElement;
+        new (): HTMLApexMarkersColorsItemElement;
+    };
+    interface HTMLApexMarkersColorsListElement extends Components.ApexMarkersColorsList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersColorsListElement: {
+        prototype: HTMLApexMarkersColorsListElement;
+        new (): HTMLApexMarkersColorsListElement;
+    };
+    interface HTMLApexMarkersDiscreteListElement extends Components.ApexMarkersDiscreteList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersDiscreteListElement: {
+        prototype: HTMLApexMarkersDiscreteListElement;
+        new (): HTMLApexMarkersDiscreteListElement;
+    };
+    interface HTMLApexMarkersFillOpacityItemElement extends Components.ApexMarkersFillOpacityItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersFillOpacityItemElement: {
+        prototype: HTMLApexMarkersFillOpacityItemElement;
+        new (): HTMLApexMarkersFillOpacityItemElement;
+    };
+    interface HTMLApexMarkersFillOpacityListElement extends Components.ApexMarkersFillOpacityList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersFillOpacityListElement: {
+        prototype: HTMLApexMarkersFillOpacityListElement;
+        new (): HTMLApexMarkersFillOpacityListElement;
+    };
+    interface HTMLApexMarkersHoverElement extends Components.ApexMarkersHover, HTMLStencilElement {
+    }
+    var HTMLApexMarkersHoverElement: {
+        prototype: HTMLApexMarkersHoverElement;
+        new (): HTMLApexMarkersHoverElement;
+    };
+    interface HTMLApexMarkersSizeItemElement extends Components.ApexMarkersSizeItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersSizeItemElement: {
+        prototype: HTMLApexMarkersSizeItemElement;
+        new (): HTMLApexMarkersSizeItemElement;
+    };
+    interface HTMLApexMarkersSizeListElement extends Components.ApexMarkersSizeList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersSizeListElement: {
+        prototype: HTMLApexMarkersSizeListElement;
+        new (): HTMLApexMarkersSizeListElement;
+    };
+    interface HTMLApexMarkersStrokeColorsItemElement extends Components.ApexMarkersStrokeColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeColorsItemElement: {
+        prototype: HTMLApexMarkersStrokeColorsItemElement;
+        new (): HTMLApexMarkersStrokeColorsItemElement;
+    };
+    interface HTMLApexMarkersStrokeColorsListElement extends Components.ApexMarkersStrokeColorsList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeColorsListElement: {
+        prototype: HTMLApexMarkersStrokeColorsListElement;
+        new (): HTMLApexMarkersStrokeColorsListElement;
+    };
+    interface HTMLApexMarkersStrokeDashArrayItemElement extends Components.ApexMarkersStrokeDashArrayItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeDashArrayItemElement: {
+        prototype: HTMLApexMarkersStrokeDashArrayItemElement;
+        new (): HTMLApexMarkersStrokeDashArrayItemElement;
+    };
+    interface HTMLApexMarkersStrokeDashArrayListElement extends Components.ApexMarkersStrokeDashArrayList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeDashArrayListElement: {
+        prototype: HTMLApexMarkersStrokeDashArrayListElement;
+        new (): HTMLApexMarkersStrokeDashArrayListElement;
+    };
+    interface HTMLApexMarkersStrokeOpacityItemElement extends Components.ApexMarkersStrokeOpacityItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeOpacityItemElement: {
+        prototype: HTMLApexMarkersStrokeOpacityItemElement;
+        new (): HTMLApexMarkersStrokeOpacityItemElement;
+    };
+    interface HTMLApexMarkersStrokeOpacityListElement extends Components.ApexMarkersStrokeOpacityList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeOpacityListElement: {
+        prototype: HTMLApexMarkersStrokeOpacityListElement;
+        new (): HTMLApexMarkersStrokeOpacityListElement;
+    };
+    interface HTMLApexMarkersStrokeWidthItemElement extends Components.ApexMarkersStrokeWidthItem, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeWidthItemElement: {
+        prototype: HTMLApexMarkersStrokeWidthItemElement;
+        new (): HTMLApexMarkersStrokeWidthItemElement;
+    };
+    interface HTMLApexMarkersStrokeWidthListElement extends Components.ApexMarkersStrokeWidthList, HTMLStencilElement {
+    }
+    var HTMLApexMarkersStrokeWidthListElement: {
+        prototype: HTMLApexMarkersStrokeWidthListElement;
+        new (): HTMLApexMarkersStrokeWidthListElement;
+    };
+    interface HTMLApexNoDataElement extends Components.ApexNoData, HTMLStencilElement {
+    }
+    var HTMLApexNoDataElement: {
+        prototype: HTMLApexNoDataElement;
+        new (): HTMLApexNoDataElement;
+    };
+    interface HTMLApexNoDataStyleElement extends Components.ApexNoDataStyle, HTMLStencilElement {
+    }
+    var HTMLApexNoDataStyleElement: {
+        prototype: HTMLApexNoDataStyleElement;
+        new (): HTMLApexNoDataStyleElement;
+    };
+    interface HTMLApexNonAxisChartSeriesItemElement extends Components.ApexNonAxisChartSeriesItem, HTMLStencilElement {
+    }
+    var HTMLApexNonAxisChartSeriesItemElement: {
+        prototype: HTMLApexNonAxisChartSeriesItemElement;
+        new (): HTMLApexNonAxisChartSeriesItemElement;
+    };
+    interface HTMLApexNonAxisChartSeriesListElement extends Components.ApexNonAxisChartSeriesList, HTMLStencilElement {
+    }
+    var HTMLApexNonAxisChartSeriesListElement: {
+        prototype: HTMLApexNonAxisChartSeriesListElement;
+        new (): HTMLApexNonAxisChartSeriesListElement;
+    };
+    interface HTMLApexOptionsElement extends Components.ApexOptions, HTMLStencilElement {
+    }
+    var HTMLApexOptionsElement: {
+        prototype: HTMLApexOptionsElement;
+        new (): HTMLApexOptionsElement;
+    };
+    interface HTMLApexOptionsColorsItemElement extends Components.ApexOptionsColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexOptionsColorsItemElement: {
+        prototype: HTMLApexOptionsColorsItemElement;
+        new (): HTMLApexOptionsColorsItemElement;
+    };
+    interface HTMLApexOptionsColorsListElement extends Components.ApexOptionsColorsList, HTMLStencilElement {
+    }
+    var HTMLApexOptionsColorsListElement: {
+        prototype: HTMLApexOptionsColorsListElement;
+        new (): HTMLApexOptionsColorsListElement;
+    };
+    interface HTMLApexOptionsLabelsItemElement extends Components.ApexOptionsLabelsItem, HTMLStencilElement {
+    }
+    var HTMLApexOptionsLabelsItemElement: {
+        prototype: HTMLApexOptionsLabelsItemElement;
+        new (): HTMLApexOptionsLabelsItemElement;
+    };
+    interface HTMLApexOptionsLabelsListElement extends Components.ApexOptionsLabelsList, HTMLStencilElement {
+    }
+    var HTMLApexOptionsLabelsListElement: {
+        prototype: HTMLApexOptionsLabelsListElement;
+        new (): HTMLApexOptionsLabelsListElement;
+    };
+    interface HTMLApexOptionsResponsiveListElement extends Components.ApexOptionsResponsiveList, HTMLStencilElement {
+    }
+    var HTMLApexOptionsResponsiveListElement: {
+        prototype: HTMLApexOptionsResponsiveListElement;
+        new (): HTMLApexOptionsResponsiveListElement;
+    };
+    interface HTMLApexOptionsYaxisListElement extends Components.ApexOptionsYaxisList, HTMLStencilElement {
+    }
+    var HTMLApexOptionsYaxisListElement: {
+        prototype: HTMLApexOptionsYaxisListElement;
+        new (): HTMLApexOptionsYaxisListElement;
+    };
+    interface HTMLApexParsingElement extends Components.ApexParsing, HTMLStencilElement {
+    }
+    var HTMLApexParsingElement: {
+        prototype: HTMLApexParsingElement;
+        new (): HTMLApexParsingElement;
+    };
+    interface HTMLApexParsingYItemElement extends Components.ApexParsingYItem, HTMLStencilElement {
+    }
+    var HTMLApexParsingYItemElement: {
+        prototype: HTMLApexParsingYItemElement;
+        new (): HTMLApexParsingYItemElement;
+    };
+    interface HTMLApexParsingYListElement extends Components.ApexParsingYList, HTMLStencilElement {
+    }
+    var HTMLApexParsingYListElement: {
+        prototype: HTMLApexParsingYListElement;
+        new (): HTMLApexParsingYListElement;
+    };
+    interface HTMLApexPlotOptionsElement extends Components.ApexPlotOptions, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsElement: {
+        prototype: HTMLApexPlotOptionsElement;
+        new (): HTMLApexPlotOptionsElement;
+    };
+    interface HTMLApexPlotOptionsAreaElement extends Components.ApexPlotOptionsArea, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsAreaElement: {
+        prototype: HTMLApexPlotOptionsAreaElement;
+        new (): HTMLApexPlotOptionsAreaElement;
+    };
+    interface HTMLApexPlotOptionsBarElement extends Components.ApexPlotOptionsBar, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarElement: {
+        prototype: HTMLApexPlotOptionsBarElement;
+        new (): HTMLApexPlotOptionsBarElement;
+    };
+    interface HTMLApexPlotOptionsBarColorsElement extends Components.ApexPlotOptionsBarColors, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarColorsElement: {
+        prototype: HTMLApexPlotOptionsBarColorsElement;
+        new (): HTMLApexPlotOptionsBarColorsElement;
+    };
+    interface HTMLApexPlotOptionsBarColorsBackgroundBarColorsItemElement extends Components.ApexPlotOptionsBarColorsBackgroundBarColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarColorsBackgroundBarColorsItemElement: {
+        prototype: HTMLApexPlotOptionsBarColorsBackgroundBarColorsItemElement;
+        new (): HTMLApexPlotOptionsBarColorsBackgroundBarColorsItemElement;
+    };
+    interface HTMLApexPlotOptionsBarColorsBackgroundBarColorsListElement extends Components.ApexPlotOptionsBarColorsBackgroundBarColorsList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarColorsBackgroundBarColorsListElement: {
+        prototype: HTMLApexPlotOptionsBarColorsBackgroundBarColorsListElement;
+        new (): HTMLApexPlotOptionsBarColorsBackgroundBarColorsListElement;
+    };
+    interface HTMLApexPlotOptionsBarColorsRangesItemElement extends Components.ApexPlotOptionsBarColorsRangesItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarColorsRangesItemElement: {
+        prototype: HTMLApexPlotOptionsBarColorsRangesItemElement;
+        new (): HTMLApexPlotOptionsBarColorsRangesItemElement;
+    };
+    interface HTMLApexPlotOptionsBarColorsRangesListElement extends Components.ApexPlotOptionsBarColorsRangesList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarColorsRangesListElement: {
+        prototype: HTMLApexPlotOptionsBarColorsRangesListElement;
+        new (): HTMLApexPlotOptionsBarColorsRangesListElement;
+    };
+    interface HTMLApexPlotOptionsBarDataLabelsElement extends Components.ApexPlotOptionsBarDataLabels, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarDataLabelsElement: {
+        prototype: HTMLApexPlotOptionsBarDataLabelsElement;
+        new (): HTMLApexPlotOptionsBarDataLabelsElement;
+    };
+    interface HTMLApexPlotOptionsBarDataLabelsTotalElement extends Components.ApexPlotOptionsBarDataLabelsTotal, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarDataLabelsTotalElement: {
+        prototype: HTMLApexPlotOptionsBarDataLabelsTotalElement;
+        new (): HTMLApexPlotOptionsBarDataLabelsTotalElement;
+    };
+    interface HTMLApexPlotOptionsBarDataLabelsTotalStyleElement extends Components.ApexPlotOptionsBarDataLabelsTotalStyle, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarDataLabelsTotalStyleElement: {
+        prototype: HTMLApexPlotOptionsBarDataLabelsTotalStyleElement;
+        new (): HTMLApexPlotOptionsBarDataLabelsTotalStyleElement;
+    };
+    interface HTMLApexPlotOptionsBarDumbbellColorsItemItemElement extends Components.ApexPlotOptionsBarDumbbellColorsItemItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarDumbbellColorsItemItemElement: {
+        prototype: HTMLApexPlotOptionsBarDumbbellColorsItemItemElement;
+        new (): HTMLApexPlotOptionsBarDumbbellColorsItemItemElement;
+    };
+    interface HTMLApexPlotOptionsBarDumbbellColorsItemListElement extends Components.ApexPlotOptionsBarDumbbellColorsItemList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarDumbbellColorsItemListElement: {
+        prototype: HTMLApexPlotOptionsBarDumbbellColorsItemListElement;
+        new (): HTMLApexPlotOptionsBarDumbbellColorsItemListElement;
+    };
+    interface HTMLApexPlotOptionsBarDumbbellColorsListElement extends Components.ApexPlotOptionsBarDumbbellColorsList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBarDumbbellColorsListElement: {
+        prototype: HTMLApexPlotOptionsBarDumbbellColorsListElement;
+        new (): HTMLApexPlotOptionsBarDumbbellColorsListElement;
+    };
+    interface HTMLApexPlotOptionsBoxPlotElement extends Components.ApexPlotOptionsBoxPlot, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBoxPlotElement: {
+        prototype: HTMLApexPlotOptionsBoxPlotElement;
+        new (): HTMLApexPlotOptionsBoxPlotElement;
+    };
+    interface HTMLApexPlotOptionsBoxPlotColorsElement extends Components.ApexPlotOptionsBoxPlotColors, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBoxPlotColorsElement: {
+        prototype: HTMLApexPlotOptionsBoxPlotColorsElement;
+        new (): HTMLApexPlotOptionsBoxPlotColorsElement;
+    };
+    interface HTMLApexPlotOptionsBoxPlotColorsLowerItemElement extends Components.ApexPlotOptionsBoxPlotColorsLowerItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBoxPlotColorsLowerItemElement: {
+        prototype: HTMLApexPlotOptionsBoxPlotColorsLowerItemElement;
+        new (): HTMLApexPlotOptionsBoxPlotColorsLowerItemElement;
+    };
+    interface HTMLApexPlotOptionsBoxPlotColorsLowerListElement extends Components.ApexPlotOptionsBoxPlotColorsLowerList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBoxPlotColorsLowerListElement: {
+        prototype: HTMLApexPlotOptionsBoxPlotColorsLowerListElement;
+        new (): HTMLApexPlotOptionsBoxPlotColorsLowerListElement;
+    };
+    interface HTMLApexPlotOptionsBoxPlotColorsUpperItemElement extends Components.ApexPlotOptionsBoxPlotColorsUpperItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBoxPlotColorsUpperItemElement: {
+        prototype: HTMLApexPlotOptionsBoxPlotColorsUpperItemElement;
+        new (): HTMLApexPlotOptionsBoxPlotColorsUpperItemElement;
+    };
+    interface HTMLApexPlotOptionsBoxPlotColorsUpperListElement extends Components.ApexPlotOptionsBoxPlotColorsUpperList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBoxPlotColorsUpperListElement: {
+        prototype: HTMLApexPlotOptionsBoxPlotColorsUpperListElement;
+        new (): HTMLApexPlotOptionsBoxPlotColorsUpperListElement;
+    };
+    interface HTMLApexPlotOptionsBubbleElement extends Components.ApexPlotOptionsBubble, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsBubbleElement: {
+        prototype: HTMLApexPlotOptionsBubbleElement;
+        new (): HTMLApexPlotOptionsBubbleElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickElement extends Components.ApexPlotOptionsCandlestick, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickElement: {
+        prototype: HTMLApexPlotOptionsCandlestickElement;
+        new (): HTMLApexPlotOptionsCandlestickElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickColorsElement extends Components.ApexPlotOptionsCandlestickColors, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickColorsElement: {
+        prototype: HTMLApexPlotOptionsCandlestickColorsElement;
+        new (): HTMLApexPlotOptionsCandlestickColorsElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickColorsDownwardItemElement extends Components.ApexPlotOptionsCandlestickColorsDownwardItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickColorsDownwardItemElement: {
+        prototype: HTMLApexPlotOptionsCandlestickColorsDownwardItemElement;
+        new (): HTMLApexPlotOptionsCandlestickColorsDownwardItemElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickColorsDownwardListElement extends Components.ApexPlotOptionsCandlestickColorsDownwardList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickColorsDownwardListElement: {
+        prototype: HTMLApexPlotOptionsCandlestickColorsDownwardListElement;
+        new (): HTMLApexPlotOptionsCandlestickColorsDownwardListElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickColorsUpwardItemElement extends Components.ApexPlotOptionsCandlestickColorsUpwardItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickColorsUpwardItemElement: {
+        prototype: HTMLApexPlotOptionsCandlestickColorsUpwardItemElement;
+        new (): HTMLApexPlotOptionsCandlestickColorsUpwardItemElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickColorsUpwardListElement extends Components.ApexPlotOptionsCandlestickColorsUpwardList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickColorsUpwardListElement: {
+        prototype: HTMLApexPlotOptionsCandlestickColorsUpwardListElement;
+        new (): HTMLApexPlotOptionsCandlestickColorsUpwardListElement;
+    };
+    interface HTMLApexPlotOptionsCandlestickWickElement extends Components.ApexPlotOptionsCandlestickWick, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsCandlestickWickElement: {
+        prototype: HTMLApexPlotOptionsCandlestickWickElement;
+        new (): HTMLApexPlotOptionsCandlestickWickElement;
+    };
+    interface HTMLApexPlotOptionsHeatmapElement extends Components.ApexPlotOptionsHeatmap, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsHeatmapElement: {
+        prototype: HTMLApexPlotOptionsHeatmapElement;
+        new (): HTMLApexPlotOptionsHeatmapElement;
+    };
+    interface HTMLApexPlotOptionsHeatmapColorScaleElement extends Components.ApexPlotOptionsHeatmapColorScale, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsHeatmapColorScaleElement: {
+        prototype: HTMLApexPlotOptionsHeatmapColorScaleElement;
+        new (): HTMLApexPlotOptionsHeatmapColorScaleElement;
+    };
+    interface HTMLApexPlotOptionsHeatmapColorScaleRangesItemElement extends Components.ApexPlotOptionsHeatmapColorScaleRangesItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsHeatmapColorScaleRangesItemElement: {
+        prototype: HTMLApexPlotOptionsHeatmapColorScaleRangesItemElement;
+        new (): HTMLApexPlotOptionsHeatmapColorScaleRangesItemElement;
+    };
+    interface HTMLApexPlotOptionsHeatmapColorScaleRangesListElement extends Components.ApexPlotOptionsHeatmapColorScaleRangesList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsHeatmapColorScaleRangesListElement: {
+        prototype: HTMLApexPlotOptionsHeatmapColorScaleRangesListElement;
+        new (): HTMLApexPlotOptionsHeatmapColorScaleRangesListElement;
+    };
+    interface HTMLApexPlotOptionsLineElement extends Components.ApexPlotOptionsLine, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsLineElement: {
+        prototype: HTMLApexPlotOptionsLineElement;
+        new (): HTMLApexPlotOptionsLineElement;
+    };
+    interface HTMLApexPlotOptionsLineColorsElement extends Components.ApexPlotOptionsLineColors, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsLineColorsElement: {
+        prototype: HTMLApexPlotOptionsLineColorsElement;
+        new (): HTMLApexPlotOptionsLineColorsElement;
+    };
+    interface HTMLApexPlotOptionsPieElement extends Components.ApexPlotOptionsPie, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieElement: {
+        prototype: HTMLApexPlotOptionsPieElement;
+        new (): HTMLApexPlotOptionsPieElement;
+    };
+    interface HTMLApexPlotOptionsPieDataLabelsElement extends Components.ApexPlotOptionsPieDataLabels, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieDataLabelsElement: {
+        prototype: HTMLApexPlotOptionsPieDataLabelsElement;
+        new (): HTMLApexPlotOptionsPieDataLabelsElement;
+    };
+    interface HTMLApexPlotOptionsPieDonutElement extends Components.ApexPlotOptionsPieDonut, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieDonutElement: {
+        prototype: HTMLApexPlotOptionsPieDonutElement;
+        new (): HTMLApexPlotOptionsPieDonutElement;
+    };
+    interface HTMLApexPlotOptionsPieDonutLabelsElement extends Components.ApexPlotOptionsPieDonutLabels, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieDonutLabelsElement: {
+        prototype: HTMLApexPlotOptionsPieDonutLabelsElement;
+        new (): HTMLApexPlotOptionsPieDonutLabelsElement;
+    };
+    interface HTMLApexPlotOptionsPieDonutLabelsNameElement extends Components.ApexPlotOptionsPieDonutLabelsName, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieDonutLabelsNameElement: {
+        prototype: HTMLApexPlotOptionsPieDonutLabelsNameElement;
+        new (): HTMLApexPlotOptionsPieDonutLabelsNameElement;
+    };
+    interface HTMLApexPlotOptionsPieDonutLabelsTotalElement extends Components.ApexPlotOptionsPieDonutLabelsTotal, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieDonutLabelsTotalElement: {
+        prototype: HTMLApexPlotOptionsPieDonutLabelsTotalElement;
+        new (): HTMLApexPlotOptionsPieDonutLabelsTotalElement;
+    };
+    interface HTMLApexPlotOptionsPieDonutLabelsValueElement extends Components.ApexPlotOptionsPieDonutLabelsValue, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPieDonutLabelsValueElement: {
+        prototype: HTMLApexPlotOptionsPieDonutLabelsValueElement;
+        new (): HTMLApexPlotOptionsPieDonutLabelsValueElement;
+    };
+    interface HTMLApexPlotOptionsPolarAreaElement extends Components.ApexPlotOptionsPolarArea, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPolarAreaElement: {
+        prototype: HTMLApexPlotOptionsPolarAreaElement;
+        new (): HTMLApexPlotOptionsPolarAreaElement;
+    };
+    interface HTMLApexPlotOptionsPolarAreaRingsElement extends Components.ApexPlotOptionsPolarAreaRings, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPolarAreaRingsElement: {
+        prototype: HTMLApexPlotOptionsPolarAreaRingsElement;
+        new (): HTMLApexPlotOptionsPolarAreaRingsElement;
+    };
+    interface HTMLApexPlotOptionsPolarAreaSpokesElement extends Components.ApexPlotOptionsPolarAreaSpokes, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPolarAreaSpokesElement: {
+        prototype: HTMLApexPlotOptionsPolarAreaSpokesElement;
+        new (): HTMLApexPlotOptionsPolarAreaSpokesElement;
+    };
+    interface HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsItemElement extends Components.ApexPlotOptionsPolarAreaSpokesConnectorColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsItemElement: {
+        prototype: HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsItemElement;
+        new (): HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsItemElement;
+    };
+    interface HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsListElement extends Components.ApexPlotOptionsPolarAreaSpokesConnectorColorsList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsListElement: {
+        prototype: HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsListElement;
+        new (): HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsListElement;
+    };
+    interface HTMLApexPlotOptionsRadarElement extends Components.ApexPlotOptionsRadar, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarElement: {
+        prototype: HTMLApexPlotOptionsRadarElement;
+        new (): HTMLApexPlotOptionsRadarElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsElement extends Components.ApexPlotOptionsRadarPolygons, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsConnectorColorsItemElement extends Components.ApexPlotOptionsRadarPolygonsConnectorColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsConnectorColorsItemElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsConnectorColorsItemElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsConnectorColorsItemElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsConnectorColorsListElement extends Components.ApexPlotOptionsRadarPolygonsConnectorColorsList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsConnectorColorsListElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsConnectorColorsListElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsConnectorColorsListElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsFillElement extends Components.ApexPlotOptionsRadarPolygonsFill, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsFillElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsFillElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsFillElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsFillColorsItemElement extends Components.ApexPlotOptionsRadarPolygonsFillColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsFillColorsItemElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsFillColorsItemElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsFillColorsItemElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsFillColorsListElement extends Components.ApexPlotOptionsRadarPolygonsFillColorsList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsFillColorsListElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsFillColorsListElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsFillColorsListElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsStrokeColorsItemElement extends Components.ApexPlotOptionsRadarPolygonsStrokeColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsStrokeColorsItemElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsStrokeColorsItemElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsStrokeColorsItemElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsStrokeColorsListElement extends Components.ApexPlotOptionsRadarPolygonsStrokeColorsList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsStrokeColorsListElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsStrokeColorsListElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsStrokeColorsListElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsStrokeWidthItemElement extends Components.ApexPlotOptionsRadarPolygonsStrokeWidthItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsStrokeWidthItemElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsStrokeWidthItemElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsStrokeWidthItemElement;
+    };
+    interface HTMLApexPlotOptionsRadarPolygonsStrokeWidthListElement extends Components.ApexPlotOptionsRadarPolygonsStrokeWidthList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadarPolygonsStrokeWidthListElement: {
+        prototype: HTMLApexPlotOptionsRadarPolygonsStrokeWidthListElement;
+        new (): HTMLApexPlotOptionsRadarPolygonsStrokeWidthListElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarElement extends Components.ApexPlotOptionsRadialBar, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarElement: {
+        prototype: HTMLApexPlotOptionsRadialBarElement;
+        new (): HTMLApexPlotOptionsRadialBarElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarBarLabelsElementEventMap {
+        "formatter": any;
+        "onClick": any;
+    }
+    interface HTMLApexPlotOptionsRadialBarBarLabelsElement extends Components.ApexPlotOptionsRadialBarBarLabels, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLApexPlotOptionsRadialBarBarLabelsElementEventMap>(type: K, listener: (this: HTMLApexPlotOptionsRadialBarBarLabelsElement, ev: ApexPlotOptionsRadialBarBarLabelsCustomEvent<HTMLApexPlotOptionsRadialBarBarLabelsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLApexPlotOptionsRadialBarBarLabelsElementEventMap>(type: K, listener: (this: HTMLApexPlotOptionsRadialBarBarLabelsElement, ev: ApexPlotOptionsRadialBarBarLabelsCustomEvent<HTMLApexPlotOptionsRadialBarBarLabelsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLApexPlotOptionsRadialBarBarLabelsElement: {
+        prototype: HTMLApexPlotOptionsRadialBarBarLabelsElement;
+        new (): HTMLApexPlotOptionsRadialBarBarLabelsElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarDataLabelsElement extends Components.ApexPlotOptionsRadialBarDataLabels, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarDataLabelsElement: {
+        prototype: HTMLApexPlotOptionsRadialBarDataLabelsElement;
+        new (): HTMLApexPlotOptionsRadialBarDataLabelsElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarDataLabelsNameElement extends Components.ApexPlotOptionsRadialBarDataLabelsName, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarDataLabelsNameElement: {
+        prototype: HTMLApexPlotOptionsRadialBarDataLabelsNameElement;
+        new (): HTMLApexPlotOptionsRadialBarDataLabelsNameElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarDataLabelsTotalElement extends Components.ApexPlotOptionsRadialBarDataLabelsTotal, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarDataLabelsTotalElement: {
+        prototype: HTMLApexPlotOptionsRadialBarDataLabelsTotalElement;
+        new (): HTMLApexPlotOptionsRadialBarDataLabelsTotalElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarDataLabelsValueElement extends Components.ApexPlotOptionsRadialBarDataLabelsValue, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarDataLabelsValueElement: {
+        prototype: HTMLApexPlotOptionsRadialBarDataLabelsValueElement;
+        new (): HTMLApexPlotOptionsRadialBarDataLabelsValueElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarHollowElement extends Components.ApexPlotOptionsRadialBarHollow, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarHollowElement: {
+        prototype: HTMLApexPlotOptionsRadialBarHollowElement;
+        new (): HTMLApexPlotOptionsRadialBarHollowElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarTrackElement extends Components.ApexPlotOptionsRadialBarTrack, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarTrackElement: {
+        prototype: HTMLApexPlotOptionsRadialBarTrackElement;
+        new (): HTMLApexPlotOptionsRadialBarTrackElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarTrackBackgroundItemElement extends Components.ApexPlotOptionsRadialBarTrackBackgroundItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarTrackBackgroundItemElement: {
+        prototype: HTMLApexPlotOptionsRadialBarTrackBackgroundItemElement;
+        new (): HTMLApexPlotOptionsRadialBarTrackBackgroundItemElement;
+    };
+    interface HTMLApexPlotOptionsRadialBarTrackBackgroundListElement extends Components.ApexPlotOptionsRadialBarTrackBackgroundList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsRadialBarTrackBackgroundListElement: {
+        prototype: HTMLApexPlotOptionsRadialBarTrackBackgroundListElement;
+        new (): HTMLApexPlotOptionsRadialBarTrackBackgroundListElement;
+    };
+    interface HTMLApexPlotOptionsTreemapElement extends Components.ApexPlotOptionsTreemap, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapElement: {
+        prototype: HTMLApexPlotOptionsTreemapElement;
+        new (): HTMLApexPlotOptionsTreemapElement;
+    };
+    interface HTMLApexPlotOptionsTreemapColorScaleElement extends Components.ApexPlotOptionsTreemapColorScale, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapColorScaleElement: {
+        prototype: HTMLApexPlotOptionsTreemapColorScaleElement;
+        new (): HTMLApexPlotOptionsTreemapColorScaleElement;
+    };
+    interface HTMLApexPlotOptionsTreemapColorScaleRangesItemElement extends Components.ApexPlotOptionsTreemapColorScaleRangesItem, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapColorScaleRangesItemElement: {
+        prototype: HTMLApexPlotOptionsTreemapColorScaleRangesItemElement;
+        new (): HTMLApexPlotOptionsTreemapColorScaleRangesItemElement;
+    };
+    interface HTMLApexPlotOptionsTreemapColorScaleRangesListElement extends Components.ApexPlotOptionsTreemapColorScaleRangesList, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapColorScaleRangesListElement: {
+        prototype: HTMLApexPlotOptionsTreemapColorScaleRangesListElement;
+        new (): HTMLApexPlotOptionsTreemapColorScaleRangesListElement;
+    };
+    interface HTMLApexPlotOptionsTreemapDataLabelsElement extends Components.ApexPlotOptionsTreemapDataLabels, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapDataLabelsElement: {
+        prototype: HTMLApexPlotOptionsTreemapDataLabelsElement;
+        new (): HTMLApexPlotOptionsTreemapDataLabelsElement;
+    };
+    interface HTMLApexPlotOptionsTreemapSeriesTitleElement extends Components.ApexPlotOptionsTreemapSeriesTitle, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapSeriesTitleElement: {
+        prototype: HTMLApexPlotOptionsTreemapSeriesTitleElement;
+        new (): HTMLApexPlotOptionsTreemapSeriesTitleElement;
+    };
+    interface HTMLApexPlotOptionsTreemapSeriesTitleStyleElement extends Components.ApexPlotOptionsTreemapSeriesTitleStyle, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapSeriesTitleStyleElement: {
+        prototype: HTMLApexPlotOptionsTreemapSeriesTitleStyleElement;
+        new (): HTMLApexPlotOptionsTreemapSeriesTitleStyleElement;
+    };
+    interface HTMLApexPlotOptionsTreemapSeriesTitleStylePaddingElement extends Components.ApexPlotOptionsTreemapSeriesTitleStylePadding, HTMLStencilElement {
+    }
+    var HTMLApexPlotOptionsTreemapSeriesTitleStylePaddingElement: {
+        prototype: HTMLApexPlotOptionsTreemapSeriesTitleStylePaddingElement;
+        new (): HTMLApexPlotOptionsTreemapSeriesTitleStylePaddingElement;
+    };
+    interface HTMLApexResponsiveElement extends Components.ApexResponsive, HTMLStencilElement {
+    }
+    var HTMLApexResponsiveElement: {
+        prototype: HTMLApexResponsiveElement;
+        new (): HTMLApexResponsiveElement;
+    };
+    interface HTMLApexStatesElement extends Components.ApexStates, HTMLStencilElement {
+    }
+    var HTMLApexStatesElement: {
+        prototype: HTMLApexStatesElement;
+        new (): HTMLApexStatesElement;
+    };
+    interface HTMLApexStatesActiveElement extends Components.ApexStatesActive, HTMLStencilElement {
+    }
+    var HTMLApexStatesActiveElement: {
+        prototype: HTMLApexStatesActiveElement;
+        new (): HTMLApexStatesActiveElement;
+    };
+    interface HTMLApexStatesActiveFilterElement extends Components.ApexStatesActiveFilter, HTMLStencilElement {
+    }
+    var HTMLApexStatesActiveFilterElement: {
+        prototype: HTMLApexStatesActiveFilterElement;
+        new (): HTMLApexStatesActiveFilterElement;
+    };
+    interface HTMLApexStatesHoverElement extends Components.ApexStatesHover, HTMLStencilElement {
+    }
+    var HTMLApexStatesHoverElement: {
+        prototype: HTMLApexStatesHoverElement;
+        new (): HTMLApexStatesHoverElement;
+    };
+    interface HTMLApexStatesHoverFilterElement extends Components.ApexStatesHoverFilter, HTMLStencilElement {
+    }
+    var HTMLApexStatesHoverFilterElement: {
+        prototype: HTMLApexStatesHoverFilterElement;
+        new (): HTMLApexStatesHoverFilterElement;
+    };
+    interface HTMLApexStrokeElement extends Components.ApexStroke, HTMLStencilElement {
+    }
+    var HTMLApexStrokeElement: {
+        prototype: HTMLApexStrokeElement;
+        new (): HTMLApexStrokeElement;
+    };
+    interface HTMLApexStrokeColors1ItemElement extends Components.ApexStrokeColors1Item, HTMLStencilElement {
+    }
+    var HTMLApexStrokeColors1ItemElement: {
+        prototype: HTMLApexStrokeColors1ItemElement;
+        new (): HTMLApexStrokeColors1ItemElement;
+    };
+    interface HTMLApexStrokeColors1ListElement extends Components.ApexStrokeColors1List, HTMLStencilElement {
+    }
+    var HTMLApexStrokeColors1ListElement: {
+        prototype: HTMLApexStrokeColors1ListElement;
+        new (): HTMLApexStrokeColors1ListElement;
+    };
+    interface HTMLApexStrokeColors2ItemElement extends Components.ApexStrokeColors2Item, HTMLStencilElement {
+    }
+    var HTMLApexStrokeColors2ItemElement: {
+        prototype: HTMLApexStrokeColors2ItemElement;
+        new (): HTMLApexStrokeColors2ItemElement;
+    };
+    interface HTMLApexStrokeColors2ListElement extends Components.ApexStrokeColors2List, HTMLStencilElement {
+    }
+    var HTMLApexStrokeColors2ListElement: {
+        prototype: HTMLApexStrokeColors2ListElement;
+        new (): HTMLApexStrokeColors2ListElement;
+    };
+    interface HTMLApexStrokeCurveListElement extends Components.ApexStrokeCurveList, HTMLStencilElement {
+    }
+    var HTMLApexStrokeCurveListElement: {
+        prototype: HTMLApexStrokeCurveListElement;
+        new (): HTMLApexStrokeCurveListElement;
+    };
+    interface HTMLApexStrokeDashArrayItemElement extends Components.ApexStrokeDashArrayItem, HTMLStencilElement {
+    }
+    var HTMLApexStrokeDashArrayItemElement: {
+        prototype: HTMLApexStrokeDashArrayItemElement;
+        new (): HTMLApexStrokeDashArrayItemElement;
+    };
+    interface HTMLApexStrokeDashArrayListElement extends Components.ApexStrokeDashArrayList, HTMLStencilElement {
+    }
+    var HTMLApexStrokeDashArrayListElement: {
+        prototype: HTMLApexStrokeDashArrayListElement;
+        new (): HTMLApexStrokeDashArrayListElement;
+    };
+    interface HTMLApexStrokeWidthItemElement extends Components.ApexStrokeWidthItem, HTMLStencilElement {
+    }
+    var HTMLApexStrokeWidthItemElement: {
+        prototype: HTMLApexStrokeWidthItemElement;
+        new (): HTMLApexStrokeWidthItemElement;
+    };
+    interface HTMLApexStrokeWidthListElement extends Components.ApexStrokeWidthList, HTMLStencilElement {
+    }
+    var HTMLApexStrokeWidthListElement: {
+        prototype: HTMLApexStrokeWidthListElement;
+        new (): HTMLApexStrokeWidthListElement;
+    };
+    interface HTMLApexThemeElement extends Components.ApexTheme, HTMLStencilElement {
+    }
+    var HTMLApexThemeElement: {
+        prototype: HTMLApexThemeElement;
+        new (): HTMLApexThemeElement;
+    };
+    interface HTMLApexThemeMonochromeElement extends Components.ApexThemeMonochrome, HTMLStencilElement {
+    }
+    var HTMLApexThemeMonochromeElement: {
+        prototype: HTMLApexThemeMonochromeElement;
+        new (): HTMLApexThemeMonochromeElement;
+    };
+    interface HTMLApexTitleSubtitleElement extends Components.ApexTitleSubtitle, HTMLStencilElement {
+    }
+    var HTMLApexTitleSubtitleElement: {
+        prototype: HTMLApexTitleSubtitleElement;
+        new (): HTMLApexTitleSubtitleElement;
+    };
+    interface HTMLApexTitleSubtitleStyleElement extends Components.ApexTitleSubtitleStyle, HTMLStencilElement {
+    }
+    var HTMLApexTitleSubtitleStyleElement: {
+        prototype: HTMLApexTitleSubtitleStyleElement;
+        new (): HTMLApexTitleSubtitleStyleElement;
+    };
+    interface HTMLApexTooltipElement extends Components.ApexTooltip, HTMLStencilElement {
+    }
+    var HTMLApexTooltipElement: {
+        prototype: HTMLApexTooltipElement;
+        new (): HTMLApexTooltipElement;
+    };
+    interface HTMLApexTooltipCustomListElement extends Components.ApexTooltipCustomList, HTMLStencilElement {
+    }
+    var HTMLApexTooltipCustomListElement: {
+        prototype: HTMLApexTooltipCustomListElement;
+        new (): HTMLApexTooltipCustomListElement;
+    };
+    interface HTMLApexTooltipEnabledOnSeriesItemElement extends Components.ApexTooltipEnabledOnSeriesItem, HTMLStencilElement {
+    }
+    var HTMLApexTooltipEnabledOnSeriesItemElement: {
+        prototype: HTMLApexTooltipEnabledOnSeriesItemElement;
+        new (): HTMLApexTooltipEnabledOnSeriesItemElement;
+    };
+    interface HTMLApexTooltipEnabledOnSeriesListElement extends Components.ApexTooltipEnabledOnSeriesList, HTMLStencilElement {
+    }
+    var HTMLApexTooltipEnabledOnSeriesListElement: {
+        prototype: HTMLApexTooltipEnabledOnSeriesListElement;
+        new (): HTMLApexTooltipEnabledOnSeriesListElement;
+    };
+    interface HTMLApexTooltipFixedElement extends Components.ApexTooltipFixed, HTMLStencilElement {
+    }
+    var HTMLApexTooltipFixedElement: {
+        prototype: HTMLApexTooltipFixedElement;
+        new (): HTMLApexTooltipFixedElement;
+    };
+    interface HTMLApexTooltipItemsElement extends Components.ApexTooltipItems, HTMLStencilElement {
+    }
+    var HTMLApexTooltipItemsElement: {
+        prototype: HTMLApexTooltipItemsElement;
+        new (): HTMLApexTooltipItemsElement;
+    };
+    interface HTMLApexTooltipMarkerElement extends Components.ApexTooltipMarker, HTMLStencilElement {
+    }
+    var HTMLApexTooltipMarkerElement: {
+        prototype: HTMLApexTooltipMarkerElement;
+        new (): HTMLApexTooltipMarkerElement;
+    };
+    interface HTMLApexTooltipMarkerFillColorsItemElement extends Components.ApexTooltipMarkerFillColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexTooltipMarkerFillColorsItemElement: {
+        prototype: HTMLApexTooltipMarkerFillColorsItemElement;
+        new (): HTMLApexTooltipMarkerFillColorsItemElement;
+    };
+    interface HTMLApexTooltipMarkerFillColorsListElement extends Components.ApexTooltipMarkerFillColorsList, HTMLStencilElement {
+    }
+    var HTMLApexTooltipMarkerFillColorsListElement: {
+        prototype: HTMLApexTooltipMarkerFillColorsListElement;
+        new (): HTMLApexTooltipMarkerFillColorsListElement;
+    };
+    interface HTMLApexTooltipOnDatasetHoverElement extends Components.ApexTooltipOnDatasetHover, HTMLStencilElement {
+    }
+    var HTMLApexTooltipOnDatasetHoverElement: {
+        prototype: HTMLApexTooltipOnDatasetHoverElement;
+        new (): HTMLApexTooltipOnDatasetHoverElement;
+    };
+    interface HTMLApexTooltipStyleElement extends Components.ApexTooltipStyle, HTMLStencilElement {
+    }
+    var HTMLApexTooltipStyleElement: {
+        prototype: HTMLApexTooltipStyleElement;
+        new (): HTMLApexTooltipStyleElement;
+    };
+    interface HTMLApexTooltipXElement extends Components.ApexTooltipX, HTMLStencilElement {
+    }
+    var HTMLApexTooltipXElement: {
+        prototype: HTMLApexTooltipXElement;
+        new (): HTMLApexTooltipXElement;
+    };
+    interface HTMLApexTooltipYElement extends Components.ApexTooltipY, HTMLStencilElement {
+    }
+    var HTMLApexTooltipYElement: {
+        prototype: HTMLApexTooltipYElement;
+        new (): HTMLApexTooltipYElement;
+    };
+    interface HTMLApexTooltipYListElement extends Components.ApexTooltipYList, HTMLStencilElement {
+    }
+    var HTMLApexTooltipYListElement: {
+        prototype: HTMLApexTooltipYListElement;
+        new (): HTMLApexTooltipYListElement;
+    };
+    interface HTMLApexTooltipYTitleElement extends Components.ApexTooltipYTitle, HTMLStencilElement {
+    }
+    var HTMLApexTooltipYTitleElement: {
+        prototype: HTMLApexTooltipYTitleElement;
+        new (): HTMLApexTooltipYTitleElement;
+    };
+    interface HTMLApexTooltipZElement extends Components.ApexTooltipZ, HTMLStencilElement {
+    }
+    var HTMLApexTooltipZElement: {
+        prototype: HTMLApexTooltipZElement;
+        new (): HTMLApexTooltipZElement;
+    };
+    interface HTMLApexXAxisElement extends Components.ApexXAxis, HTMLStencilElement {
+    }
+    var HTMLApexXAxisElement: {
+        prototype: HTMLApexXAxisElement;
+        new (): HTMLApexXAxisElement;
+    };
+    interface HTMLApexXAxisAxisBorderElement extends Components.ApexXAxisAxisBorder, HTMLStencilElement {
+    }
+    var HTMLApexXAxisAxisBorderElement: {
+        prototype: HTMLApexXAxisAxisBorderElement;
+        new (): HTMLApexXAxisAxisBorderElement;
+    };
+    interface HTMLApexXAxisAxisTicksElement extends Components.ApexXAxisAxisTicks, HTMLStencilElement {
+    }
+    var HTMLApexXAxisAxisTicksElement: {
+        prototype: HTMLApexXAxisAxisTicksElement;
+        new (): HTMLApexXAxisAxisTicksElement;
+    };
+    interface HTMLApexXAxisCrosshairsElement extends Components.ApexXAxisCrosshairs, HTMLStencilElement {
+    }
+    var HTMLApexXAxisCrosshairsElement: {
+        prototype: HTMLApexXAxisCrosshairsElement;
+        new (): HTMLApexXAxisCrosshairsElement;
+    };
+    interface HTMLApexXAxisCrosshairsFillElement extends Components.ApexXAxisCrosshairsFill, HTMLStencilElement {
+    }
+    var HTMLApexXAxisCrosshairsFillElement: {
+        prototype: HTMLApexXAxisCrosshairsFillElement;
+        new (): HTMLApexXAxisCrosshairsFillElement;
+    };
+    interface HTMLApexXAxisCrosshairsFillGradientElement extends Components.ApexXAxisCrosshairsFillGradient, HTMLStencilElement {
+    }
+    var HTMLApexXAxisCrosshairsFillGradientElement: {
+        prototype: HTMLApexXAxisCrosshairsFillGradientElement;
+        new (): HTMLApexXAxisCrosshairsFillGradientElement;
+    };
+    interface HTMLApexXAxisCrosshairsFillGradientStopsItemElement extends Components.ApexXAxisCrosshairsFillGradientStopsItem, HTMLStencilElement {
+    }
+    var HTMLApexXAxisCrosshairsFillGradientStopsItemElement: {
+        prototype: HTMLApexXAxisCrosshairsFillGradientStopsItemElement;
+        new (): HTMLApexXAxisCrosshairsFillGradientStopsItemElement;
+    };
+    interface HTMLApexXAxisCrosshairsFillGradientStopsListElement extends Components.ApexXAxisCrosshairsFillGradientStopsList, HTMLStencilElement {
+    }
+    var HTMLApexXAxisCrosshairsFillGradientStopsListElement: {
+        prototype: HTMLApexXAxisCrosshairsFillGradientStopsListElement;
+        new (): HTMLApexXAxisCrosshairsFillGradientStopsListElement;
+    };
+    interface HTMLApexXAxisCrosshairsStrokeElement extends Components.ApexXAxisCrosshairsStroke, HTMLStencilElement {
+    }
+    var HTMLApexXAxisCrosshairsStrokeElement: {
+        prototype: HTMLApexXAxisCrosshairsStrokeElement;
+        new (): HTMLApexXAxisCrosshairsStrokeElement;
+    };
+    interface HTMLApexXAxisGroupElement extends Components.ApexXAxisGroup, HTMLStencilElement {
+    }
+    var HTMLApexXAxisGroupElement: {
+        prototype: HTMLApexXAxisGroupElement;
+        new (): HTMLApexXAxisGroupElement;
+    };
+    interface HTMLApexXAxisGroupGroupsItemElement extends Components.ApexXAxisGroupGroupsItem, HTMLStencilElement {
+    }
+    var HTMLApexXAxisGroupGroupsItemElement: {
+        prototype: HTMLApexXAxisGroupGroupsItemElement;
+        new (): HTMLApexXAxisGroupGroupsItemElement;
+    };
+    interface HTMLApexXAxisGroupGroupsListElement extends Components.ApexXAxisGroupGroupsList, HTMLStencilElement {
+    }
+    var HTMLApexXAxisGroupGroupsListElement: {
+        prototype: HTMLApexXAxisGroupGroupsListElement;
+        new (): HTMLApexXAxisGroupGroupsListElement;
+    };
+    interface HTMLApexXAxisGroupStyleElement extends Components.ApexXAxisGroupStyle, HTMLStencilElement {
+    }
+    var HTMLApexXAxisGroupStyleElement: {
+        prototype: HTMLApexXAxisGroupStyleElement;
+        new (): HTMLApexXAxisGroupStyleElement;
+    };
+    interface HTMLApexXAxisGroupStyleColorsItemElement extends Components.ApexXAxisGroupStyleColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexXAxisGroupStyleColorsItemElement: {
+        prototype: HTMLApexXAxisGroupStyleColorsItemElement;
+        new (): HTMLApexXAxisGroupStyleColorsItemElement;
+    };
+    interface HTMLApexXAxisGroupStyleColorsListElement extends Components.ApexXAxisGroupStyleColorsList, HTMLStencilElement {
+    }
+    var HTMLApexXAxisGroupStyleColorsListElement: {
+        prototype: HTMLApexXAxisGroupStyleColorsListElement;
+        new (): HTMLApexXAxisGroupStyleColorsListElement;
+    };
+    interface HTMLApexXAxisLabelsElement extends Components.ApexXAxisLabels, HTMLStencilElement {
+    }
+    var HTMLApexXAxisLabelsElement: {
+        prototype: HTMLApexXAxisLabelsElement;
+        new (): HTMLApexXAxisLabelsElement;
+    };
+    interface HTMLApexXAxisLabelsDatetimeFormatterElement extends Components.ApexXAxisLabelsDatetimeFormatter, HTMLStencilElement {
+    }
+    var HTMLApexXAxisLabelsDatetimeFormatterElement: {
+        prototype: HTMLApexXAxisLabelsDatetimeFormatterElement;
+        new (): HTMLApexXAxisLabelsDatetimeFormatterElement;
+    };
+    interface HTMLApexXAxisLabelsStyleElement extends Components.ApexXAxisLabelsStyle, HTMLStencilElement {
+    }
+    var HTMLApexXAxisLabelsStyleElement: {
+        prototype: HTMLApexXAxisLabelsStyleElement;
+        new (): HTMLApexXAxisLabelsStyleElement;
+    };
+    interface HTMLApexXAxisLabelsStyleColorsItemElement extends Components.ApexXAxisLabelsStyleColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexXAxisLabelsStyleColorsItemElement: {
+        prototype: HTMLApexXAxisLabelsStyleColorsItemElement;
+        new (): HTMLApexXAxisLabelsStyleColorsItemElement;
+    };
+    interface HTMLApexXAxisLabelsStyleColorsListElement extends Components.ApexXAxisLabelsStyleColorsList, HTMLStencilElement {
+    }
+    var HTMLApexXAxisLabelsStyleColorsListElement: {
+        prototype: HTMLApexXAxisLabelsStyleColorsListElement;
+        new (): HTMLApexXAxisLabelsStyleColorsListElement;
+    };
+    interface HTMLApexXAxisOverwriteCategories1ItemElement extends Components.ApexXAxisOverwriteCategories1Item, HTMLStencilElement {
+    }
+    var HTMLApexXAxisOverwriteCategories1ItemElement: {
+        prototype: HTMLApexXAxisOverwriteCategories1ItemElement;
+        new (): HTMLApexXAxisOverwriteCategories1ItemElement;
+    };
+    interface HTMLApexXAxisOverwriteCategories1ListElement extends Components.ApexXAxisOverwriteCategories1List, HTMLStencilElement {
+    }
+    var HTMLApexXAxisOverwriteCategories1ListElement: {
+        prototype: HTMLApexXAxisOverwriteCategories1ListElement;
+        new (): HTMLApexXAxisOverwriteCategories1ListElement;
+    };
+    interface HTMLApexXAxisOverwriteCategories2ItemElement extends Components.ApexXAxisOverwriteCategories2Item, HTMLStencilElement {
+    }
+    var HTMLApexXAxisOverwriteCategories2ItemElement: {
+        prototype: HTMLApexXAxisOverwriteCategories2ItemElement;
+        new (): HTMLApexXAxisOverwriteCategories2ItemElement;
+    };
+    interface HTMLApexXAxisOverwriteCategories2ListElement extends Components.ApexXAxisOverwriteCategories2List, HTMLStencilElement {
+    }
+    var HTMLApexXAxisOverwriteCategories2ListElement: {
+        prototype: HTMLApexXAxisOverwriteCategories2ListElement;
+        new (): HTMLApexXAxisOverwriteCategories2ListElement;
+    };
+    interface HTMLApexXAxisTitleElement extends Components.ApexXAxisTitle, HTMLStencilElement {
+    }
+    var HTMLApexXAxisTitleElement: {
+        prototype: HTMLApexXAxisTitleElement;
+        new (): HTMLApexXAxisTitleElement;
+    };
+    interface HTMLApexXAxisTitleStyleElement extends Components.ApexXAxisTitleStyle, HTMLStencilElement {
+    }
+    var HTMLApexXAxisTitleStyleElement: {
+        prototype: HTMLApexXAxisTitleStyleElement;
+        new (): HTMLApexXAxisTitleStyleElement;
+    };
+    interface HTMLApexXAxisTooltipElement extends Components.ApexXAxisTooltip, HTMLStencilElement {
+    }
+    var HTMLApexXAxisTooltipElement: {
+        prototype: HTMLApexXAxisTooltipElement;
+        new (): HTMLApexXAxisTooltipElement;
+    };
+    interface HTMLApexXAxisTooltipStyleElement extends Components.ApexXAxisTooltipStyle, HTMLStencilElement {
+    }
+    var HTMLApexXAxisTooltipStyleElement: {
+        prototype: HTMLApexXAxisTooltipStyleElement;
+        new (): HTMLApexXAxisTooltipStyleElement;
+    };
+    interface HTMLApexYAxisElement extends Components.ApexYAxis, HTMLStencilElement {
+    }
+    var HTMLApexYAxisElement: {
+        prototype: HTMLApexYAxisElement;
+        new (): HTMLApexYAxisElement;
+    };
+    interface HTMLApexYAxisAxisBorderElement extends Components.ApexYAxisAxisBorder, HTMLStencilElement {
+    }
+    var HTMLApexYAxisAxisBorderElement: {
+        prototype: HTMLApexYAxisAxisBorderElement;
+        new (): HTMLApexYAxisAxisBorderElement;
+    };
+    interface HTMLApexYAxisAxisTicksElement extends Components.ApexYAxisAxisTicks, HTMLStencilElement {
+    }
+    var HTMLApexYAxisAxisTicksElement: {
+        prototype: HTMLApexYAxisAxisTicksElement;
+        new (): HTMLApexYAxisAxisTicksElement;
+    };
+    interface HTMLApexYAxisCrosshairsElement extends Components.ApexYAxisCrosshairs, HTMLStencilElement {
+    }
+    var HTMLApexYAxisCrosshairsElement: {
+        prototype: HTMLApexYAxisCrosshairsElement;
+        new (): HTMLApexYAxisCrosshairsElement;
+    };
+    interface HTMLApexYAxisCrosshairsStrokeElement extends Components.ApexYAxisCrosshairsStroke, HTMLStencilElement {
+    }
+    var HTMLApexYAxisCrosshairsStrokeElement: {
+        prototype: HTMLApexYAxisCrosshairsStrokeElement;
+        new (): HTMLApexYAxisCrosshairsStrokeElement;
+    };
+    interface HTMLApexYAxisLabelsElement extends Components.ApexYAxisLabels, HTMLStencilElement {
+    }
+    var HTMLApexYAxisLabelsElement: {
+        prototype: HTMLApexYAxisLabelsElement;
+        new (): HTMLApexYAxisLabelsElement;
+    };
+    interface HTMLApexYAxisLabelsStyleElement extends Components.ApexYAxisLabelsStyle, HTMLStencilElement {
+    }
+    var HTMLApexYAxisLabelsStyleElement: {
+        prototype: HTMLApexYAxisLabelsStyleElement;
+        new (): HTMLApexYAxisLabelsStyleElement;
+    };
+    interface HTMLApexYAxisLabelsStyleColorsItemElement extends Components.ApexYAxisLabelsStyleColorsItem, HTMLStencilElement {
+    }
+    var HTMLApexYAxisLabelsStyleColorsItemElement: {
+        prototype: HTMLApexYAxisLabelsStyleColorsItemElement;
+        new (): HTMLApexYAxisLabelsStyleColorsItemElement;
+    };
+    interface HTMLApexYAxisLabelsStyleColorsListElement extends Components.ApexYAxisLabelsStyleColorsList, HTMLStencilElement {
+    }
+    var HTMLApexYAxisLabelsStyleColorsListElement: {
+        prototype: HTMLApexYAxisLabelsStyleColorsListElement;
+        new (): HTMLApexYAxisLabelsStyleColorsListElement;
+    };
+    interface HTMLApexYAxisSeriesNameItemElement extends Components.ApexYAxisSeriesNameItem, HTMLStencilElement {
+    }
+    var HTMLApexYAxisSeriesNameItemElement: {
+        prototype: HTMLApexYAxisSeriesNameItemElement;
+        new (): HTMLApexYAxisSeriesNameItemElement;
+    };
+    interface HTMLApexYAxisSeriesNameListElement extends Components.ApexYAxisSeriesNameList, HTMLStencilElement {
+    }
+    var HTMLApexYAxisSeriesNameListElement: {
+        prototype: HTMLApexYAxisSeriesNameListElement;
+        new (): HTMLApexYAxisSeriesNameListElement;
+    };
+    interface HTMLApexYAxisTitleElement extends Components.ApexYAxisTitle, HTMLStencilElement {
+    }
+    var HTMLApexYAxisTitleElement: {
+        prototype: HTMLApexYAxisTitleElement;
+        new (): HTMLApexYAxisTitleElement;
+    };
+    interface HTMLApexYAxisTitleStyleElement extends Components.ApexYAxisTitleStyle, HTMLStencilElement {
+    }
+    var HTMLApexYAxisTitleStyleElement: {
+        prototype: HTMLApexYAxisTitleStyleElement;
+        new (): HTMLApexYAxisTitleStyleElement;
+    };
+    interface HTMLApexYAxisTooltipElement extends Components.ApexYAxisTooltip, HTMLStencilElement {
+    }
+    var HTMLApexYAxisTooltipElement: {
+        prototype: HTMLApexYAxisTooltipElement;
+        new (): HTMLApexYAxisTooltipElement;
+    };
+    interface HTMLImageAnnotationsElement extends Components.ImageAnnotations, HTMLStencilElement {
+    }
+    var HTMLImageAnnotationsElement: {
+        prototype: HTMLImageAnnotationsElement;
+        new (): HTMLImageAnnotationsElement;
+    };
+    interface HTMLPointAnnotationsElement extends Components.PointAnnotations, HTMLStencilElement {
+    }
+    var HTMLPointAnnotationsElement: {
+        prototype: HTMLPointAnnotationsElement;
+        new (): HTMLPointAnnotationsElement;
+    };
+    interface HTMLPointAnnotationsImageElement extends Components.PointAnnotationsImage, HTMLStencilElement {
+    }
+    var HTMLPointAnnotationsImageElement: {
+        prototype: HTMLPointAnnotationsImageElement;
+        new (): HTMLPointAnnotationsImageElement;
+    };
+    interface HTMLPointAnnotationsMarkerElement extends Components.PointAnnotationsMarker, HTMLStencilElement {
+    }
+    var HTMLPointAnnotationsMarkerElement: {
+        prototype: HTMLPointAnnotationsMarkerElement;
+        new (): HTMLPointAnnotationsMarkerElement;
+    };
+    interface HTMLTextAnnotationsElement extends Components.TextAnnotations, HTMLStencilElement {
+    }
+    var HTMLTextAnnotationsElement: {
+        prototype: HTMLTextAnnotationsElement;
+        new (): HTMLTextAnnotationsElement;
+    };
+    interface HTMLXAxisAnnotationsElement extends Components.XAxisAnnotations, HTMLStencilElement {
+    }
+    var HTMLXAxisAnnotationsElement: {
+        prototype: HTMLXAxisAnnotationsElement;
+        new (): HTMLXAxisAnnotationsElement;
+    };
+    interface HTMLYAxisAnnotationsElement extends Components.YAxisAnnotations, HTMLStencilElement {
+    }
+    var HTMLYAxisAnnotationsElement: {
+        prototype: HTMLYAxisAnnotationsElement;
+        new (): HTMLYAxisAnnotationsElement;
+    };
     interface HTMLElementTagNameMap {
+        "annotation-label": HTMLAnnotationLabelElement;
+        "annotation-label-text-item": HTMLAnnotationLabelTextItemElement;
+        "annotation-label-text-list": HTMLAnnotationLabelTextListElement;
+        "annotation-style": HTMLAnnotationStyleElement;
+        "annotation-style-padding": HTMLAnnotationStylePaddingElement;
+        "apex-annotations": HTMLApexAnnotationsElement;
+        "apex-annotations-images-list": HTMLApexAnnotationsImagesListElement;
+        "apex-annotations-points-list": HTMLApexAnnotationsPointsListElement;
+        "apex-annotations-texts-list": HTMLApexAnnotationsTextsListElement;
+        "apex-annotations-xaxis-list": HTMLApexAnnotationsXaxisListElement;
+        "apex-annotations-yaxis-list": HTMLApexAnnotationsYaxisListElement;
+        "apex-axis-chart-series-item": HTMLApexAxisChartSeriesItemElement;
+        "apex-axis-chart-series-item-data-1-list": HTMLApexAxisChartSeriesItemData1ListElement;
+        "apex-axis-chart-series-item-data-2-item": HTMLApexAxisChartSeriesItemData2ItemElement;
+        "apex-axis-chart-series-item-data-2-item-goals-item": HTMLApexAxisChartSeriesItemData2ItemGoalsItemElement;
+        "apex-axis-chart-series-item-data-2-item-goals-list": HTMLApexAxisChartSeriesItemData2ItemGoalsListElement;
+        "apex-axis-chart-series-item-data-2-list": HTMLApexAxisChartSeriesItemData2ListElement;
+        "apex-axis-chart-series-item-data-3-list": HTMLApexAxisChartSeriesItemData3ListElement;
+        "apex-axis-chart-series-item-data-4-list": HTMLApexAxisChartSeriesItemData4ListElement;
+        "apex-axis-chart-series-item-data-5-item-item": HTMLApexAxisChartSeriesItemData5ItemItemElement;
+        "apex-axis-chart-series-item-data-5-item-list": HTMLApexAxisChartSeriesItemData5ItemListElement;
+        "apex-axis-chart-series-item-data-5-list": HTMLApexAxisChartSeriesItemData5ListElement;
+        "apex-axis-chart-series-item-data-6-list": HTMLApexAxisChartSeriesItemData6ListElement;
+        "apex-axis-chart-series-list": HTMLApexAxisChartSeriesListElement;
         "apex-chart": HTMLApexChartElement;
+        "apex-chart-animations": HTMLApexChartAnimationsElement;
+        "apex-chart-animations-animate-gradually": HTMLApexChartAnimationsAnimateGraduallyElement;
+        "apex-chart-animations-dynamic-animation": HTMLApexChartAnimationsDynamicAnimationElement;
+        "apex-chart-brush": HTMLApexChartBrushElement;
+        "apex-chart-brush-targets-item": HTMLApexChartBrushTargetsItemElement;
+        "apex-chart-brush-targets-list": HTMLApexChartBrushTargetsListElement;
+        "apex-chart-drop-shadow": HTMLApexChartDropShadowElement;
+        "apex-chart-drop-shadow-color-item": HTMLApexChartDropShadowColorItemElement;
+        "apex-chart-drop-shadow-color-list": HTMLApexChartDropShadowColorListElement;
+        "apex-chart-drop-shadow-enabled-on-series-item": HTMLApexChartDropShadowEnabledOnSeriesItemElement;
+        "apex-chart-drop-shadow-enabled-on-series-list": HTMLApexChartDropShadowEnabledOnSeriesListElement;
+        "apex-chart-events": HTMLApexChartEventsElement;
+        "apex-chart-locales-list": HTMLApexChartLocalesListElement;
+        "apex-chart-old": HTMLApexChartOldElement;
+        "apex-chart-selection": HTMLApexChartSelectionElement;
+        "apex-chart-selection-fill": HTMLApexChartSelectionFillElement;
+        "apex-chart-selection-stroke": HTMLApexChartSelectionStrokeElement;
+        "apex-chart-selection-xaxis": HTMLApexChartSelectionXaxisElement;
+        "apex-chart-selection-yaxis": HTMLApexChartSelectionYaxisElement;
+        "apex-chart-sparkline": HTMLApexChartSparklineElement;
+        "apex-chart-toolbar": HTMLApexChartToolbarElement;
+        "apex-chart-toolbar-export": HTMLApexChartToolbarExportElement;
+        "apex-chart-toolbar-export-csv": HTMLApexChartToolbarExportCsvElement;
+        "apex-chart-toolbar-export-png": HTMLApexChartToolbarExportPngElement;
+        "apex-chart-toolbar-export-svg": HTMLApexChartToolbarExportSvgElement;
+        "apex-chart-toolbar-tools": HTMLApexChartToolbarToolsElement;
+        "apex-chart-toolbar-tools-custom-icons-item": HTMLApexChartToolbarToolsCustomIconsItemElement;
+        "apex-chart-toolbar-tools-custom-icons-list": HTMLApexChartToolbarToolsCustomIconsListElement;
+        "apex-chart-zoom": HTMLApexChartZoomElement;
+        "apex-chart-zoom-zoomed-area": HTMLApexChartZoomZoomedAreaElement;
+        "apex-chart-zoom-zoomed-area-fill": HTMLApexChartZoomZoomedAreaFillElement;
+        "apex-chart-zoom-zoomed-area-stroke": HTMLApexChartZoomZoomedAreaStrokeElement;
+        "apex-color-stop": HTMLApexColorStopElement;
+        "apex-data-labels": HTMLApexDataLabelsElement;
+        "apex-data-labels-background": HTMLApexDataLabelsBackgroundElement;
+        "apex-data-labels-enabled-on-series-item": HTMLApexDataLabelsEnabledOnSeriesItemElement;
+        "apex-data-labels-enabled-on-series-list": HTMLApexDataLabelsEnabledOnSeriesListElement;
+        "apex-data-labels-style": HTMLApexDataLabelsStyleElement;
+        "apex-data-labels-style-colors-item": HTMLApexDataLabelsStyleColorsItemElement;
+        "apex-data-labels-style-colors-list": HTMLApexDataLabelsStyleColorsListElement;
+        "apex-discrete-point": HTMLApexDiscretePointElement;
+        "apex-drop-shadow": HTMLApexDropShadowElement;
+        "apex-fill": HTMLApexFillElement;
+        "apex-fill-colors-item": HTMLApexFillColorsItemElement;
+        "apex-fill-colors-list": HTMLApexFillColorsListElement;
+        "apex-fill-gradient": HTMLApexFillGradientElement;
+        "apex-fill-gradient-color-stops-1-item-list": HTMLApexFillGradientColorStops1ItemListElement;
+        "apex-fill-gradient-color-stops-1-list": HTMLApexFillGradientColorStops1ListElement;
+        "apex-fill-gradient-color-stops-2-list": HTMLApexFillGradientColorStops2ListElement;
+        "apex-fill-gradient-gradient-to-colors-item": HTMLApexFillGradientGradientToColorsItemElement;
+        "apex-fill-gradient-gradient-to-colors-list": HTMLApexFillGradientGradientToColorsListElement;
+        "apex-fill-gradient-opacity-from-item": HTMLApexFillGradientOpacityFromItemElement;
+        "apex-fill-gradient-opacity-from-list": HTMLApexFillGradientOpacityFromListElement;
+        "apex-fill-gradient-opacity-to-item": HTMLApexFillGradientOpacityToItemElement;
+        "apex-fill-gradient-opacity-to-list": HTMLApexFillGradientOpacityToListElement;
+        "apex-fill-gradient-stops-item": HTMLApexFillGradientStopsItemElement;
+        "apex-fill-gradient-stops-list": HTMLApexFillGradientStopsListElement;
+        "apex-fill-image": HTMLApexFillImageElement;
+        "apex-fill-image-src-item": HTMLApexFillImageSrcItemElement;
+        "apex-fill-image-src-list": HTMLApexFillImageSrcListElement;
+        "apex-fill-opacity-item": HTMLApexFillOpacityItemElement;
+        "apex-fill-opacity-list": HTMLApexFillOpacityListElement;
+        "apex-fill-pattern": HTMLApexFillPatternElement;
+        "apex-fill-pattern-style-item": HTMLApexFillPatternStyleItemElement;
+        "apex-fill-pattern-style-list": HTMLApexFillPatternStyleListElement;
+        "apex-fill-type-item": HTMLApexFillTypeItemElement;
+        "apex-fill-type-list": HTMLApexFillTypeListElement;
+        "apex-forecast-data-points": HTMLApexForecastDataPointsElement;
+        "apex-grid": HTMLApexGridElement;
+        "apex-grid-column": HTMLApexGridColumnElement;
+        "apex-grid-column-colors-item": HTMLApexGridColumnColorsItemElement;
+        "apex-grid-column-colors-list": HTMLApexGridColumnColorsListElement;
+        "apex-grid-padding": HTMLApexGridPaddingElement;
+        "apex-grid-row": HTMLApexGridRowElement;
+        "apex-grid-row-colors-item": HTMLApexGridRowColorsItemElement;
+        "apex-grid-row-colors-list": HTMLApexGridRowColorsListElement;
+        "apex-grid-xaxis": HTMLApexGridXaxisElement;
+        "apex-grid-xaxis-lines": HTMLApexGridXaxisLinesElement;
+        "apex-grid-yaxis": HTMLApexGridYaxisElement;
+        "apex-grid-yaxis-lines": HTMLApexGridYaxisLinesElement;
+        "apex-legend": HTMLApexLegendElement;
+        "apex-legend-custom-legend-items-item": HTMLApexLegendCustomLegendItemsItemElement;
+        "apex-legend-custom-legend-items-list": HTMLApexLegendCustomLegendItemsListElement;
+        "apex-legend-item-margin": HTMLApexLegendItemMarginElement;
+        "apex-legend-labels": HTMLApexLegendLabelsElement;
+        "apex-legend-labels-colors-item": HTMLApexLegendLabelsColorsItemElement;
+        "apex-legend-labels-colors-list": HTMLApexLegendLabelsColorsListElement;
+        "apex-legend-markers": HTMLApexLegendMarkersElement;
+        "apex-legend-markers-fill-colors-item": HTMLApexLegendMarkersFillColorsItemElement;
+        "apex-legend-markers-fill-colors-list": HTMLApexLegendMarkersFillColorsListElement;
+        "apex-legend-on-item-click": HTMLApexLegendOnItemClickElement;
+        "apex-legend-on-item-hover": HTMLApexLegendOnItemHoverElement;
+        "apex-locale": HTMLApexLocaleElement;
+        "apex-locale-options": HTMLApexLocaleOptionsElement;
+        "apex-locale-options-days-item": HTMLApexLocaleOptionsDaysItemElement;
+        "apex-locale-options-days-list": HTMLApexLocaleOptionsDaysListElement;
+        "apex-locale-options-months-item": HTMLApexLocaleOptionsMonthsItemElement;
+        "apex-locale-options-months-list": HTMLApexLocaleOptionsMonthsListElement;
+        "apex-locale-options-short-days-item": HTMLApexLocaleOptionsShortDaysItemElement;
+        "apex-locale-options-short-days-list": HTMLApexLocaleOptionsShortDaysListElement;
+        "apex-locale-options-short-months-item": HTMLApexLocaleOptionsShortMonthsItemElement;
+        "apex-locale-options-short-months-list": HTMLApexLocaleOptionsShortMonthsListElement;
+        "apex-locale-options-toolbar": HTMLApexLocaleOptionsToolbarElement;
+        "apex-marker-shape-list": HTMLApexMarkerShapeListElement;
+        "apex-markers": HTMLApexMarkersElement;
+        "apex-markers-colors-item": HTMLApexMarkersColorsItemElement;
+        "apex-markers-colors-list": HTMLApexMarkersColorsListElement;
+        "apex-markers-discrete-list": HTMLApexMarkersDiscreteListElement;
+        "apex-markers-fill-opacity-item": HTMLApexMarkersFillOpacityItemElement;
+        "apex-markers-fill-opacity-list": HTMLApexMarkersFillOpacityListElement;
+        "apex-markers-hover": HTMLApexMarkersHoverElement;
+        "apex-markers-size-item": HTMLApexMarkersSizeItemElement;
+        "apex-markers-size-list": HTMLApexMarkersSizeListElement;
+        "apex-markers-stroke-colors-item": HTMLApexMarkersStrokeColorsItemElement;
+        "apex-markers-stroke-colors-list": HTMLApexMarkersStrokeColorsListElement;
+        "apex-markers-stroke-dash-array-item": HTMLApexMarkersStrokeDashArrayItemElement;
+        "apex-markers-stroke-dash-array-list": HTMLApexMarkersStrokeDashArrayListElement;
+        "apex-markers-stroke-opacity-item": HTMLApexMarkersStrokeOpacityItemElement;
+        "apex-markers-stroke-opacity-list": HTMLApexMarkersStrokeOpacityListElement;
+        "apex-markers-stroke-width-item": HTMLApexMarkersStrokeWidthItemElement;
+        "apex-markers-stroke-width-list": HTMLApexMarkersStrokeWidthListElement;
+        "apex-no-data": HTMLApexNoDataElement;
+        "apex-no-data-style": HTMLApexNoDataStyleElement;
+        "apex-non-axis-chart-series-item": HTMLApexNonAxisChartSeriesItemElement;
+        "apex-non-axis-chart-series-list": HTMLApexNonAxisChartSeriesListElement;
+        "apex-options": HTMLApexOptionsElement;
+        "apex-options-colors-item": HTMLApexOptionsColorsItemElement;
+        "apex-options-colors-list": HTMLApexOptionsColorsListElement;
+        "apex-options-labels-item": HTMLApexOptionsLabelsItemElement;
+        "apex-options-labels-list": HTMLApexOptionsLabelsListElement;
+        "apex-options-responsive-list": HTMLApexOptionsResponsiveListElement;
+        "apex-options-yaxis-list": HTMLApexOptionsYaxisListElement;
+        "apex-parsing": HTMLApexParsingElement;
+        "apex-parsing-y-item": HTMLApexParsingYItemElement;
+        "apex-parsing-y-list": HTMLApexParsingYListElement;
+        "apex-plot-options": HTMLApexPlotOptionsElement;
+        "apex-plot-options-area": HTMLApexPlotOptionsAreaElement;
+        "apex-plot-options-bar": HTMLApexPlotOptionsBarElement;
+        "apex-plot-options-bar-colors": HTMLApexPlotOptionsBarColorsElement;
+        "apex-plot-options-bar-colors-background-bar-colors-item": HTMLApexPlotOptionsBarColorsBackgroundBarColorsItemElement;
+        "apex-plot-options-bar-colors-background-bar-colors-list": HTMLApexPlotOptionsBarColorsBackgroundBarColorsListElement;
+        "apex-plot-options-bar-colors-ranges-item": HTMLApexPlotOptionsBarColorsRangesItemElement;
+        "apex-plot-options-bar-colors-ranges-list": HTMLApexPlotOptionsBarColorsRangesListElement;
+        "apex-plot-options-bar-data-labels": HTMLApexPlotOptionsBarDataLabelsElement;
+        "apex-plot-options-bar-data-labels-total": HTMLApexPlotOptionsBarDataLabelsTotalElement;
+        "apex-plot-options-bar-data-labels-total-style": HTMLApexPlotOptionsBarDataLabelsTotalStyleElement;
+        "apex-plot-options-bar-dumbbell-colors-item-item": HTMLApexPlotOptionsBarDumbbellColorsItemItemElement;
+        "apex-plot-options-bar-dumbbell-colors-item-list": HTMLApexPlotOptionsBarDumbbellColorsItemListElement;
+        "apex-plot-options-bar-dumbbell-colors-list": HTMLApexPlotOptionsBarDumbbellColorsListElement;
+        "apex-plot-options-box-plot": HTMLApexPlotOptionsBoxPlotElement;
+        "apex-plot-options-box-plot-colors": HTMLApexPlotOptionsBoxPlotColorsElement;
+        "apex-plot-options-box-plot-colors-lower-item": HTMLApexPlotOptionsBoxPlotColorsLowerItemElement;
+        "apex-plot-options-box-plot-colors-lower-list": HTMLApexPlotOptionsBoxPlotColorsLowerListElement;
+        "apex-plot-options-box-plot-colors-upper-item": HTMLApexPlotOptionsBoxPlotColorsUpperItemElement;
+        "apex-plot-options-box-plot-colors-upper-list": HTMLApexPlotOptionsBoxPlotColorsUpperListElement;
+        "apex-plot-options-bubble": HTMLApexPlotOptionsBubbleElement;
+        "apex-plot-options-candlestick": HTMLApexPlotOptionsCandlestickElement;
+        "apex-plot-options-candlestick-colors": HTMLApexPlotOptionsCandlestickColorsElement;
+        "apex-plot-options-candlestick-colors-downward-item": HTMLApexPlotOptionsCandlestickColorsDownwardItemElement;
+        "apex-plot-options-candlestick-colors-downward-list": HTMLApexPlotOptionsCandlestickColorsDownwardListElement;
+        "apex-plot-options-candlestick-colors-upward-item": HTMLApexPlotOptionsCandlestickColorsUpwardItemElement;
+        "apex-plot-options-candlestick-colors-upward-list": HTMLApexPlotOptionsCandlestickColorsUpwardListElement;
+        "apex-plot-options-candlestick-wick": HTMLApexPlotOptionsCandlestickWickElement;
+        "apex-plot-options-heatmap": HTMLApexPlotOptionsHeatmapElement;
+        "apex-plot-options-heatmap-color-scale": HTMLApexPlotOptionsHeatmapColorScaleElement;
+        "apex-plot-options-heatmap-color-scale-ranges-item": HTMLApexPlotOptionsHeatmapColorScaleRangesItemElement;
+        "apex-plot-options-heatmap-color-scale-ranges-list": HTMLApexPlotOptionsHeatmapColorScaleRangesListElement;
+        "apex-plot-options-line": HTMLApexPlotOptionsLineElement;
+        "apex-plot-options-line-colors": HTMLApexPlotOptionsLineColorsElement;
+        "apex-plot-options-pie": HTMLApexPlotOptionsPieElement;
+        "apex-plot-options-pie-data-labels": HTMLApexPlotOptionsPieDataLabelsElement;
+        "apex-plot-options-pie-donut": HTMLApexPlotOptionsPieDonutElement;
+        "apex-plot-options-pie-donut-labels": HTMLApexPlotOptionsPieDonutLabelsElement;
+        "apex-plot-options-pie-donut-labels-name": HTMLApexPlotOptionsPieDonutLabelsNameElement;
+        "apex-plot-options-pie-donut-labels-total": HTMLApexPlotOptionsPieDonutLabelsTotalElement;
+        "apex-plot-options-pie-donut-labels-value": HTMLApexPlotOptionsPieDonutLabelsValueElement;
+        "apex-plot-options-polar-area": HTMLApexPlotOptionsPolarAreaElement;
+        "apex-plot-options-polar-area-rings": HTMLApexPlotOptionsPolarAreaRingsElement;
+        "apex-plot-options-polar-area-spokes": HTMLApexPlotOptionsPolarAreaSpokesElement;
+        "apex-plot-options-polar-area-spokes-connector-colors-item": HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsItemElement;
+        "apex-plot-options-polar-area-spokes-connector-colors-list": HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsListElement;
+        "apex-plot-options-radar": HTMLApexPlotOptionsRadarElement;
+        "apex-plot-options-radar-polygons": HTMLApexPlotOptionsRadarPolygonsElement;
+        "apex-plot-options-radar-polygons-connector-colors-item": HTMLApexPlotOptionsRadarPolygonsConnectorColorsItemElement;
+        "apex-plot-options-radar-polygons-connector-colors-list": HTMLApexPlotOptionsRadarPolygonsConnectorColorsListElement;
+        "apex-plot-options-radar-polygons-fill": HTMLApexPlotOptionsRadarPolygonsFillElement;
+        "apex-plot-options-radar-polygons-fill-colors-item": HTMLApexPlotOptionsRadarPolygonsFillColorsItemElement;
+        "apex-plot-options-radar-polygons-fill-colors-list": HTMLApexPlotOptionsRadarPolygonsFillColorsListElement;
+        "apex-plot-options-radar-polygons-stroke-colors-item": HTMLApexPlotOptionsRadarPolygonsStrokeColorsItemElement;
+        "apex-plot-options-radar-polygons-stroke-colors-list": HTMLApexPlotOptionsRadarPolygonsStrokeColorsListElement;
+        "apex-plot-options-radar-polygons-stroke-width-item": HTMLApexPlotOptionsRadarPolygonsStrokeWidthItemElement;
+        "apex-plot-options-radar-polygons-stroke-width-list": HTMLApexPlotOptionsRadarPolygonsStrokeWidthListElement;
+        "apex-plot-options-radial-bar": HTMLApexPlotOptionsRadialBarElement;
+        "apex-plot-options-radial-bar-bar-labels": HTMLApexPlotOptionsRadialBarBarLabelsElement;
+        "apex-plot-options-radial-bar-data-labels": HTMLApexPlotOptionsRadialBarDataLabelsElement;
+        "apex-plot-options-radial-bar-data-labels-name": HTMLApexPlotOptionsRadialBarDataLabelsNameElement;
+        "apex-plot-options-radial-bar-data-labels-total": HTMLApexPlotOptionsRadialBarDataLabelsTotalElement;
+        "apex-plot-options-radial-bar-data-labels-value": HTMLApexPlotOptionsRadialBarDataLabelsValueElement;
+        "apex-plot-options-radial-bar-hollow": HTMLApexPlotOptionsRadialBarHollowElement;
+        "apex-plot-options-radial-bar-track": HTMLApexPlotOptionsRadialBarTrackElement;
+        "apex-plot-options-radial-bar-track-background-item": HTMLApexPlotOptionsRadialBarTrackBackgroundItemElement;
+        "apex-plot-options-radial-bar-track-background-list": HTMLApexPlotOptionsRadialBarTrackBackgroundListElement;
+        "apex-plot-options-treemap": HTMLApexPlotOptionsTreemapElement;
+        "apex-plot-options-treemap-color-scale": HTMLApexPlotOptionsTreemapColorScaleElement;
+        "apex-plot-options-treemap-color-scale-ranges-item": HTMLApexPlotOptionsTreemapColorScaleRangesItemElement;
+        "apex-plot-options-treemap-color-scale-ranges-list": HTMLApexPlotOptionsTreemapColorScaleRangesListElement;
+        "apex-plot-options-treemap-data-labels": HTMLApexPlotOptionsTreemapDataLabelsElement;
+        "apex-plot-options-treemap-series-title": HTMLApexPlotOptionsTreemapSeriesTitleElement;
+        "apex-plot-options-treemap-series-title-style": HTMLApexPlotOptionsTreemapSeriesTitleStyleElement;
+        "apex-plot-options-treemap-series-title-style-padding": HTMLApexPlotOptionsTreemapSeriesTitleStylePaddingElement;
+        "apex-responsive": HTMLApexResponsiveElement;
+        "apex-states": HTMLApexStatesElement;
+        "apex-states-active": HTMLApexStatesActiveElement;
+        "apex-states-active-filter": HTMLApexStatesActiveFilterElement;
+        "apex-states-hover": HTMLApexStatesHoverElement;
+        "apex-states-hover-filter": HTMLApexStatesHoverFilterElement;
+        "apex-stroke": HTMLApexStrokeElement;
+        "apex-stroke-colors-1-item": HTMLApexStrokeColors1ItemElement;
+        "apex-stroke-colors-1-list": HTMLApexStrokeColors1ListElement;
+        "apex-stroke-colors-2-item": HTMLApexStrokeColors2ItemElement;
+        "apex-stroke-colors-2-list": HTMLApexStrokeColors2ListElement;
+        "apex-stroke-curve-list": HTMLApexStrokeCurveListElement;
+        "apex-stroke-dash-array-item": HTMLApexStrokeDashArrayItemElement;
+        "apex-stroke-dash-array-list": HTMLApexStrokeDashArrayListElement;
+        "apex-stroke-width-item": HTMLApexStrokeWidthItemElement;
+        "apex-stroke-width-list": HTMLApexStrokeWidthListElement;
+        "apex-theme": HTMLApexThemeElement;
+        "apex-theme-monochrome": HTMLApexThemeMonochromeElement;
+        "apex-title-subtitle": HTMLApexTitleSubtitleElement;
+        "apex-title-subtitle-style": HTMLApexTitleSubtitleStyleElement;
+        "apex-tooltip": HTMLApexTooltipElement;
+        "apex-tooltip-custom-list": HTMLApexTooltipCustomListElement;
+        "apex-tooltip-enabled-on-series-item": HTMLApexTooltipEnabledOnSeriesItemElement;
+        "apex-tooltip-enabled-on-series-list": HTMLApexTooltipEnabledOnSeriesListElement;
+        "apex-tooltip-fixed": HTMLApexTooltipFixedElement;
+        "apex-tooltip-items": HTMLApexTooltipItemsElement;
+        "apex-tooltip-marker": HTMLApexTooltipMarkerElement;
+        "apex-tooltip-marker-fill-colors-item": HTMLApexTooltipMarkerFillColorsItemElement;
+        "apex-tooltip-marker-fill-colors-list": HTMLApexTooltipMarkerFillColorsListElement;
+        "apex-tooltip-on-dataset-hover": HTMLApexTooltipOnDatasetHoverElement;
+        "apex-tooltip-style": HTMLApexTooltipStyleElement;
+        "apex-tooltip-x": HTMLApexTooltipXElement;
+        "apex-tooltip-y": HTMLApexTooltipYElement;
+        "apex-tooltip-y-list": HTMLApexTooltipYListElement;
+        "apex-tooltip-y-title": HTMLApexTooltipYTitleElement;
+        "apex-tooltip-z": HTMLApexTooltipZElement;
+        "apex-x-axis": HTMLApexXAxisElement;
+        "apex-x-axis-axis-border": HTMLApexXAxisAxisBorderElement;
+        "apex-x-axis-axis-ticks": HTMLApexXAxisAxisTicksElement;
+        "apex-x-axis-crosshairs": HTMLApexXAxisCrosshairsElement;
+        "apex-x-axis-crosshairs-fill": HTMLApexXAxisCrosshairsFillElement;
+        "apex-x-axis-crosshairs-fill-gradient": HTMLApexXAxisCrosshairsFillGradientElement;
+        "apex-x-axis-crosshairs-fill-gradient-stops-item": HTMLApexXAxisCrosshairsFillGradientStopsItemElement;
+        "apex-x-axis-crosshairs-fill-gradient-stops-list": HTMLApexXAxisCrosshairsFillGradientStopsListElement;
+        "apex-x-axis-crosshairs-stroke": HTMLApexXAxisCrosshairsStrokeElement;
+        "apex-x-axis-group": HTMLApexXAxisGroupElement;
+        "apex-x-axis-group-groups-item": HTMLApexXAxisGroupGroupsItemElement;
+        "apex-x-axis-group-groups-list": HTMLApexXAxisGroupGroupsListElement;
+        "apex-x-axis-group-style": HTMLApexXAxisGroupStyleElement;
+        "apex-x-axis-group-style-colors-item": HTMLApexXAxisGroupStyleColorsItemElement;
+        "apex-x-axis-group-style-colors-list": HTMLApexXAxisGroupStyleColorsListElement;
+        "apex-x-axis-labels": HTMLApexXAxisLabelsElement;
+        "apex-x-axis-labels-datetime-formatter": HTMLApexXAxisLabelsDatetimeFormatterElement;
+        "apex-x-axis-labels-style": HTMLApexXAxisLabelsStyleElement;
+        "apex-x-axis-labels-style-colors-item": HTMLApexXAxisLabelsStyleColorsItemElement;
+        "apex-x-axis-labels-style-colors-list": HTMLApexXAxisLabelsStyleColorsListElement;
+        "apex-x-axis-overwrite-categories-1-item": HTMLApexXAxisOverwriteCategories1ItemElement;
+        "apex-x-axis-overwrite-categories-1-list": HTMLApexXAxisOverwriteCategories1ListElement;
+        "apex-x-axis-overwrite-categories-2-item": HTMLApexXAxisOverwriteCategories2ItemElement;
+        "apex-x-axis-overwrite-categories-2-list": HTMLApexXAxisOverwriteCategories2ListElement;
+        "apex-x-axis-title": HTMLApexXAxisTitleElement;
+        "apex-x-axis-title-style": HTMLApexXAxisTitleStyleElement;
+        "apex-x-axis-tooltip": HTMLApexXAxisTooltipElement;
+        "apex-x-axis-tooltip-style": HTMLApexXAxisTooltipStyleElement;
+        "apex-y-axis": HTMLApexYAxisElement;
+        "apex-y-axis-axis-border": HTMLApexYAxisAxisBorderElement;
+        "apex-y-axis-axis-ticks": HTMLApexYAxisAxisTicksElement;
+        "apex-y-axis-crosshairs": HTMLApexYAxisCrosshairsElement;
+        "apex-y-axis-crosshairs-stroke": HTMLApexYAxisCrosshairsStrokeElement;
+        "apex-y-axis-labels": HTMLApexYAxisLabelsElement;
+        "apex-y-axis-labels-style": HTMLApexYAxisLabelsStyleElement;
+        "apex-y-axis-labels-style-colors-item": HTMLApexYAxisLabelsStyleColorsItemElement;
+        "apex-y-axis-labels-style-colors-list": HTMLApexYAxisLabelsStyleColorsListElement;
+        "apex-y-axis-series-name-item": HTMLApexYAxisSeriesNameItemElement;
+        "apex-y-axis-series-name-list": HTMLApexYAxisSeriesNameListElement;
+        "apex-y-axis-title": HTMLApexYAxisTitleElement;
+        "apex-y-axis-title-style": HTMLApexYAxisTitleStyleElement;
+        "apex-y-axis-tooltip": HTMLApexYAxisTooltipElement;
+        "image-annotations": HTMLImageAnnotationsElement;
+        "point-annotations": HTMLPointAnnotationsElement;
+        "point-annotations-image": HTMLPointAnnotationsImageElement;
+        "point-annotations-marker": HTMLPointAnnotationsMarkerElement;
+        "text-annotations": HTMLTextAnnotationsElement;
+        "x-axis-annotations": HTMLXAxisAnnotationsElement;
+        "y-axis-annotations": HTMLYAxisAnnotationsElement;
     }
 }
 declare namespace LocalJSX {
+    interface AnnotationLabel {
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "click"?: Function;
+        "mouseEnter"?: Function;
+        "mouseLeave"?: Function;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "orientation"?: string;
+        "position"?: string;
+        "style"?: AnnotationStyle;
+        "text"?: string | string[];
+        "textAnchor"?: string;
+    }
+    interface AnnotationLabelTextItem {
+    }
+    interface AnnotationLabelTextList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface AnnotationStyle {
+        "background"?: string;
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "padding"?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; };
+    }
+    interface AnnotationStylePadding {
+        "bottom"?: number;
+        "left"?: number;
+        "right"?: number;
+        "top"?: number;
+    }
+    interface ApexAnnotations {
+        "images"?: ImageAnnotations[];
+        "points"?: PointAnnotations[];
+        "texts"?: TextAnnotations[];
+        "xaxis"?: XAxisAnnotations[];
+        "yaxis"?: YAxisAnnotations[];
+    }
+    interface ApexAnnotationsImagesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ImageAnnotations>;
+    }
+    interface ApexAnnotationsPointsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.PointAnnotations>;
+    }
+    interface ApexAnnotationsTextsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.TextAnnotations>;
+    }
+    interface ApexAnnotationsXaxisList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.XAxisAnnotations>;
+    }
+    interface ApexAnnotationsYaxisList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.YAxisAnnotations>;
+    }
+    interface ApexAxisChartSeriesItem {
+        "color"?: string;
+        /**
+          * @default []
+         */
+        "data"?: (number | null)[] | { x: any; y: any; fill?: ApexFill | undefined; fillColor?: string | undefined; strokeColor?: string | undefined; meta?: any; goals?: { name?: string | undefined; value: number; strokeHeight?: number | undefined; strokeWidth?: number | undefined; strokeColor?: string | undefined; strokeDashArray?: number | undefined; strokeLineCap?: "butt" | "square" | "round" | undefined; }[] | undefined; barHeightOffset?: number | undefined; columnWidthOffset?: number | undefined; }[] | [number, number | null][] | [number, (number | null)[]][] | number[][] | Record<string, any>[];
+        "group"?: string;
+        "hidden"?: boolean;
+        "name"?: string;
+        "parsing"?: ApexParsing;
+        "type"?: string;
+        "zIndex"?: number;
+    }
+    interface ApexAxisChartSeriesItemData1List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<(number | null)>;
+    }
+    interface ApexAxisChartSeriesItemData2Item {
+        "barHeightOffset"?: number;
+        "columnWidthOffset"?: number;
+        "fill"?: ApexFill;
+        "fillColor"?: string;
+        "goals"?: { name?: string | undefined; value: number; strokeHeight?: number | undefined; strokeWidth?: number | undefined; strokeColor?: string | undefined; strokeDashArray?: number | undefined; strokeLineCap?: "butt" | "square" | "round" | undefined; }[];
+        "meta"?: any;
+        "strokeColor"?: string;
+        /**
+          * @default null
+         */
+        "x"?: any;
+        /**
+          * @default null
+         */
+        "y"?: any;
+    }
+    interface ApexAxisChartSeriesItemData2ItemGoalsItem {
+        "name"?: string;
+        "strokeColor"?: string;
+        "strokeDashArray"?: number;
+        "strokeHeight"?: number;
+        "strokeLineCap"?: "butt" | "square" | "round";
+        "strokeWidth"?: number;
+        /**
+          * @default 0
+         */
+        "value"?: number;
+    }
+    interface ApexAxisChartSeriesItemData2ItemGoalsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }>;
+    }
+    interface ApexAxisChartSeriesItemData2List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+           x: any;
+           y: any;
+           fill?: globalThis.ApexFill;
+           fillColor?: string;
+           strokeColor?: string;
+           meta?: any;
+           goals?: {
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }[];
+           barHeightOffset?: number;
+           columnWidthOffset?: number;
+         }>;
+    }
+    interface ApexAxisChartSeriesItemData3List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<[number, number | null]>;
+    }
+    interface ApexAxisChartSeriesItemData4List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<[number, (number | null)[]]>;
+    }
+    interface ApexAxisChartSeriesItemData5ItemItem {
+    }
+    interface ApexAxisChartSeriesItemData5ItemList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexAxisChartSeriesItemData5List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number[]>;
+    }
+    interface ApexAxisChartSeriesItemData6List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.Record<string, any>>;
+    }
+    interface ApexAxisChartSeriesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+         name?: string
+         type?: string
+         color?: string
+         group?: string
+         hidden?: boolean
+         zIndex?: number
+         parsing?: globalThis.ApexParsing;
+         data:
+         | (number | null)[]
+         | {
+           x: any;
+           y: any;
+           fill?: globalThis.ApexFill;
+           fillColor?: string;
+           strokeColor?: string;
+           meta?: any;
+           goals?: {
+             name?: string,
+             value: number,
+             strokeHeight?: number;
+             strokeWidth?: number;
+             strokeColor?: string;
+             strokeDashArray?: number;
+             strokeLineCap?: 'butt' | 'square' | 'round'
+           }[];
+           barHeightOffset?: number;
+           columnWidthOffset?: number;
+         }[]
+         | [number, number | null][]
+         | [number, (number | null)[]][]
+         | number[][]
+         | globalThis.Record<string, any>[];
+        }>;
+    }
     interface ApexChart {
+        "animations"?: { enabled?: boolean | undefined; speed?: number | undefined; animateGradually?: { enabled?: boolean | undefined; delay?: number | undefined; } | undefined; dynamicAnimation?: { enabled?: boolean | undefined; speed?: number | undefined; } | undefined; };
+        "background"?: string;
+        "brush"?: { enabled?: boolean | undefined; autoScaleYaxis?: boolean | undefined; target?: string | undefined; targets?: string[] | undefined; };
+        "defaultLocale"?: string;
+        "dropShadow"?: ApexDropShadow & { enabledOnSeries?: number[] | undefined; color?: string | string[] | undefined; };
+        "events"?: { animationEnd?(chart: any, options?: any): void; beforeMount?(chart: any, options?: any): void; mounted?(chart: any, options?: any): void; updated?(chart: any, options?: any): void; mouseMove?(e: any, chart?: any, options?: any): void; mouseLeave?(e: any, chart?: any, options?: any): void; click?(e: any, chart?: any, options?: any): void; xAxisLabelClick?(e: any, chart?: any, options?: any): void; legendClick?(chart: any, seriesIndex?: number | undefined, options?: any): void; markerClick?(e: any, chart?: any, options?: any): void; selection?(chart: any, options?: any): void; dataPointSelection?(e: any, chart?: any, options?: any): void; dataPointMouseEnter?(e: any, chart?: any, options?: any): void; dataPointMouseLeave?(e: any, chart?: any, options?: any): void; beforeZoom?(chart: any, options?: any): void; beforeResetZoom?(chart: any, options?: any): void; zoomed?(chart: any, options?: any): void; scrolled?(chart: any, options?: any): void; brushScrolled?(chart: any, options?: any): void; };
+        "fontFamily"?: string;
+        "foreColor"?: string;
+        "group"?: string;
+        "height"?: string | number;
+        "id"?: string;
+        "injectStyleSheet"?: boolean;
+        "locales"?: ApexLocale[];
+        "nonce"?: string;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "parentHeightOffset"?: number;
+        "redrawOnParentResize"?: boolean;
+        "redrawOnWindowResize"?: boolean | Function;
+        "selection"?: { enabled?: boolean | undefined; type?: string | undefined; fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { width?: number | undefined; color?: string | undefined; opacity?: number | undefined; dashArray?: number | undefined; } | undefined; xaxis?: { min?: number | undefined; max?: number | undefined; } | undefined; yaxis?: { min?: number | undefined; max?: number | undefined; } | undefined; };
+        "sparkline"?: { enabled?: boolean | undefined; };
+        "stackOnlyBar"?: boolean;
+        "stackType"?: "normal" | "100%";
+        "stacked"?: boolean;
+        "toolbar"?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; tools?: { download?: string | boolean | undefined; selection?: string | boolean | undefined; zoom?: string | boolean | undefined; zoomin?: string | boolean | undefined; zoomout?: string | boolean | undefined; pan?: string | boolean | undefined; reset?: string | boolean | undefined; customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[] | undefined; } | undefined; export?: { csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; } | undefined; svg?: { filename?: string | undefined; } | undefined; png?: { filename?: string | undefined; } | undefined; width?: number | undefined; scale?: number | undefined; } | undefined; autoSelected?: "zoom" | "selection" | "pan" | undefined; };
+        "type"?: "line" | "area" | "bar" | "pie" | "donut" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "rangeBar" | "rangeArea" | "treemap";
+        "width"?: string | number;
+        "zoom"?: { enabled?: boolean | undefined; type?: "x" | "y" | "xy" | undefined; autoScaleYaxis?: boolean | undefined; allowMouseWheelZoom?: boolean | undefined; zoomedArea?: { fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; } | undefined; } | undefined; };
+    }
+    interface ApexChartAnimations {
+        "animateGradually"?: { enabled?: boolean | undefined; delay?: number | undefined; };
+        "dynamicAnimation"?: { enabled?: boolean | undefined; speed?: number | undefined; };
+        "enabled"?: boolean;
+        "speed"?: number;
+    }
+    interface ApexChartAnimationsAnimateGradually {
+        "delay"?: number;
+        "enabled"?: boolean;
+    }
+    interface ApexChartAnimationsDynamicAnimation {
+        "enabled"?: boolean;
+        "speed"?: number;
+    }
+    interface ApexChartBrush {
+        "autoScaleYaxis"?: boolean;
+        "enabled"?: boolean;
+        "target"?: string;
+        "targets"?: string[];
+    }
+    interface ApexChartBrushTargetsItem {
+    }
+    interface ApexChartBrushTargetsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexChartDropShadow {
+        "color"?: string | string[];
+        "enabledOnSeries"?: number[] | undefined;
+    }
+    interface ApexChartDropShadowColorItem {
+    }
+    interface ApexChartDropShadowColorList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexChartDropShadowEnabledOnSeriesItem {
+    }
+    interface ApexChartDropShadowEnabledOnSeriesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexChartEvents {
+    }
+    interface ApexChartLocalesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexLocale>;
+    }
+    interface ApexChartOld {
         /**
           * Chart height
          */
@@ -77,15 +4942,2316 @@ declare namespace LocalJSX {
          */
         "width"?: string | number;
     }
+    interface ApexChartSelection {
+        "enabled"?: boolean;
+        "fill"?: { color?: string | undefined; opacity?: number | undefined; };
+        "stroke"?: { width?: number | undefined; color?: string | undefined; opacity?: number | undefined; dashArray?: number | undefined; };
+        "type"?: string;
+        "xaxis"?: { min?: number | undefined; max?: number | undefined; };
+        "yaxis"?: { min?: number | undefined; max?: number | undefined; };
+    }
+    interface ApexChartSelectionFill {
+        "color"?: string;
+        "opacity"?: number;
+    }
+    interface ApexChartSelectionStroke {
+        "color"?: string;
+        "dashArray"?: number;
+        "opacity"?: number;
+        "width"?: number;
+    }
+    interface ApexChartSelectionXaxis {
+        "max"?: number;
+        "min"?: number;
+    }
+    interface ApexChartSelectionYaxis {
+        "max"?: number;
+        "min"?: number;
+    }
+    interface ApexChartSparkline {
+        "enabled"?: boolean;
+    }
+    interface ApexChartToolbar {
+        "autoSelected"?: "zoom" | "selection" | "pan";
+        "export"?: { csv?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; } | undefined; svg?: { filename?: string | undefined; } | undefined; png?: { filename?: string | undefined; } | undefined; width?: number | undefined; scale?: number | undefined; };
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "tools"?: { download?: string | boolean | undefined; selection?: string | boolean | undefined; zoom?: string | boolean | undefined; zoomin?: string | boolean | undefined; zoomout?: string | boolean | undefined; pan?: string | boolean | undefined; reset?: string | boolean | undefined; customIcons?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[] | undefined; };
+    }
+    interface ApexChartToolbarExport {
+        "csv"?: { filename?: string | undefined; columnDelimiter?: string | undefined; headerCategory?: string | undefined; headerValue?: string | undefined; categoryFormatter?(value?: number | undefined): any; valueFormatter?(value?: number | undefined): any; };
+        "png"?: { filename?: string | undefined; };
+        "scale"?: number;
+        "svg"?: { filename?: string | undefined; };
+        "width"?: number;
+    }
+    interface ApexChartToolbarExportCsv {
+        "columnDelimiter"?: string;
+        "filename"?: string | undefined;
+        "headerCategory"?: string;
+        "headerValue"?: string;
+    }
+    interface ApexChartToolbarExportPng {
+        "filename"?: string | undefined;
+    }
+    interface ApexChartToolbarExportSvg {
+        "filename"?: string | undefined;
+    }
+    interface ApexChartToolbarTools {
+        "customIcons"?: { icon?: string | undefined; title?: string | undefined; index?: number | undefined; class?: string | undefined; click?(chart?: any, options?: any, e?: any): any; }[];
+        "download"?: string | boolean;
+        "pan"?: string | boolean;
+        "reset"?: string | boolean;
+        "selection"?: string | boolean;
+        "zoom"?: string | boolean;
+        "zoomin"?: string | boolean;
+        "zoomout"?: string | boolean;
+    }
+    interface ApexChartToolbarToolsCustomIconsItem {
+        "class"?: string;
+        "icon"?: string;
+        "index"?: number;
+        "title"?: string;
+    }
+    interface ApexChartToolbarToolsCustomIconsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+                icon?: string
+                title?: string
+                index?: number
+                class?: string
+                click?(chart?: any, options?: any, e?: any): any
+              }>;
+    }
+    interface ApexChartZoom {
+        "allowMouseWheelZoom"?: boolean;
+        "autoScaleYaxis"?: boolean;
+        "enabled"?: boolean;
+        "type"?: "x" | "y" | "xy";
+        "zoomedArea"?: { fill?: { color?: string | undefined; opacity?: number | undefined; } | undefined; stroke?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; } | undefined; };
+    }
+    interface ApexChartZoomZoomedArea {
+        "fill"?: { color?: string | undefined; opacity?: number | undefined; };
+        "stroke"?: { color?: string | undefined; opacity?: number | undefined; width?: number | undefined; };
+    }
+    interface ApexChartZoomZoomedAreaFill {
+        "color"?: string;
+        "opacity"?: number;
+    }
+    interface ApexChartZoomZoomedAreaStroke {
+        "color"?: string;
+        "opacity"?: number;
+        "width"?: number;
+    }
+    interface ApexColorStop {
+        /**
+          * @default ''
+         */
+        "color"?: string;
+        /**
+          * @default 0
+         */
+        "offset"?: number;
+        /**
+          * @default 0
+         */
+        "opacity"?: number;
+    }
+    interface ApexDataLabels {
+        "background"?: { enabled?: boolean | undefined; foreColor?: string | undefined; backgroundColor?: string | undefined; borderRadius?: number | undefined; padding?: number | undefined; opacity?: number | undefined; borderWidth?: number | undefined; borderColor?: string | undefined; dropShadow?: ApexDropShadow | undefined; };
+        "distributed"?: boolean;
+        "dropShadow"?: ApexDropShadow;
+        "enabled"?: boolean;
+        "enabledOnSeries"?: number[] | undefined;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; colors?: any[] | undefined; };
+        "textAnchor"?: "start" | "middle" | "end";
+    }
+    interface ApexDataLabelsBackground {
+        "backgroundColor"?: string;
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "dropShadow"?: ApexDropShadow;
+        "enabled"?: boolean;
+        "foreColor"?: string;
+        "opacity"?: number;
+        "padding"?: number;
+    }
+    interface ApexDataLabelsEnabledOnSeriesItem {
+    }
+    interface ApexDataLabelsEnabledOnSeriesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexDataLabelsStyle {
+        "colors"?: any[];
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexDataLabelsStyleColorsItem {
+    }
+    interface ApexDataLabelsStyleColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<any>;
+    }
+    interface ApexDiscretePoint {
+        "dataPointIndex"?: number;
+        "fillColor"?: string;
+        "seriesIndex"?: number;
+        "shape"?: ApexMarkerShape;
+        "size"?: number;
+        "strokeColor"?: string;
+    }
+    interface ApexDropShadow {
+        "blur"?: number;
+        "color"?: string;
+        "enabled"?: boolean;
+        "left"?: number;
+        "opacity"?: number;
+        "top"?: number;
+    }
+    interface ApexFill {
+        "colors"?: any[];
+        "gradient"?: { shade?: string | undefined; type?: string | undefined; shadeIntensity?: number | undefined; gradientToColors?: string[] | undefined; inverseColors?: boolean | undefined; opacityFrom?: number | number[] | undefined; opacityTo?: number | number[] | undefined; stops?: number[] | undefined; colorStops?: ApexColorStop[] | ApexColorStop[][] | undefined; };
+        "image"?: { src?: string | string[] | undefined; width?: number | undefined; height?: number | undefined; };
+        "opacity"?: number | number[];
+        "pattern"?: { style?: string | string[] | undefined; width?: number | undefined; height?: number | undefined; strokeWidth?: number | undefined; };
+        "type"?: string | string[];
+    }
+    interface ApexFillColorsItem {
+    }
+    interface ApexFillColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<any>;
+    }
+    interface ApexFillGradient {
+        "colorStops"?: ApexColorStop[] | ApexColorStop[][];
+        "gradientToColors"?: string[];
+        "inverseColors"?: boolean;
+        "opacityFrom"?: number | number[];
+        "opacityTo"?: number | number[];
+        "shade"?: string;
+        "shadeIntensity"?: number;
+        "stops"?: number[];
+        "type"?: string;
+    }
+    interface ApexFillGradientColorStops1ItemList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexColorStop>;
+    }
+    interface ApexFillGradientColorStops1List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexColorStop[]>;
+    }
+    interface ApexFillGradientColorStops2List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexColorStop>;
+    }
+    interface ApexFillGradientGradientToColorsItem {
+    }
+    interface ApexFillGradientGradientToColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexFillGradientOpacityFromItem {
+    }
+    interface ApexFillGradientOpacityFromList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexFillGradientOpacityToItem {
+    }
+    interface ApexFillGradientOpacityToList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexFillGradientStopsItem {
+    }
+    interface ApexFillGradientStopsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexFillImage {
+        "height"?: number;
+        "src"?: string | string[];
+        "width"?: number;
+    }
+    interface ApexFillImageSrcItem {
+    }
+    interface ApexFillImageSrcList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexFillOpacityItem {
+    }
+    interface ApexFillOpacityList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexFillPattern {
+        "height"?: number;
+        "strokeWidth"?: number;
+        "style"?: string | string[];
+        "width"?: number;
+    }
+    interface ApexFillPatternStyleItem {
+    }
+    interface ApexFillPatternStyleList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexFillTypeItem {
+    }
+    interface ApexFillTypeList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexForecastDataPoints {
+        "count"?: number;
+        "dashArray"?: number;
+        "fillOpacity"?: number;
+        "strokeWidth"?: number | undefined;
+    }
+    interface ApexGrid {
+        "borderColor"?: string;
+        "column"?: { colors?: string[] | undefined; opacity?: number | undefined; };
+        "padding"?: { top?: number | undefined; right?: number | undefined; bottom?: number | undefined; left?: number | undefined; };
+        "position"?: "front" | "back";
+        "row"?: { colors?: string[] | undefined; opacity?: number | undefined; };
+        "show"?: boolean;
+        "strokeDashArray"?: number;
+        "xaxis"?: { lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; } | undefined; };
+        "yaxis"?: { lines?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; } | undefined; };
+    }
+    interface ApexGridColumn {
+        "colors"?: string[];
+        "opacity"?: number;
+    }
+    interface ApexGridColumnColorsItem {
+    }
+    interface ApexGridColumnColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexGridPadding {
+        "bottom"?: number;
+        "left"?: number;
+        "right"?: number;
+        "top"?: number;
+    }
+    interface ApexGridRow {
+        "colors"?: string[];
+        "opacity"?: number;
+    }
+    interface ApexGridRowColorsItem {
+    }
+    interface ApexGridRowColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexGridXaxis {
+        "lines"?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    }
+    interface ApexGridXaxisLines {
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexGridYaxis {
+        "lines"?: { show?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+    }
+    interface ApexGridYaxisLines {
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexLegend {
+        "clusterGroupedSeries"?: boolean;
+        "clusterGroupedSeriesOrientation"?: string;
+        "customLegendItems"?: string[];
+        "floating"?: boolean;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "height"?: number;
+        "horizontalAlign"?: "left" | "center" | "right";
+        "inverseOrder"?: boolean;
+        "itemMargin"?: { horizontal?: number | undefined; vertical?: number | undefined; };
+        "labels"?: { colors?: string | string[] | undefined; useSeriesColors?: boolean | undefined; };
+        "markers"?: { size?: number | undefined; strokeWidth?: number | undefined; fillColors?: string[] | undefined; shape?: ApexMarkerShape | undefined; offsetX?: number | undefined; offsetY?: number | undefined; customHTML?(): any; onClick?(): void; };
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "onItemClick"?: { toggleDataSeries?: boolean | undefined; };
+        "onItemHover"?: { highlightDataSeries?: boolean | undefined; };
+        "position"?: "top" | "right" | "bottom" | "left";
+        "show"?: boolean;
+        "showForNullSeries"?: boolean;
+        "showForSingleSeries"?: boolean;
+        "showForZeroSeries"?: boolean;
+        "width"?: number;
+    }
+    interface ApexLegendCustomLegendItemsItem {
+    }
+    interface ApexLegendCustomLegendItemsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLegendItemMargin {
+        "horizontal"?: number;
+        "vertical"?: number;
+    }
+    interface ApexLegendLabels {
+        "colors"?: string | string[];
+        "useSeriesColors"?: boolean;
+    }
+    interface ApexLegendLabelsColorsItem {
+    }
+    interface ApexLegendLabelsColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLegendMarkers {
+        "fillColors"?: string[];
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "shape"?: ApexMarkerShape;
+        "size"?: number;
+        "strokeWidth"?: number;
+    }
+    interface ApexLegendMarkersFillColorsItem {
+    }
+    interface ApexLegendMarkersFillColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLegendOnItemClick {
+        "toggleDataSeries"?: boolean;
+    }
+    interface ApexLegendOnItemHover {
+        "highlightDataSeries"?: boolean;
+    }
+    interface ApexLocale {
+        "name"?: string;
+        "options"?: { months?: string[] | undefined; shortMonths?: string[] | undefined; days?: string[] | undefined; shortDays?: string[] | undefined; toolbar?: { download?: string | undefined; selection?: string | undefined; selectionZoom?: string | undefined; zoomIn?: string | undefined; zoomOut?: string | undefined; pan?: string | undefined; reset?: string | undefined; exportToSVG?: string | undefined; exportToPNG?: string | undefined; exportToCSV?: string | undefined; } | undefined; };
+    }
+    interface ApexLocaleOptions {
+        "days"?: string[];
+        "months"?: string[];
+        "shortDays"?: string[];
+        "shortMonths"?: string[];
+        "toolbar"?: { download?: string | undefined; selection?: string | undefined; selectionZoom?: string | undefined; zoomIn?: string | undefined; zoomOut?: string | undefined; pan?: string | undefined; reset?: string | undefined; exportToSVG?: string | undefined; exportToPNG?: string | undefined; exportToCSV?: string | undefined; };
+    }
+    interface ApexLocaleOptionsDaysItem {
+    }
+    interface ApexLocaleOptionsDaysList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLocaleOptionsMonthsItem {
+    }
+    interface ApexLocaleOptionsMonthsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLocaleOptionsShortDaysItem {
+    }
+    interface ApexLocaleOptionsShortDaysList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLocaleOptionsShortMonthsItem {
+    }
+    interface ApexLocaleOptionsShortMonthsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexLocaleOptionsToolbar {
+        "download"?: string;
+        "exportToCSV"?: string;
+        "exportToPNG"?: string;
+        "exportToSVG"?: string;
+        "pan"?: string;
+        "reset"?: string;
+        "selection"?: string;
+        "selectionZoom"?: string;
+        "zoomIn"?: string;
+        "zoomOut"?: string;
+    }
+    interface ApexMarkerShapeList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.MarkerShapeOptions>;
+    }
+    interface ApexMarkers {
+        "colors"?: string | string[];
+        "discrete"?: ApexDiscretePoint[];
+        "fillOpacity"?: number | number[];
+        "hover"?: { size?: number | undefined; sizeOffset?: number | undefined; };
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "shape"?: ApexMarkerShape;
+        "showNullDataPoints"?: boolean;
+        "size"?: number | number[];
+        "strokeColors"?: string | string[];
+        "strokeDashArray"?: number | number[];
+        "strokeOpacity"?: number | number[];
+        "strokeWidth"?: number | number[];
+    }
+    interface ApexMarkersColorsItem {
+    }
+    interface ApexMarkersColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexMarkersDiscreteList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexDiscretePoint>;
+    }
+    interface ApexMarkersFillOpacityItem {
+    }
+    interface ApexMarkersFillOpacityList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexMarkersHover {
+        "size"?: number;
+        "sizeOffset"?: number;
+    }
+    interface ApexMarkersSizeItem {
+    }
+    interface ApexMarkersSizeList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexMarkersStrokeColorsItem {
+    }
+    interface ApexMarkersStrokeColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexMarkersStrokeDashArrayItem {
+    }
+    interface ApexMarkersStrokeDashArrayList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexMarkersStrokeOpacityItem {
+    }
+    interface ApexMarkersStrokeOpacityList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexMarkersStrokeWidthItem {
+    }
+    interface ApexMarkersStrokeWidthList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexNoData {
+        "align"?: "left" | "right" | "center";
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; };
+        "text"?: string;
+        "verticalAlign"?: "top" | "middle" | "bottom";
+    }
+    interface ApexNoDataStyle {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+    }
+    interface ApexNonAxisChartSeriesItem {
+    }
+    interface ApexNonAxisChartSeriesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexOptions {
+        "annotations"?: ApexAnnotations;
+        "chart"?: ApexChart;
+        "colors"?: any[];
+        "dataLabels"?: ApexDataLabels;
+        "fill"?: ApexFill;
+        "forecastDataPoints"?: ApexForecastDataPoints;
+        "grid"?: ApexGrid;
+        "labels"?: string[];
+        "legend"?: ApexLegend;
+        "markers"?: ApexMarkers;
+        "noData"?: ApexNoData;
+        "parsing"?: ApexParsing;
+        "plotOptions"?: ApexPlotOptions;
+        "responsive"?: ApexResponsive[];
+        "series"?: ApexNonAxisChartSeries;
+        "states"?: ApexStates;
+        "stroke"?: ApexStroke;
+        "subtitle"?: ApexTitleSubtitle;
+        "theme"?: ApexTheme;
+        "title"?: ApexTitleSubtitle;
+        "tooltip"?: ApexTooltip;
+        "xaxis"?: ApexXAxis;
+        "yaxis"?: ApexYAxis | ApexYAxis[];
+    }
+    interface ApexOptionsColorsItem {
+    }
+    interface ApexOptionsColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<any>;
+    }
+    interface ApexOptionsLabelsItem {
+    }
+    interface ApexOptionsLabelsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexOptionsResponsiveList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexResponsive>;
+    }
+    interface ApexOptionsYaxisList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexYAxis>;
+    }
+    interface ApexParsing {
+        "x"?: string;
+        "y"?: string | string[];
+        "z"?: string;
+    }
+    interface ApexParsingYItem {
+    }
+    interface ApexParsingYList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptions {
+        "area"?: { fillTo?: "origin" | "end" | undefined; };
+        "bar"?: { horizontal?: boolean | undefined; columnWidth?: string | number | undefined; barHeight?: string | number | undefined; distributed?: boolean | undefined; borderRadius?: number | undefined; borderRadiusApplication?: "around" | "end" | undefined; borderRadiusWhenStacked?: "all" | "last" | undefined; hideZeroBarsWhenGrouped?: boolean | undefined; rangeBarOverlap?: boolean | undefined; rangeBarGroupRows?: boolean | undefined; isDumbbell?: boolean | undefined; dumbbellColors?: string[][] | undefined; isFunnel?: boolean | undefined; isFunnel3d?: boolean | undefined; colors?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[] | undefined; backgroundBarColors?: string[] | undefined; backgroundBarOpacity?: number | undefined; backgroundBarRadius?: number | undefined; } | undefined; dataLabels?: { maxItems?: number | undefined; hideOverflowingLabels?: boolean | undefined; position?: string | undefined; orientation?: "horizontal" | "vertical" | undefined; total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; } | undefined; } | undefined; };
+        "boxPlot"?: { colors?: { upper?: string | string[] | undefined; lower?: string | string[] | undefined; } | undefined; };
+        "bubble"?: { zScaling?: boolean | undefined; minBubbleRadius?: number | undefined; maxBubbleRadius?: number | undefined; };
+        "candlestick"?: { type?: string | undefined; colors?: { upward?: string | string[] | undefined; downward?: string | string[] | undefined; } | undefined; wick?: { useFillColor?: boolean | undefined; } | undefined; };
+        "heatmap"?: { radius?: number | undefined; enableShades?: boolean | undefined; shadeIntensity?: number | undefined; reverseNegativeShade?: boolean | undefined; distributed?: boolean | undefined; useFillColorAsStroke?: boolean | undefined; colorScale?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; inverse?: boolean | undefined; min?: number | undefined; max?: number | undefined; } | undefined; };
+        "line"?: { isSlopeChart?: boolean | undefined; colors?: { threshold?: number | undefined; colorAboveThreshold?: string | undefined; colorBelowThreshold?: string | undefined; } | undefined; };
+        "pie"?: { startAngle?: number | undefined; endAngle?: number | undefined; customScale?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; expandOnClick?: boolean | undefined; dataLabels?: { offset?: number | undefined; minAngleToShowLabel?: number | undefined; } | undefined; donut?: { size?: string | undefined; background?: string | undefined; labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; } | undefined; } | undefined; };
+        "polarArea"?: { rings?: { strokeWidth?: number | undefined; strokeColor?: string | undefined; } | undefined; spokes?: { strokeWidth?: number | undefined; connectorColors?: string | string[] | undefined; } | undefined; };
+        "radar"?: { size?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; polygons?: { strokeColors?: string | string[] | undefined; strokeWidth?: string | string[] | undefined; connectorColors?: string | string[] | undefined; fill?: { colors?: string[] | undefined; } | undefined; } | undefined; };
+        "radialBar"?: { inverseOrder?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; hollow?: { margin?: number | undefined; size?: string | undefined; background?: string | undefined; image?: string | undefined; imageWidth?: number | undefined; imageHeight?: number | undefined; imageOffsetX?: number | undefined; imageOffsetY?: number | undefined; imageClipped?: boolean | undefined; position?: "front" | "back" | undefined; dropShadow?: ApexDropShadow | undefined; } | undefined; track?: { show?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; background?: string | string[] | undefined; strokeWidth?: string | undefined; opacity?: number | undefined; margin?: number | undefined; dropShadow?: ApexDropShadow | undefined; } | undefined; dataLabels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; } | undefined; value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; } | undefined; total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; } | undefined; } | undefined; barLabels?: { enabled?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; useSeriesColors?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?: ((barName: string, opts?: any) => string) | undefined; onClick?: ((barName: string, opts?: any) => void) | undefined; } | undefined; };
+        "treemap"?: { enableShades?: boolean | undefined; shadeIntensity?: number | undefined; distributed?: boolean | undefined; reverseNegativeShade?: boolean | undefined; useFillColorAsStroke?: boolean | undefined; dataLabels?: { format?: "scale" | "truncate" | undefined; } | undefined; borderRadius?: number | undefined; colorScale?: { inverse?: boolean | undefined; ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; min?: number | undefined; max?: number | undefined; } | undefined; seriesTitle?: { show?: boolean | undefined; offsetY?: number | undefined; offsetX?: number | undefined; borderColor?: string | undefined; borderWidth?: number | undefined; borderRadius?: number | undefined; style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; } | undefined; } | undefined; };
+    }
+    interface ApexPlotOptionsArea {
+        "fillTo"?: "origin" | "end";
+    }
+    interface ApexPlotOptionsBar {
+        "barHeight"?: string | number;
+        "borderRadius"?: number;
+        "borderRadiusApplication"?: "around" | "end";
+        "borderRadiusWhenStacked"?: "all" | "last";
+        "colors"?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[] | undefined; backgroundBarColors?: string[] | undefined; backgroundBarOpacity?: number | undefined; backgroundBarRadius?: number | undefined; };
+        "columnWidth"?: string | number;
+        "dataLabels"?: { maxItems?: number | undefined; hideOverflowingLabels?: boolean | undefined; position?: string | undefined; orientation?: "horizontal" | "vertical" | undefined; total?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; } | undefined; };
+        "distributed"?: boolean;
+        "dumbbellColors"?: string[][];
+        "hideZeroBarsWhenGrouped"?: boolean;
+        "horizontal"?: boolean;
+        "isDumbbell"?: boolean;
+        "isFunnel"?: boolean;
+        "isFunnel3d"?: boolean;
+        "rangeBarGroupRows"?: boolean;
+        "rangeBarOverlap"?: boolean;
+    }
+    interface ApexPlotOptionsBarColors {
+        "backgroundBarColors"?: string[];
+        "backgroundBarOpacity"?: number;
+        "backgroundBarRadius"?: number;
+        "ranges"?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; }[];
+    }
+    interface ApexPlotOptionsBarColorsBackgroundBarColorsItem {
+    }
+    interface ApexPlotOptionsBarColorsBackgroundBarColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsBarColorsRangesItem {
+        "color"?: string;
+        "from"?: number;
+        "to"?: number;
+    }
+    interface ApexPlotOptionsBarColorsRangesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+                from?: number
+                to?: number
+                color?: string
+              }>;
+    }
+    interface ApexPlotOptionsBarDataLabels {
+        "hideOverflowingLabels"?: boolean;
+        "maxItems"?: number;
+        "orientation"?: "horizontal" | "vertical";
+        "position"?: string;
+        "total"?: { enabled?: boolean | undefined; formatter?(val?: string | undefined, opts?: any): string; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; } | undefined; };
+    }
+    interface ApexPlotOptionsBarDataLabelsTotal {
+        "enabled"?: boolean;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; };
+    }
+    interface ApexPlotOptionsBarDataLabelsTotalStyle {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexPlotOptionsBarDumbbellColorsItemItem {
+    }
+    interface ApexPlotOptionsBarDumbbellColorsItemList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsBarDumbbellColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string[]>;
+    }
+    interface ApexPlotOptionsBoxPlot {
+        "colors"?: { upper?: string | string[] | undefined; lower?: string | string[] | undefined; };
+    }
+    interface ApexPlotOptionsBoxPlotColors {
+        "lower"?: string | string[];
+        "upper"?: string | string[];
+    }
+    interface ApexPlotOptionsBoxPlotColorsLowerItem {
+    }
+    interface ApexPlotOptionsBoxPlotColorsLowerList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsBoxPlotColorsUpperItem {
+    }
+    interface ApexPlotOptionsBoxPlotColorsUpperList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsBubble {
+        "maxBubbleRadius"?: number;
+        "minBubbleRadius"?: number;
+        "zScaling"?: boolean;
+    }
+    interface ApexPlotOptionsCandlestick {
+        "colors"?: { upward?: string | string[] | undefined; downward?: string | string[] | undefined; };
+        "type"?: string;
+        "wick"?: { useFillColor?: boolean | undefined; };
+    }
+    interface ApexPlotOptionsCandlestickColors {
+        "downward"?: string | string[];
+        "upward"?: string | string[];
+    }
+    interface ApexPlotOptionsCandlestickColorsDownwardItem {
+    }
+    interface ApexPlotOptionsCandlestickColorsDownwardList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsCandlestickColorsUpwardItem {
+    }
+    interface ApexPlotOptionsCandlestickColorsUpwardList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsCandlestickWick {
+        "useFillColor"?: boolean;
+    }
+    interface ApexPlotOptionsHeatmap {
+        "colorScale"?: { ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; inverse?: boolean | undefined; min?: number | undefined; max?: number | undefined; };
+        "distributed"?: boolean;
+        "enableShades"?: boolean;
+        "radius"?: number;
+        "reverseNegativeShade"?: boolean;
+        "shadeIntensity"?: number;
+        "useFillColorAsStroke"?: boolean;
+    }
+    interface ApexPlotOptionsHeatmapColorScale {
+        "inverse"?: boolean;
+        "max"?: number;
+        "min"?: number;
+        "ranges"?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[];
+    }
+    interface ApexPlotOptionsHeatmapColorScaleRangesItem {
+        "color"?: string;
+        "foreColor"?: string;
+        "from"?: number;
+        "name"?: string;
+        "to"?: number;
+    }
+    interface ApexPlotOptionsHeatmapColorScaleRangesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+                from?: number
+                to?: number
+                color?: string
+                foreColor?: string
+                name?: string
+              }>;
+    }
+    interface ApexPlotOptionsLine {
+        "colors"?: { threshold?: number | undefined; colorAboveThreshold?: string | undefined; colorBelowThreshold?: string | undefined; };
+        "isSlopeChart"?: boolean;
+    }
+    interface ApexPlotOptionsLineColors {
+        "colorAboveThreshold"?: string;
+        "colorBelowThreshold"?: string;
+        "threshold"?: number;
+    }
+    interface ApexPlotOptionsPie {
+        "customScale"?: number;
+        "dataLabels"?: { offset?: number | undefined; minAngleToShowLabel?: number | undefined; };
+        "donut"?: { size?: string | undefined; background?: string | undefined; labels?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; } | undefined; };
+        "endAngle"?: number;
+        "expandOnClick"?: boolean;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "startAngle"?: number;
+    }
+    interface ApexPlotOptionsPieDataLabels {
+        "minAngleToShowLabel"?: number;
+        "offset"?: number;
+    }
+    interface ApexPlotOptionsPieDonut {
+        "background"?: string;
+        "labels"?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; value?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; } | undefined; total?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; } | undefined; };
+        "size"?: string;
+    }
+    interface ApexPlotOptionsPieDonutLabels {
+        "name"?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; };
+        "show"?: boolean;
+        "total"?: { show?: boolean | undefined; showAlways?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; label?: string | undefined; color?: string | undefined; formatter?(w: any): string; };
+        "value"?: { show?: boolean | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: string): string; };
+    }
+    interface ApexPlotOptionsPieDonutLabelsName {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsPieDonutLabelsTotal {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "label"?: string;
+        "show"?: boolean;
+        "showAlways"?: boolean;
+    }
+    interface ApexPlotOptionsPieDonutLabelsValue {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsPolarArea {
+        "rings"?: { strokeWidth?: number | undefined; strokeColor?: string | undefined; };
+        "spokes"?: { strokeWidth?: number | undefined; connectorColors?: string | string[] | undefined; };
+    }
+    interface ApexPlotOptionsPolarAreaRings {
+        "strokeColor"?: string;
+        "strokeWidth"?: number;
+    }
+    interface ApexPlotOptionsPolarAreaSpokes {
+        "connectorColors"?: string | string[];
+        "strokeWidth"?: number;
+    }
+    interface ApexPlotOptionsPolarAreaSpokesConnectorColorsItem {
+    }
+    interface ApexPlotOptionsPolarAreaSpokesConnectorColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsRadar {
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "polygons"?: { strokeColors?: string | string[] | undefined; strokeWidth?: string | string[] | undefined; connectorColors?: string | string[] | undefined; fill?: { colors?: string[] | undefined; } | undefined; };
+        "size"?: number;
+    }
+    interface ApexPlotOptionsRadarPolygons {
+        "connectorColors"?: string | string[];
+        "fill"?: { colors?: string[] | undefined; };
+        "strokeColors"?: string | string[];
+        "strokeWidth"?: string | string[];
+    }
+    interface ApexPlotOptionsRadarPolygonsConnectorColorsItem {
+    }
+    interface ApexPlotOptionsRadarPolygonsConnectorColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsRadarPolygonsFill {
+        "colors"?: string[];
+    }
+    interface ApexPlotOptionsRadarPolygonsFillColorsItem {
+    }
+    interface ApexPlotOptionsRadarPolygonsFillColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeColorsItem {
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeWidthItem {
+    }
+    interface ApexPlotOptionsRadarPolygonsStrokeWidthList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsRadialBar {
+        "barLabels"?: { enabled?: boolean | undefined; offsetX?: number | undefined; offsetY?: number | undefined; useSeriesColors?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?: ((barName: string, opts?: any) => string) | undefined; onClick?: ((barName: string, opts?: any) => void) | undefined; };
+        "dataLabels"?: { show?: boolean | undefined; name?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; } | undefined; value?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; } | undefined; total?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; } | undefined; };
+        "endAngle"?: number;
+        "hollow"?: { margin?: number | undefined; size?: string | undefined; background?: string | undefined; image?: string | undefined; imageWidth?: number | undefined; imageHeight?: number | undefined; imageOffsetX?: number | undefined; imageOffsetY?: number | undefined; imageClipped?: boolean | undefined; position?: "front" | "back" | undefined; dropShadow?: ApexDropShadow | undefined; };
+        "inverseOrder"?: boolean;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "startAngle"?: number;
+        "track"?: { show?: boolean | undefined; startAngle?: number | undefined; endAngle?: number | undefined; background?: string | string[] | undefined; strokeWidth?: string | undefined; opacity?: number | undefined; margin?: number | undefined; dropShadow?: ApexDropShadow | undefined; };
+    }
+    interface ApexPlotOptionsRadialBarBarLabels {
+        "enabled"?: boolean;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "onFormatter"?: (event: ApexPlotOptionsRadialBarBarLabelsCustomEvent<any>) => void;
+        "onOnClick"?: (event: ApexPlotOptionsRadialBarBarLabelsCustomEvent<any>) => void;
+        "useSeriesColors"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarDataLabels {
+        "name"?: { show?: boolean | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; color?: string | undefined; offsetY?: number | undefined; };
+        "show"?: boolean;
+        "total"?: { show?: boolean | undefined; label?: string | undefined; color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; formatter?(opts: any): string; };
+        "value"?: { show?: boolean | undefined; fontFamily?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; offsetY?: number | undefined; formatter?(val: number): string; };
+    }
+    interface ApexPlotOptionsRadialBarDataLabelsName {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarDataLabelsTotal {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "label"?: string;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarDataLabelsValue {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexPlotOptionsRadialBarHollow {
+        "background"?: string;
+        "dropShadow"?: ApexDropShadow;
+        "image"?: string;
+        "imageClipped"?: boolean;
+        "imageHeight"?: number;
+        "imageOffsetX"?: number;
+        "imageOffsetY"?: number;
+        "imageWidth"?: number;
+        "margin"?: number;
+        "position"?: "front" | "back";
+        "size"?: string;
+    }
+    interface ApexPlotOptionsRadialBarTrack {
+        "background"?: string | string[];
+        "dropShadow"?: ApexDropShadow;
+        "endAngle"?: number;
+        "margin"?: number;
+        "opacity"?: number;
+        "show"?: boolean;
+        "startAngle"?: number;
+        "strokeWidth"?: string;
+    }
+    interface ApexPlotOptionsRadialBarTrackBackgroundItem {
+    }
+    interface ApexPlotOptionsRadialBarTrackBackgroundList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexPlotOptionsTreemap {
+        "borderRadius"?: number;
+        "colorScale"?: { inverse?: boolean | undefined; ranges?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[] | undefined; min?: number | undefined; max?: number | undefined; };
+        "dataLabels"?: { format?: "scale" | "truncate" | undefined; };
+        "distributed"?: boolean;
+        "enableShades"?: boolean;
+        "reverseNegativeShade"?: boolean;
+        "seriesTitle"?: { show?: boolean | undefined; offsetY?: number | undefined; offsetX?: number | undefined; borderColor?: string | undefined; borderWidth?: number | undefined; borderRadius?: number | undefined; style?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; } | undefined; };
+        "shadeIntensity"?: number;
+        "useFillColorAsStroke"?: boolean;
+    }
+    interface ApexPlotOptionsTreemapColorScale {
+        "inverse"?: boolean;
+        "max"?: number;
+        "min"?: number;
+        "ranges"?: { from?: number | undefined; to?: number | undefined; color?: string | undefined; foreColor?: string | undefined; name?: string | undefined; }[];
+    }
+    interface ApexPlotOptionsTreemapColorScaleRangesItem {
+        "color"?: string;
+        "foreColor"?: string;
+        "from"?: number;
+        "name"?: string;
+        "to"?: number;
+    }
+    interface ApexPlotOptionsTreemapColorScaleRangesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{
+                from?: number
+                to?: number
+                color?: string
+                foreColor?: string
+                name?: string
+              }>;
+    }
+    interface ApexPlotOptionsTreemapDataLabels {
+        "format"?: "scale" | "truncate";
+    }
+    interface ApexPlotOptionsTreemapSeriesTitle {
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "style"?: { background?: string | undefined; color?: string | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; padding?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; } | undefined; };
+    }
+    interface ApexPlotOptionsTreemapSeriesTitleStyle {
+        "background"?: string;
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+        "padding"?: { left?: number | undefined; right?: number | undefined; top?: number | undefined; bottom?: number | undefined; };
+    }
+    interface ApexPlotOptionsTreemapSeriesTitleStylePadding {
+        "bottom"?: number;
+        "left"?: number;
+        "right"?: number;
+        "top"?: number;
+    }
+    interface ApexResponsive {
+        "breakpoint"?: number;
+        "options"?: any;
+    }
+    interface ApexStates {
+        "active"?: { allowMultipleDataPointsSelection?: boolean | undefined; filter?: { type?: string | undefined; } | undefined; };
+        "hover"?: { filter?: { type?: string | undefined; } | undefined; };
+    }
+    interface ApexStatesActive {
+        "allowMultipleDataPointsSelection"?: boolean;
+        "filter"?: { type?: string | undefined; };
+    }
+    interface ApexStatesActiveFilter {
+        "type"?: string;
+    }
+    interface ApexStatesHover {
+        "filter"?: { type?: string | undefined; };
+    }
+    interface ApexStatesHoverFilter {
+        "type"?: string;
+    }
+    interface ApexStroke {
+        "colors"?: any[] | string[];
+        "curve"?: "smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic" | ("smooth" | "straight" | "stepline" | "linestep" | "monotoneCubic")[];
+        "dashArray"?: number | number[];
+        "fill"?: ApexFill;
+        "lineCap"?: "butt" | "square" | "round";
+        "show"?: boolean;
+        "width"?: number | number[];
+    }
+    interface ApexStrokeColors1Item {
+    }
+    interface ApexStrokeColors1List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<any>;
+    }
+    interface ApexStrokeColors2Item {
+    }
+    interface ApexStrokeColors2List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexStrokeCurveList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<('smooth' | 'straight' | 'stepline' | 'linestep' | 'monotoneCubic')>;
+    }
+    interface ApexStrokeDashArrayItem {
+    }
+    interface ApexStrokeDashArrayList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexStrokeWidthItem {
+    }
+    interface ApexStrokeWidthList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexTheme {
+        "mode"?: "light" | "dark";
+        "monochrome"?: { enabled?: boolean | undefined; color?: string | undefined; shadeTo?: "light" | "dark" | undefined; shadeIntensity?: number | undefined; };
+        "palette"?: string;
+    }
+    interface ApexThemeMonochrome {
+        "color"?: string;
+        "enabled"?: boolean;
+        "shadeIntensity"?: number;
+        "shadeTo"?: "light" | "dark";
+    }
+    interface ApexTitleSubtitle {
+        "align"?: "left" | "center" | "right";
+        "floating"?: boolean;
+        "margin"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; color?: string | undefined; };
+        "text"?: string;
+    }
+    interface ApexTitleSubtitleStyle {
+        "color"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexTooltip {
+        "cssClass"?: string;
+        "custom"?: ((options: any) => any) | ((options: any) => any)[];
+        "enabled"?: boolean;
+        "enabledOnSeries"?: number[] | undefined;
+        "fillSeriesColor"?: boolean;
+        "fixed"?: { enabled?: boolean | undefined; position?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "followCursor"?: boolean;
+        "hideEmptySeries"?: boolean;
+        "intersect"?: boolean;
+        "inverseOrder"?: boolean;
+        "items"?: { display?: string | undefined; };
+        "marker"?: { show?: boolean | undefined; fillColors?: string[] | undefined; };
+        "onDatasetHover"?: { highlightDataSeries?: boolean | undefined; };
+        "shared"?: boolean;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; };
+        "theme"?: string;
+        "x"?: { show?: boolean | undefined; format?: string | undefined; formatter?(val: number, opts?: any): string; };
+        "y"?: ApexTooltipY | ApexTooltipY[];
+        "z"?: { title?: string | undefined; formatter?(val: number): string; };
+    }
+    interface ApexTooltipCustomList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<((options: any) => any)>;
+    }
+    interface ApexTooltipEnabledOnSeriesItem {
+    }
+    interface ApexTooltipEnabledOnSeriesList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexTooltipFixed {
+        "enabled"?: boolean;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "position"?: string;
+    }
+    interface ApexTooltipItems {
+        "display"?: string;
+    }
+    interface ApexTooltipMarker {
+        "fillColors"?: string[];
+        "show"?: boolean;
+    }
+    interface ApexTooltipMarkerFillColorsItem {
+    }
+    interface ApexTooltipMarkerFillColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexTooltipOnDatasetHover {
+        "highlightDataSeries"?: boolean;
+    }
+    interface ApexTooltipStyle {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+    }
+    interface ApexTooltipX {
+        "format"?: string;
+        "show"?: boolean;
+    }
+    interface ApexTooltipY {
+        "title"?: { formatter?(seriesName: string, opts?: any): string; };
+    }
+    interface ApexTooltipYList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<globalThis.ApexTooltipY>;
+    }
+    interface ApexTooltipYTitle {
+    }
+    interface ApexTooltipZ {
+        "title"?: string;
+    }
+    interface ApexXAxis {
+        "axisBorder"?: { show?: boolean | undefined; color?: string | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "axisTicks"?: { show?: boolean | undefined; borderType?: string | undefined; color?: string | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "categories"?: any;
+        "crosshairs"?: { show?: boolean | undefined; width?: string | number | undefined; position?: string | undefined; opacity?: number | undefined; stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; } | undefined; fill?: { type?: string | undefined; color?: string | undefined; gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; } | undefined; } | undefined; dropShadow?: ApexDropShadow | undefined; };
+        "decimalsInFloat"?: number;
+        "floating"?: boolean;
+        "group"?: { groups?: { title: string; cols: number; }[] | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; } | undefined; };
+        "labels"?: { show?: boolean | undefined; rotate?: number | undefined; rotateAlways?: boolean | undefined; hideOverlappingLabels?: boolean | undefined; showDuplicates?: boolean | undefined; trim?: boolean | undefined; minHeight?: number | undefined; maxHeight?: number | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; } | undefined; offsetX?: number | undefined; offsetY?: number | undefined; format?: string | undefined; formatter?(value: string, timestamp?: number | undefined, opts?: any): string | string[]; datetimeUTC?: boolean | undefined; datetimeFormatter?: { year?: string | undefined; month?: string | undefined; day?: string | undefined; hour?: string | undefined; minute?: string | undefined; second?: string | undefined; } | undefined; };
+        "max"?: number;
+        "min"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "overwriteCategories"?: number[] | string[] | undefined;
+        "position"?: string;
+        "range"?: number;
+        "sorted"?: boolean;
+        "stepSize"?: number;
+        "tickAmount"?: number | "dataPoints";
+        "tickPlacement"?: string;
+        "title"?: { text?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; cssClass?: string | undefined; } | undefined; };
+        "tooltip"?: { enabled?: boolean | undefined; offsetY?: number | undefined; formatter?(value: string, opts?: object | undefined): string; style?: { fontSize?: string | undefined; fontFamily?: string | undefined; } | undefined; };
+        "type"?: "category" | "datetime" | "numeric";
+    }
+    interface ApexXAxisAxisBorder {
+        "color"?: string;
+        "height"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexXAxisAxisTicks {
+        "borderType"?: string;
+        "color"?: string;
+        "height"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+    }
+    interface ApexXAxisCrosshairs {
+        "dropShadow"?: ApexDropShadow;
+        "fill"?: { type?: string | undefined; color?: string | undefined; gradient?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; } | undefined; };
+        "opacity"?: number;
+        "position"?: string;
+        "show"?: boolean;
+        "stroke"?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; };
+        "width"?: string | number;
+    }
+    interface ApexXAxisCrosshairsFill {
+        "color"?: string;
+        "gradient"?: { colorFrom?: string | undefined; colorTo?: string | undefined; stops?: number[] | undefined; opacityFrom?: number | undefined; opacityTo?: number | undefined; };
+        "type"?: string;
+    }
+    interface ApexXAxisCrosshairsFillGradient {
+        "colorFrom"?: string;
+        "colorTo"?: string;
+        "opacityFrom"?: number;
+        "opacityTo"?: number;
+        "stops"?: number[];
+    }
+    interface ApexXAxisCrosshairsFillGradientStopsItem {
+    }
+    interface ApexXAxisCrosshairsFillGradientStopsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexXAxisCrosshairsStroke {
+        "color"?: string;
+        "dashArray"?: number;
+        "width"?: number;
+    }
+    interface ApexXAxisGroup {
+        "groups"?: { title: string; cols: number; }[];
+        "style"?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; };
+    }
+    interface ApexXAxisGroupGroupsItem {
+        /**
+          * @default 0
+         */
+        "cols"?: number;
+        /**
+          * @default ''
+         */
+        "title"?: string;
+    }
+    interface ApexXAxisGroupGroupsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<{ title: string, cols: number }>;
+    }
+    interface ApexXAxisGroupStyle {
+        "colors"?: string | string[];
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexXAxisGroupStyleColorsItem {
+    }
+    interface ApexXAxisGroupStyleColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexXAxisLabels {
+        "datetimeFormatter"?: { year?: string | undefined; month?: string | undefined; day?: string | undefined; hour?: string | undefined; minute?: string | undefined; second?: string | undefined; };
+        "datetimeUTC"?: boolean;
+        "format"?: string;
+        "hideOverlappingLabels"?: boolean;
+        "maxHeight"?: number;
+        "minHeight"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "rotate"?: number;
+        "rotateAlways"?: boolean;
+        "show"?: boolean;
+        "showDuplicates"?: boolean;
+        "style"?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; cssClass?: string | undefined; };
+        "trim"?: boolean;
+    }
+    interface ApexXAxisLabelsDatetimeFormatter {
+        "day"?: string;
+        "hour"?: string;
+        "minute"?: string;
+        "month"?: string;
+        "second"?: string;
+        "year"?: string;
+    }
+    interface ApexXAxisLabelsStyle {
+        "colors"?: string | string[];
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexXAxisLabelsStyleColorsItem {
+    }
+    interface ApexXAxisLabelsStyleColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexXAxisOverwriteCategories1Item {
+    }
+    interface ApexXAxisOverwriteCategories1List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<number>;
+    }
+    interface ApexXAxisOverwriteCategories2Item {
+    }
+    interface ApexXAxisOverwriteCategories2List {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexXAxisTitle {
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "style"?: { color?: string | undefined; fontFamily?: string | undefined; fontWeight?: string | number | undefined; fontSize?: string | undefined; cssClass?: string | undefined; };
+        "text"?: string;
+    }
+    interface ApexXAxisTitleStyle {
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexXAxisTooltip {
+        "enabled"?: boolean;
+        "offsetY"?: number;
+        "style"?: { fontSize?: string | undefined; fontFamily?: string | undefined; };
+    }
+    interface ApexXAxisTooltipStyle {
+        "fontFamily"?: string;
+        "fontSize"?: string;
+    }
+    interface ApexYAxis {
+        "axisBorder"?: { show?: boolean | undefined; color?: string | undefined; width?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "axisTicks"?: { show?: boolean | undefined; color?: string | undefined; width?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "crosshairs"?: { show?: boolean | undefined; position?: string | undefined; stroke?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; } | undefined; };
+        "decimalsInFloat"?: number;
+        "floating"?: boolean;
+        "forceNiceScale"?: boolean;
+        "labels"?: { show?: boolean | undefined; showDuplicates?: boolean | undefined; minWidth?: number | undefined; maxWidth?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; rotate?: number | undefined; align?: "left" | "center" | "right" | undefined; padding?: number | undefined; style?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; } | undefined; formatter?(val: number, opts?: any): string | string[]; };
+        "logBase"?: number;
+        "logarithmic"?: boolean;
+        "max"?: number | ((max: number) => number);
+        "min"?: number | ((min: number) => number);
+        "opposite"?: boolean;
+        "reversed"?: boolean;
+        "seriesName"?: string | string[];
+        "show"?: boolean;
+        "showAlways"?: boolean;
+        "showForNullSeries"?: boolean;
+        "stepSize"?: number;
+        "tickAmount"?: number;
+        "title"?: { text?: string | undefined; rotate?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; style?: { color?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; } | undefined; };
+        "tooltip"?: { enabled?: boolean | undefined; offsetX?: number | undefined; };
+    }
+    interface ApexYAxisAxisBorder {
+        "color"?: string;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "width"?: number;
+    }
+    interface ApexYAxisAxisTicks {
+        "color"?: string;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "show"?: boolean;
+        "width"?: number;
+    }
+    interface ApexYAxisCrosshairs {
+        "position"?: string;
+        "show"?: boolean;
+        "stroke"?: { color?: string | undefined; width?: number | undefined; dashArray?: number | undefined; };
+    }
+    interface ApexYAxisCrosshairsStroke {
+        "color"?: string;
+        "dashArray"?: number;
+        "width"?: number;
+    }
+    interface ApexYAxisLabels {
+        "align"?: "left" | "center" | "right";
+        "maxWidth"?: number;
+        "minWidth"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "padding"?: number;
+        "rotate"?: number;
+        "show"?: boolean;
+        "showDuplicates"?: boolean;
+        "style"?: { colors?: string | string[] | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; };
+    }
+    interface ApexYAxisLabelsStyle {
+        "colors"?: string | string[];
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexYAxisLabelsStyleColorsItem {
+    }
+    interface ApexYAxisLabelsStyleColorsList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexYAxisSeriesNameItem {
+    }
+    interface ApexYAxisSeriesNameList {
+        /**
+          * @default []
+         */
+        "listItems"?: Array<string>;
+    }
+    interface ApexYAxisTitle {
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "rotate"?: number;
+        "style"?: { color?: string | undefined; fontSize?: string | undefined; fontWeight?: string | number | undefined; fontFamily?: string | undefined; cssClass?: string | undefined; };
+        "text"?: string;
+    }
+    interface ApexYAxisTitleStyle {
+        "color"?: string;
+        "cssClass"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontWeight"?: string | number;
+    }
+    interface ApexYAxisTooltip {
+        "enabled"?: boolean;
+        "offsetX"?: number;
+    }
+    interface ImageAnnotations {
+        "height"?: number;
+        "path"?: string;
+        "width"?: number;
+        "x"?: number;
+        "y"?: number;
+    }
+    interface PointAnnotations {
+        "click"?: Function;
+        "id"?: string | number;
+        "image"?: { path?: string | undefined; width?: number | undefined; height?: number | undefined; offsetX?: number | undefined; offsetY?: number | undefined; };
+        "label"?: AnnotationLabel;
+        "marker"?: { size?: number | undefined; fillColor?: string | undefined; strokeColor?: string | undefined; strokeWidth?: number | undefined; shape?: string | undefined; offsetX?: number | undefined; offsetY?: number | undefined; cssClass?: string | undefined; };
+        "mouseEnter"?: Function;
+        "mouseLeave"?: Function;
+        "seriesIndex"?: number;
+        "x"?: string | number;
+        "y"?: number | null;
+        "yAxisIndex"?: number;
+    }
+    interface PointAnnotationsImage {
+        "height"?: number;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "path"?: string;
+        "width"?: number;
+    }
+    interface PointAnnotationsMarker {
+        "cssClass"?: string;
+        "fillColor"?: string;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "shape"?: string;
+        "size"?: number;
+        "strokeColor"?: string;
+        "strokeWidth"?: number;
+    }
+    interface TextAnnotations {
+        "backgroundColor"?: string;
+        "borderColor"?: string;
+        "borderRadius"?: number;
+        "borderWidth"?: number;
+        "fontFamily"?: string | undefined;
+        "fontSize"?: string | number;
+        "fontWeight"?: string | number;
+        "foreColor"?: string;
+        "paddingBottom"?: number;
+        "paddingLeft"?: number;
+        "paddingRight"?: number;
+        "paddingTop"?: number;
+        "text"?: string;
+        "textAnchor"?: string;
+        "x"?: number;
+        "y"?: number;
+    }
+    interface XAxisAnnotations {
+        "borderColor"?: string;
+        "borderWidth"?: number;
+        "fillColor"?: string;
+        "id"?: string | number;
+        "label"?: AnnotationLabel;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "opacity"?: number;
+        "strokeDashArray"?: number;
+        "x"?: string | number | null;
+        "x2"?: string | number | null;
+    }
+    interface YAxisAnnotations {
+        "borderColor"?: string;
+        "borderWidth"?: number;
+        "fillColor"?: string;
+        "id"?: string | number;
+        "label"?: AnnotationLabel;
+        "offsetX"?: number;
+        "offsetY"?: number;
+        "opacity"?: number;
+        "strokeDashArray"?: number;
+        "width"?: string | number;
+        "y"?: string | number | null;
+        "y2"?: string | number | null;
+        "yAxisIndex"?: number;
+    }
     interface IntrinsicElements {
+        "annotation-label": AnnotationLabel;
+        "annotation-label-text-item": AnnotationLabelTextItem;
+        "annotation-label-text-list": AnnotationLabelTextList;
+        "annotation-style": AnnotationStyle;
+        "annotation-style-padding": AnnotationStylePadding;
+        "apex-annotations": ApexAnnotations;
+        "apex-annotations-images-list": ApexAnnotationsImagesList;
+        "apex-annotations-points-list": ApexAnnotationsPointsList;
+        "apex-annotations-texts-list": ApexAnnotationsTextsList;
+        "apex-annotations-xaxis-list": ApexAnnotationsXaxisList;
+        "apex-annotations-yaxis-list": ApexAnnotationsYaxisList;
+        "apex-axis-chart-series-item": ApexAxisChartSeriesItem;
+        "apex-axis-chart-series-item-data-1-list": ApexAxisChartSeriesItemData1List;
+        "apex-axis-chart-series-item-data-2-item": ApexAxisChartSeriesItemData2Item;
+        "apex-axis-chart-series-item-data-2-item-goals-item": ApexAxisChartSeriesItemData2ItemGoalsItem;
+        "apex-axis-chart-series-item-data-2-item-goals-list": ApexAxisChartSeriesItemData2ItemGoalsList;
+        "apex-axis-chart-series-item-data-2-list": ApexAxisChartSeriesItemData2List;
+        "apex-axis-chart-series-item-data-3-list": ApexAxisChartSeriesItemData3List;
+        "apex-axis-chart-series-item-data-4-list": ApexAxisChartSeriesItemData4List;
+        "apex-axis-chart-series-item-data-5-item-item": ApexAxisChartSeriesItemData5ItemItem;
+        "apex-axis-chart-series-item-data-5-item-list": ApexAxisChartSeriesItemData5ItemList;
+        "apex-axis-chart-series-item-data-5-list": ApexAxisChartSeriesItemData5List;
+        "apex-axis-chart-series-item-data-6-list": ApexAxisChartSeriesItemData6List;
+        "apex-axis-chart-series-list": ApexAxisChartSeriesList;
         "apex-chart": ApexChart;
+        "apex-chart-animations": ApexChartAnimations;
+        "apex-chart-animations-animate-gradually": ApexChartAnimationsAnimateGradually;
+        "apex-chart-animations-dynamic-animation": ApexChartAnimationsDynamicAnimation;
+        "apex-chart-brush": ApexChartBrush;
+        "apex-chart-brush-targets-item": ApexChartBrushTargetsItem;
+        "apex-chart-brush-targets-list": ApexChartBrushTargetsList;
+        "apex-chart-drop-shadow": ApexChartDropShadow;
+        "apex-chart-drop-shadow-color-item": ApexChartDropShadowColorItem;
+        "apex-chart-drop-shadow-color-list": ApexChartDropShadowColorList;
+        "apex-chart-drop-shadow-enabled-on-series-item": ApexChartDropShadowEnabledOnSeriesItem;
+        "apex-chart-drop-shadow-enabled-on-series-list": ApexChartDropShadowEnabledOnSeriesList;
+        "apex-chart-events": ApexChartEvents;
+        "apex-chart-locales-list": ApexChartLocalesList;
+        "apex-chart-old": ApexChartOld;
+        "apex-chart-selection": ApexChartSelection;
+        "apex-chart-selection-fill": ApexChartSelectionFill;
+        "apex-chart-selection-stroke": ApexChartSelectionStroke;
+        "apex-chart-selection-xaxis": ApexChartSelectionXaxis;
+        "apex-chart-selection-yaxis": ApexChartSelectionYaxis;
+        "apex-chart-sparkline": ApexChartSparkline;
+        "apex-chart-toolbar": ApexChartToolbar;
+        "apex-chart-toolbar-export": ApexChartToolbarExport;
+        "apex-chart-toolbar-export-csv": ApexChartToolbarExportCsv;
+        "apex-chart-toolbar-export-png": ApexChartToolbarExportPng;
+        "apex-chart-toolbar-export-svg": ApexChartToolbarExportSvg;
+        "apex-chart-toolbar-tools": ApexChartToolbarTools;
+        "apex-chart-toolbar-tools-custom-icons-item": ApexChartToolbarToolsCustomIconsItem;
+        "apex-chart-toolbar-tools-custom-icons-list": ApexChartToolbarToolsCustomIconsList;
+        "apex-chart-zoom": ApexChartZoom;
+        "apex-chart-zoom-zoomed-area": ApexChartZoomZoomedArea;
+        "apex-chart-zoom-zoomed-area-fill": ApexChartZoomZoomedAreaFill;
+        "apex-chart-zoom-zoomed-area-stroke": ApexChartZoomZoomedAreaStroke;
+        "apex-color-stop": ApexColorStop;
+        "apex-data-labels": ApexDataLabels;
+        "apex-data-labels-background": ApexDataLabelsBackground;
+        "apex-data-labels-enabled-on-series-item": ApexDataLabelsEnabledOnSeriesItem;
+        "apex-data-labels-enabled-on-series-list": ApexDataLabelsEnabledOnSeriesList;
+        "apex-data-labels-style": ApexDataLabelsStyle;
+        "apex-data-labels-style-colors-item": ApexDataLabelsStyleColorsItem;
+        "apex-data-labels-style-colors-list": ApexDataLabelsStyleColorsList;
+        "apex-discrete-point": ApexDiscretePoint;
+        "apex-drop-shadow": ApexDropShadow;
+        "apex-fill": ApexFill;
+        "apex-fill-colors-item": ApexFillColorsItem;
+        "apex-fill-colors-list": ApexFillColorsList;
+        "apex-fill-gradient": ApexFillGradient;
+        "apex-fill-gradient-color-stops-1-item-list": ApexFillGradientColorStops1ItemList;
+        "apex-fill-gradient-color-stops-1-list": ApexFillGradientColorStops1List;
+        "apex-fill-gradient-color-stops-2-list": ApexFillGradientColorStops2List;
+        "apex-fill-gradient-gradient-to-colors-item": ApexFillGradientGradientToColorsItem;
+        "apex-fill-gradient-gradient-to-colors-list": ApexFillGradientGradientToColorsList;
+        "apex-fill-gradient-opacity-from-item": ApexFillGradientOpacityFromItem;
+        "apex-fill-gradient-opacity-from-list": ApexFillGradientOpacityFromList;
+        "apex-fill-gradient-opacity-to-item": ApexFillGradientOpacityToItem;
+        "apex-fill-gradient-opacity-to-list": ApexFillGradientOpacityToList;
+        "apex-fill-gradient-stops-item": ApexFillGradientStopsItem;
+        "apex-fill-gradient-stops-list": ApexFillGradientStopsList;
+        "apex-fill-image": ApexFillImage;
+        "apex-fill-image-src-item": ApexFillImageSrcItem;
+        "apex-fill-image-src-list": ApexFillImageSrcList;
+        "apex-fill-opacity-item": ApexFillOpacityItem;
+        "apex-fill-opacity-list": ApexFillOpacityList;
+        "apex-fill-pattern": ApexFillPattern;
+        "apex-fill-pattern-style-item": ApexFillPatternStyleItem;
+        "apex-fill-pattern-style-list": ApexFillPatternStyleList;
+        "apex-fill-type-item": ApexFillTypeItem;
+        "apex-fill-type-list": ApexFillTypeList;
+        "apex-forecast-data-points": ApexForecastDataPoints;
+        "apex-grid": ApexGrid;
+        "apex-grid-column": ApexGridColumn;
+        "apex-grid-column-colors-item": ApexGridColumnColorsItem;
+        "apex-grid-column-colors-list": ApexGridColumnColorsList;
+        "apex-grid-padding": ApexGridPadding;
+        "apex-grid-row": ApexGridRow;
+        "apex-grid-row-colors-item": ApexGridRowColorsItem;
+        "apex-grid-row-colors-list": ApexGridRowColorsList;
+        "apex-grid-xaxis": ApexGridXaxis;
+        "apex-grid-xaxis-lines": ApexGridXaxisLines;
+        "apex-grid-yaxis": ApexGridYaxis;
+        "apex-grid-yaxis-lines": ApexGridYaxisLines;
+        "apex-legend": ApexLegend;
+        "apex-legend-custom-legend-items-item": ApexLegendCustomLegendItemsItem;
+        "apex-legend-custom-legend-items-list": ApexLegendCustomLegendItemsList;
+        "apex-legend-item-margin": ApexLegendItemMargin;
+        "apex-legend-labels": ApexLegendLabels;
+        "apex-legend-labels-colors-item": ApexLegendLabelsColorsItem;
+        "apex-legend-labels-colors-list": ApexLegendLabelsColorsList;
+        "apex-legend-markers": ApexLegendMarkers;
+        "apex-legend-markers-fill-colors-item": ApexLegendMarkersFillColorsItem;
+        "apex-legend-markers-fill-colors-list": ApexLegendMarkersFillColorsList;
+        "apex-legend-on-item-click": ApexLegendOnItemClick;
+        "apex-legend-on-item-hover": ApexLegendOnItemHover;
+        "apex-locale": ApexLocale;
+        "apex-locale-options": ApexLocaleOptions;
+        "apex-locale-options-days-item": ApexLocaleOptionsDaysItem;
+        "apex-locale-options-days-list": ApexLocaleOptionsDaysList;
+        "apex-locale-options-months-item": ApexLocaleOptionsMonthsItem;
+        "apex-locale-options-months-list": ApexLocaleOptionsMonthsList;
+        "apex-locale-options-short-days-item": ApexLocaleOptionsShortDaysItem;
+        "apex-locale-options-short-days-list": ApexLocaleOptionsShortDaysList;
+        "apex-locale-options-short-months-item": ApexLocaleOptionsShortMonthsItem;
+        "apex-locale-options-short-months-list": ApexLocaleOptionsShortMonthsList;
+        "apex-locale-options-toolbar": ApexLocaleOptionsToolbar;
+        "apex-marker-shape-list": ApexMarkerShapeList;
+        "apex-markers": ApexMarkers;
+        "apex-markers-colors-item": ApexMarkersColorsItem;
+        "apex-markers-colors-list": ApexMarkersColorsList;
+        "apex-markers-discrete-list": ApexMarkersDiscreteList;
+        "apex-markers-fill-opacity-item": ApexMarkersFillOpacityItem;
+        "apex-markers-fill-opacity-list": ApexMarkersFillOpacityList;
+        "apex-markers-hover": ApexMarkersHover;
+        "apex-markers-size-item": ApexMarkersSizeItem;
+        "apex-markers-size-list": ApexMarkersSizeList;
+        "apex-markers-stroke-colors-item": ApexMarkersStrokeColorsItem;
+        "apex-markers-stroke-colors-list": ApexMarkersStrokeColorsList;
+        "apex-markers-stroke-dash-array-item": ApexMarkersStrokeDashArrayItem;
+        "apex-markers-stroke-dash-array-list": ApexMarkersStrokeDashArrayList;
+        "apex-markers-stroke-opacity-item": ApexMarkersStrokeOpacityItem;
+        "apex-markers-stroke-opacity-list": ApexMarkersStrokeOpacityList;
+        "apex-markers-stroke-width-item": ApexMarkersStrokeWidthItem;
+        "apex-markers-stroke-width-list": ApexMarkersStrokeWidthList;
+        "apex-no-data": ApexNoData;
+        "apex-no-data-style": ApexNoDataStyle;
+        "apex-non-axis-chart-series-item": ApexNonAxisChartSeriesItem;
+        "apex-non-axis-chart-series-list": ApexNonAxisChartSeriesList;
+        "apex-options": ApexOptions;
+        "apex-options-colors-item": ApexOptionsColorsItem;
+        "apex-options-colors-list": ApexOptionsColorsList;
+        "apex-options-labels-item": ApexOptionsLabelsItem;
+        "apex-options-labels-list": ApexOptionsLabelsList;
+        "apex-options-responsive-list": ApexOptionsResponsiveList;
+        "apex-options-yaxis-list": ApexOptionsYaxisList;
+        "apex-parsing": ApexParsing;
+        "apex-parsing-y-item": ApexParsingYItem;
+        "apex-parsing-y-list": ApexParsingYList;
+        "apex-plot-options": ApexPlotOptions;
+        "apex-plot-options-area": ApexPlotOptionsArea;
+        "apex-plot-options-bar": ApexPlotOptionsBar;
+        "apex-plot-options-bar-colors": ApexPlotOptionsBarColors;
+        "apex-plot-options-bar-colors-background-bar-colors-item": ApexPlotOptionsBarColorsBackgroundBarColorsItem;
+        "apex-plot-options-bar-colors-background-bar-colors-list": ApexPlotOptionsBarColorsBackgroundBarColorsList;
+        "apex-plot-options-bar-colors-ranges-item": ApexPlotOptionsBarColorsRangesItem;
+        "apex-plot-options-bar-colors-ranges-list": ApexPlotOptionsBarColorsRangesList;
+        "apex-plot-options-bar-data-labels": ApexPlotOptionsBarDataLabels;
+        "apex-plot-options-bar-data-labels-total": ApexPlotOptionsBarDataLabelsTotal;
+        "apex-plot-options-bar-data-labels-total-style": ApexPlotOptionsBarDataLabelsTotalStyle;
+        "apex-plot-options-bar-dumbbell-colors-item-item": ApexPlotOptionsBarDumbbellColorsItemItem;
+        "apex-plot-options-bar-dumbbell-colors-item-list": ApexPlotOptionsBarDumbbellColorsItemList;
+        "apex-plot-options-bar-dumbbell-colors-list": ApexPlotOptionsBarDumbbellColorsList;
+        "apex-plot-options-box-plot": ApexPlotOptionsBoxPlot;
+        "apex-plot-options-box-plot-colors": ApexPlotOptionsBoxPlotColors;
+        "apex-plot-options-box-plot-colors-lower-item": ApexPlotOptionsBoxPlotColorsLowerItem;
+        "apex-plot-options-box-plot-colors-lower-list": ApexPlotOptionsBoxPlotColorsLowerList;
+        "apex-plot-options-box-plot-colors-upper-item": ApexPlotOptionsBoxPlotColorsUpperItem;
+        "apex-plot-options-box-plot-colors-upper-list": ApexPlotOptionsBoxPlotColorsUpperList;
+        "apex-plot-options-bubble": ApexPlotOptionsBubble;
+        "apex-plot-options-candlestick": ApexPlotOptionsCandlestick;
+        "apex-plot-options-candlestick-colors": ApexPlotOptionsCandlestickColors;
+        "apex-plot-options-candlestick-colors-downward-item": ApexPlotOptionsCandlestickColorsDownwardItem;
+        "apex-plot-options-candlestick-colors-downward-list": ApexPlotOptionsCandlestickColorsDownwardList;
+        "apex-plot-options-candlestick-colors-upward-item": ApexPlotOptionsCandlestickColorsUpwardItem;
+        "apex-plot-options-candlestick-colors-upward-list": ApexPlotOptionsCandlestickColorsUpwardList;
+        "apex-plot-options-candlestick-wick": ApexPlotOptionsCandlestickWick;
+        "apex-plot-options-heatmap": ApexPlotOptionsHeatmap;
+        "apex-plot-options-heatmap-color-scale": ApexPlotOptionsHeatmapColorScale;
+        "apex-plot-options-heatmap-color-scale-ranges-item": ApexPlotOptionsHeatmapColorScaleRangesItem;
+        "apex-plot-options-heatmap-color-scale-ranges-list": ApexPlotOptionsHeatmapColorScaleRangesList;
+        "apex-plot-options-line": ApexPlotOptionsLine;
+        "apex-plot-options-line-colors": ApexPlotOptionsLineColors;
+        "apex-plot-options-pie": ApexPlotOptionsPie;
+        "apex-plot-options-pie-data-labels": ApexPlotOptionsPieDataLabels;
+        "apex-plot-options-pie-donut": ApexPlotOptionsPieDonut;
+        "apex-plot-options-pie-donut-labels": ApexPlotOptionsPieDonutLabels;
+        "apex-plot-options-pie-donut-labels-name": ApexPlotOptionsPieDonutLabelsName;
+        "apex-plot-options-pie-donut-labels-total": ApexPlotOptionsPieDonutLabelsTotal;
+        "apex-plot-options-pie-donut-labels-value": ApexPlotOptionsPieDonutLabelsValue;
+        "apex-plot-options-polar-area": ApexPlotOptionsPolarArea;
+        "apex-plot-options-polar-area-rings": ApexPlotOptionsPolarAreaRings;
+        "apex-plot-options-polar-area-spokes": ApexPlotOptionsPolarAreaSpokes;
+        "apex-plot-options-polar-area-spokes-connector-colors-item": ApexPlotOptionsPolarAreaSpokesConnectorColorsItem;
+        "apex-plot-options-polar-area-spokes-connector-colors-list": ApexPlotOptionsPolarAreaSpokesConnectorColorsList;
+        "apex-plot-options-radar": ApexPlotOptionsRadar;
+        "apex-plot-options-radar-polygons": ApexPlotOptionsRadarPolygons;
+        "apex-plot-options-radar-polygons-connector-colors-item": ApexPlotOptionsRadarPolygonsConnectorColorsItem;
+        "apex-plot-options-radar-polygons-connector-colors-list": ApexPlotOptionsRadarPolygonsConnectorColorsList;
+        "apex-plot-options-radar-polygons-fill": ApexPlotOptionsRadarPolygonsFill;
+        "apex-plot-options-radar-polygons-fill-colors-item": ApexPlotOptionsRadarPolygonsFillColorsItem;
+        "apex-plot-options-radar-polygons-fill-colors-list": ApexPlotOptionsRadarPolygonsFillColorsList;
+        "apex-plot-options-radar-polygons-stroke-colors-item": ApexPlotOptionsRadarPolygonsStrokeColorsItem;
+        "apex-plot-options-radar-polygons-stroke-colors-list": ApexPlotOptionsRadarPolygonsStrokeColorsList;
+        "apex-plot-options-radar-polygons-stroke-width-item": ApexPlotOptionsRadarPolygonsStrokeWidthItem;
+        "apex-plot-options-radar-polygons-stroke-width-list": ApexPlotOptionsRadarPolygonsStrokeWidthList;
+        "apex-plot-options-radial-bar": ApexPlotOptionsRadialBar;
+        "apex-plot-options-radial-bar-bar-labels": ApexPlotOptionsRadialBarBarLabels;
+        "apex-plot-options-radial-bar-data-labels": ApexPlotOptionsRadialBarDataLabels;
+        "apex-plot-options-radial-bar-data-labels-name": ApexPlotOptionsRadialBarDataLabelsName;
+        "apex-plot-options-radial-bar-data-labels-total": ApexPlotOptionsRadialBarDataLabelsTotal;
+        "apex-plot-options-radial-bar-data-labels-value": ApexPlotOptionsRadialBarDataLabelsValue;
+        "apex-plot-options-radial-bar-hollow": ApexPlotOptionsRadialBarHollow;
+        "apex-plot-options-radial-bar-track": ApexPlotOptionsRadialBarTrack;
+        "apex-plot-options-radial-bar-track-background-item": ApexPlotOptionsRadialBarTrackBackgroundItem;
+        "apex-plot-options-radial-bar-track-background-list": ApexPlotOptionsRadialBarTrackBackgroundList;
+        "apex-plot-options-treemap": ApexPlotOptionsTreemap;
+        "apex-plot-options-treemap-color-scale": ApexPlotOptionsTreemapColorScale;
+        "apex-plot-options-treemap-color-scale-ranges-item": ApexPlotOptionsTreemapColorScaleRangesItem;
+        "apex-plot-options-treemap-color-scale-ranges-list": ApexPlotOptionsTreemapColorScaleRangesList;
+        "apex-plot-options-treemap-data-labels": ApexPlotOptionsTreemapDataLabels;
+        "apex-plot-options-treemap-series-title": ApexPlotOptionsTreemapSeriesTitle;
+        "apex-plot-options-treemap-series-title-style": ApexPlotOptionsTreemapSeriesTitleStyle;
+        "apex-plot-options-treemap-series-title-style-padding": ApexPlotOptionsTreemapSeriesTitleStylePadding;
+        "apex-responsive": ApexResponsive;
+        "apex-states": ApexStates;
+        "apex-states-active": ApexStatesActive;
+        "apex-states-active-filter": ApexStatesActiveFilter;
+        "apex-states-hover": ApexStatesHover;
+        "apex-states-hover-filter": ApexStatesHoverFilter;
+        "apex-stroke": ApexStroke;
+        "apex-stroke-colors-1-item": ApexStrokeColors1Item;
+        "apex-stroke-colors-1-list": ApexStrokeColors1List;
+        "apex-stroke-colors-2-item": ApexStrokeColors2Item;
+        "apex-stroke-colors-2-list": ApexStrokeColors2List;
+        "apex-stroke-curve-list": ApexStrokeCurveList;
+        "apex-stroke-dash-array-item": ApexStrokeDashArrayItem;
+        "apex-stroke-dash-array-list": ApexStrokeDashArrayList;
+        "apex-stroke-width-item": ApexStrokeWidthItem;
+        "apex-stroke-width-list": ApexStrokeWidthList;
+        "apex-theme": ApexTheme;
+        "apex-theme-monochrome": ApexThemeMonochrome;
+        "apex-title-subtitle": ApexTitleSubtitle;
+        "apex-title-subtitle-style": ApexTitleSubtitleStyle;
+        "apex-tooltip": ApexTooltip;
+        "apex-tooltip-custom-list": ApexTooltipCustomList;
+        "apex-tooltip-enabled-on-series-item": ApexTooltipEnabledOnSeriesItem;
+        "apex-tooltip-enabled-on-series-list": ApexTooltipEnabledOnSeriesList;
+        "apex-tooltip-fixed": ApexTooltipFixed;
+        "apex-tooltip-items": ApexTooltipItems;
+        "apex-tooltip-marker": ApexTooltipMarker;
+        "apex-tooltip-marker-fill-colors-item": ApexTooltipMarkerFillColorsItem;
+        "apex-tooltip-marker-fill-colors-list": ApexTooltipMarkerFillColorsList;
+        "apex-tooltip-on-dataset-hover": ApexTooltipOnDatasetHover;
+        "apex-tooltip-style": ApexTooltipStyle;
+        "apex-tooltip-x": ApexTooltipX;
+        "apex-tooltip-y": ApexTooltipY;
+        "apex-tooltip-y-list": ApexTooltipYList;
+        "apex-tooltip-y-title": ApexTooltipYTitle;
+        "apex-tooltip-z": ApexTooltipZ;
+        "apex-x-axis": ApexXAxis;
+        "apex-x-axis-axis-border": ApexXAxisAxisBorder;
+        "apex-x-axis-axis-ticks": ApexXAxisAxisTicks;
+        "apex-x-axis-crosshairs": ApexXAxisCrosshairs;
+        "apex-x-axis-crosshairs-fill": ApexXAxisCrosshairsFill;
+        "apex-x-axis-crosshairs-fill-gradient": ApexXAxisCrosshairsFillGradient;
+        "apex-x-axis-crosshairs-fill-gradient-stops-item": ApexXAxisCrosshairsFillGradientStopsItem;
+        "apex-x-axis-crosshairs-fill-gradient-stops-list": ApexXAxisCrosshairsFillGradientStopsList;
+        "apex-x-axis-crosshairs-stroke": ApexXAxisCrosshairsStroke;
+        "apex-x-axis-group": ApexXAxisGroup;
+        "apex-x-axis-group-groups-item": ApexXAxisGroupGroupsItem;
+        "apex-x-axis-group-groups-list": ApexXAxisGroupGroupsList;
+        "apex-x-axis-group-style": ApexXAxisGroupStyle;
+        "apex-x-axis-group-style-colors-item": ApexXAxisGroupStyleColorsItem;
+        "apex-x-axis-group-style-colors-list": ApexXAxisGroupStyleColorsList;
+        "apex-x-axis-labels": ApexXAxisLabels;
+        "apex-x-axis-labels-datetime-formatter": ApexXAxisLabelsDatetimeFormatter;
+        "apex-x-axis-labels-style": ApexXAxisLabelsStyle;
+        "apex-x-axis-labels-style-colors-item": ApexXAxisLabelsStyleColorsItem;
+        "apex-x-axis-labels-style-colors-list": ApexXAxisLabelsStyleColorsList;
+        "apex-x-axis-overwrite-categories-1-item": ApexXAxisOverwriteCategories1Item;
+        "apex-x-axis-overwrite-categories-1-list": ApexXAxisOverwriteCategories1List;
+        "apex-x-axis-overwrite-categories-2-item": ApexXAxisOverwriteCategories2Item;
+        "apex-x-axis-overwrite-categories-2-list": ApexXAxisOverwriteCategories2List;
+        "apex-x-axis-title": ApexXAxisTitle;
+        "apex-x-axis-title-style": ApexXAxisTitleStyle;
+        "apex-x-axis-tooltip": ApexXAxisTooltip;
+        "apex-x-axis-tooltip-style": ApexXAxisTooltipStyle;
+        "apex-y-axis": ApexYAxis;
+        "apex-y-axis-axis-border": ApexYAxisAxisBorder;
+        "apex-y-axis-axis-ticks": ApexYAxisAxisTicks;
+        "apex-y-axis-crosshairs": ApexYAxisCrosshairs;
+        "apex-y-axis-crosshairs-stroke": ApexYAxisCrosshairsStroke;
+        "apex-y-axis-labels": ApexYAxisLabels;
+        "apex-y-axis-labels-style": ApexYAxisLabelsStyle;
+        "apex-y-axis-labels-style-colors-item": ApexYAxisLabelsStyleColorsItem;
+        "apex-y-axis-labels-style-colors-list": ApexYAxisLabelsStyleColorsList;
+        "apex-y-axis-series-name-item": ApexYAxisSeriesNameItem;
+        "apex-y-axis-series-name-list": ApexYAxisSeriesNameList;
+        "apex-y-axis-title": ApexYAxisTitle;
+        "apex-y-axis-title-style": ApexYAxisTitleStyle;
+        "apex-y-axis-tooltip": ApexYAxisTooltip;
+        "image-annotations": ImageAnnotations;
+        "point-annotations": PointAnnotations;
+        "point-annotations-image": PointAnnotationsImage;
+        "point-annotations-marker": PointAnnotationsMarker;
+        "text-annotations": TextAnnotations;
+        "x-axis-annotations": XAxisAnnotations;
+        "y-axis-annotations": YAxisAnnotations;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "annotation-label": LocalJSX.AnnotationLabel & JSXBase.HTMLAttributes<HTMLAnnotationLabelElement>;
+            "annotation-label-text-item": LocalJSX.AnnotationLabelTextItem & JSXBase.HTMLAttributes<HTMLAnnotationLabelTextItemElement>;
+            "annotation-label-text-list": LocalJSX.AnnotationLabelTextList & JSXBase.HTMLAttributes<HTMLAnnotationLabelTextListElement>;
+            "annotation-style": LocalJSX.AnnotationStyle & JSXBase.HTMLAttributes<HTMLAnnotationStyleElement>;
+            "annotation-style-padding": LocalJSX.AnnotationStylePadding & JSXBase.HTMLAttributes<HTMLAnnotationStylePaddingElement>;
+            "apex-annotations": LocalJSX.ApexAnnotations & JSXBase.HTMLAttributes<HTMLApexAnnotationsElement>;
+            "apex-annotations-images-list": LocalJSX.ApexAnnotationsImagesList & JSXBase.HTMLAttributes<HTMLApexAnnotationsImagesListElement>;
+            "apex-annotations-points-list": LocalJSX.ApexAnnotationsPointsList & JSXBase.HTMLAttributes<HTMLApexAnnotationsPointsListElement>;
+            "apex-annotations-texts-list": LocalJSX.ApexAnnotationsTextsList & JSXBase.HTMLAttributes<HTMLApexAnnotationsTextsListElement>;
+            "apex-annotations-xaxis-list": LocalJSX.ApexAnnotationsXaxisList & JSXBase.HTMLAttributes<HTMLApexAnnotationsXaxisListElement>;
+            "apex-annotations-yaxis-list": LocalJSX.ApexAnnotationsYaxisList & JSXBase.HTMLAttributes<HTMLApexAnnotationsYaxisListElement>;
+            "apex-axis-chart-series-item": LocalJSX.ApexAxisChartSeriesItem & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemElement>;
+            "apex-axis-chart-series-item-data-1-list": LocalJSX.ApexAxisChartSeriesItemData1List & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData1ListElement>;
+            "apex-axis-chart-series-item-data-2-item": LocalJSX.ApexAxisChartSeriesItemData2Item & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData2ItemElement>;
+            "apex-axis-chart-series-item-data-2-item-goals-item": LocalJSX.ApexAxisChartSeriesItemData2ItemGoalsItem & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData2ItemGoalsItemElement>;
+            "apex-axis-chart-series-item-data-2-item-goals-list": LocalJSX.ApexAxisChartSeriesItemData2ItemGoalsList & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData2ItemGoalsListElement>;
+            "apex-axis-chart-series-item-data-2-list": LocalJSX.ApexAxisChartSeriesItemData2List & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData2ListElement>;
+            "apex-axis-chart-series-item-data-3-list": LocalJSX.ApexAxisChartSeriesItemData3List & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData3ListElement>;
+            "apex-axis-chart-series-item-data-4-list": LocalJSX.ApexAxisChartSeriesItemData4List & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData4ListElement>;
+            "apex-axis-chart-series-item-data-5-item-item": LocalJSX.ApexAxisChartSeriesItemData5ItemItem & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData5ItemItemElement>;
+            "apex-axis-chart-series-item-data-5-item-list": LocalJSX.ApexAxisChartSeriesItemData5ItemList & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData5ItemListElement>;
+            "apex-axis-chart-series-item-data-5-list": LocalJSX.ApexAxisChartSeriesItemData5List & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData5ListElement>;
+            "apex-axis-chart-series-item-data-6-list": LocalJSX.ApexAxisChartSeriesItemData6List & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesItemData6ListElement>;
+            "apex-axis-chart-series-list": LocalJSX.ApexAxisChartSeriesList & JSXBase.HTMLAttributes<HTMLApexAxisChartSeriesListElement>;
             "apex-chart": LocalJSX.ApexChart & JSXBase.HTMLAttributes<HTMLApexChartElement>;
+            "apex-chart-animations": LocalJSX.ApexChartAnimations & JSXBase.HTMLAttributes<HTMLApexChartAnimationsElement>;
+            "apex-chart-animations-animate-gradually": LocalJSX.ApexChartAnimationsAnimateGradually & JSXBase.HTMLAttributes<HTMLApexChartAnimationsAnimateGraduallyElement>;
+            "apex-chart-animations-dynamic-animation": LocalJSX.ApexChartAnimationsDynamicAnimation & JSXBase.HTMLAttributes<HTMLApexChartAnimationsDynamicAnimationElement>;
+            "apex-chart-brush": LocalJSX.ApexChartBrush & JSXBase.HTMLAttributes<HTMLApexChartBrushElement>;
+            "apex-chart-brush-targets-item": LocalJSX.ApexChartBrushTargetsItem & JSXBase.HTMLAttributes<HTMLApexChartBrushTargetsItemElement>;
+            "apex-chart-brush-targets-list": LocalJSX.ApexChartBrushTargetsList & JSXBase.HTMLAttributes<HTMLApexChartBrushTargetsListElement>;
+            "apex-chart-drop-shadow": LocalJSX.ApexChartDropShadow & JSXBase.HTMLAttributes<HTMLApexChartDropShadowElement>;
+            "apex-chart-drop-shadow-color-item": LocalJSX.ApexChartDropShadowColorItem & JSXBase.HTMLAttributes<HTMLApexChartDropShadowColorItemElement>;
+            "apex-chart-drop-shadow-color-list": LocalJSX.ApexChartDropShadowColorList & JSXBase.HTMLAttributes<HTMLApexChartDropShadowColorListElement>;
+            "apex-chart-drop-shadow-enabled-on-series-item": LocalJSX.ApexChartDropShadowEnabledOnSeriesItem & JSXBase.HTMLAttributes<HTMLApexChartDropShadowEnabledOnSeriesItemElement>;
+            "apex-chart-drop-shadow-enabled-on-series-list": LocalJSX.ApexChartDropShadowEnabledOnSeriesList & JSXBase.HTMLAttributes<HTMLApexChartDropShadowEnabledOnSeriesListElement>;
+            "apex-chart-events": LocalJSX.ApexChartEvents & JSXBase.HTMLAttributes<HTMLApexChartEventsElement>;
+            "apex-chart-locales-list": LocalJSX.ApexChartLocalesList & JSXBase.HTMLAttributes<HTMLApexChartLocalesListElement>;
+            "apex-chart-old": LocalJSX.ApexChartOld & JSXBase.HTMLAttributes<HTMLApexChartOldElement>;
+            "apex-chart-selection": LocalJSX.ApexChartSelection & JSXBase.HTMLAttributes<HTMLApexChartSelectionElement>;
+            "apex-chart-selection-fill": LocalJSX.ApexChartSelectionFill & JSXBase.HTMLAttributes<HTMLApexChartSelectionFillElement>;
+            "apex-chart-selection-stroke": LocalJSX.ApexChartSelectionStroke & JSXBase.HTMLAttributes<HTMLApexChartSelectionStrokeElement>;
+            "apex-chart-selection-xaxis": LocalJSX.ApexChartSelectionXaxis & JSXBase.HTMLAttributes<HTMLApexChartSelectionXaxisElement>;
+            "apex-chart-selection-yaxis": LocalJSX.ApexChartSelectionYaxis & JSXBase.HTMLAttributes<HTMLApexChartSelectionYaxisElement>;
+            "apex-chart-sparkline": LocalJSX.ApexChartSparkline & JSXBase.HTMLAttributes<HTMLApexChartSparklineElement>;
+            "apex-chart-toolbar": LocalJSX.ApexChartToolbar & JSXBase.HTMLAttributes<HTMLApexChartToolbarElement>;
+            "apex-chart-toolbar-export": LocalJSX.ApexChartToolbarExport & JSXBase.HTMLAttributes<HTMLApexChartToolbarExportElement>;
+            "apex-chart-toolbar-export-csv": LocalJSX.ApexChartToolbarExportCsv & JSXBase.HTMLAttributes<HTMLApexChartToolbarExportCsvElement>;
+            "apex-chart-toolbar-export-png": LocalJSX.ApexChartToolbarExportPng & JSXBase.HTMLAttributes<HTMLApexChartToolbarExportPngElement>;
+            "apex-chart-toolbar-export-svg": LocalJSX.ApexChartToolbarExportSvg & JSXBase.HTMLAttributes<HTMLApexChartToolbarExportSvgElement>;
+            "apex-chart-toolbar-tools": LocalJSX.ApexChartToolbarTools & JSXBase.HTMLAttributes<HTMLApexChartToolbarToolsElement>;
+            "apex-chart-toolbar-tools-custom-icons-item": LocalJSX.ApexChartToolbarToolsCustomIconsItem & JSXBase.HTMLAttributes<HTMLApexChartToolbarToolsCustomIconsItemElement>;
+            "apex-chart-toolbar-tools-custom-icons-list": LocalJSX.ApexChartToolbarToolsCustomIconsList & JSXBase.HTMLAttributes<HTMLApexChartToolbarToolsCustomIconsListElement>;
+            "apex-chart-zoom": LocalJSX.ApexChartZoom & JSXBase.HTMLAttributes<HTMLApexChartZoomElement>;
+            "apex-chart-zoom-zoomed-area": LocalJSX.ApexChartZoomZoomedArea & JSXBase.HTMLAttributes<HTMLApexChartZoomZoomedAreaElement>;
+            "apex-chart-zoom-zoomed-area-fill": LocalJSX.ApexChartZoomZoomedAreaFill & JSXBase.HTMLAttributes<HTMLApexChartZoomZoomedAreaFillElement>;
+            "apex-chart-zoom-zoomed-area-stroke": LocalJSX.ApexChartZoomZoomedAreaStroke & JSXBase.HTMLAttributes<HTMLApexChartZoomZoomedAreaStrokeElement>;
+            "apex-color-stop": LocalJSX.ApexColorStop & JSXBase.HTMLAttributes<HTMLApexColorStopElement>;
+            "apex-data-labels": LocalJSX.ApexDataLabels & JSXBase.HTMLAttributes<HTMLApexDataLabelsElement>;
+            "apex-data-labels-background": LocalJSX.ApexDataLabelsBackground & JSXBase.HTMLAttributes<HTMLApexDataLabelsBackgroundElement>;
+            "apex-data-labels-enabled-on-series-item": LocalJSX.ApexDataLabelsEnabledOnSeriesItem & JSXBase.HTMLAttributes<HTMLApexDataLabelsEnabledOnSeriesItemElement>;
+            "apex-data-labels-enabled-on-series-list": LocalJSX.ApexDataLabelsEnabledOnSeriesList & JSXBase.HTMLAttributes<HTMLApexDataLabelsEnabledOnSeriesListElement>;
+            "apex-data-labels-style": LocalJSX.ApexDataLabelsStyle & JSXBase.HTMLAttributes<HTMLApexDataLabelsStyleElement>;
+            "apex-data-labels-style-colors-item": LocalJSX.ApexDataLabelsStyleColorsItem & JSXBase.HTMLAttributes<HTMLApexDataLabelsStyleColorsItemElement>;
+            "apex-data-labels-style-colors-list": LocalJSX.ApexDataLabelsStyleColorsList & JSXBase.HTMLAttributes<HTMLApexDataLabelsStyleColorsListElement>;
+            "apex-discrete-point": LocalJSX.ApexDiscretePoint & JSXBase.HTMLAttributes<HTMLApexDiscretePointElement>;
+            "apex-drop-shadow": LocalJSX.ApexDropShadow & JSXBase.HTMLAttributes<HTMLApexDropShadowElement>;
+            "apex-fill": LocalJSX.ApexFill & JSXBase.HTMLAttributes<HTMLApexFillElement>;
+            "apex-fill-colors-item": LocalJSX.ApexFillColorsItem & JSXBase.HTMLAttributes<HTMLApexFillColorsItemElement>;
+            "apex-fill-colors-list": LocalJSX.ApexFillColorsList & JSXBase.HTMLAttributes<HTMLApexFillColorsListElement>;
+            "apex-fill-gradient": LocalJSX.ApexFillGradient & JSXBase.HTMLAttributes<HTMLApexFillGradientElement>;
+            "apex-fill-gradient-color-stops-1-item-list": LocalJSX.ApexFillGradientColorStops1ItemList & JSXBase.HTMLAttributes<HTMLApexFillGradientColorStops1ItemListElement>;
+            "apex-fill-gradient-color-stops-1-list": LocalJSX.ApexFillGradientColorStops1List & JSXBase.HTMLAttributes<HTMLApexFillGradientColorStops1ListElement>;
+            "apex-fill-gradient-color-stops-2-list": LocalJSX.ApexFillGradientColorStops2List & JSXBase.HTMLAttributes<HTMLApexFillGradientColorStops2ListElement>;
+            "apex-fill-gradient-gradient-to-colors-item": LocalJSX.ApexFillGradientGradientToColorsItem & JSXBase.HTMLAttributes<HTMLApexFillGradientGradientToColorsItemElement>;
+            "apex-fill-gradient-gradient-to-colors-list": LocalJSX.ApexFillGradientGradientToColorsList & JSXBase.HTMLAttributes<HTMLApexFillGradientGradientToColorsListElement>;
+            "apex-fill-gradient-opacity-from-item": LocalJSX.ApexFillGradientOpacityFromItem & JSXBase.HTMLAttributes<HTMLApexFillGradientOpacityFromItemElement>;
+            "apex-fill-gradient-opacity-from-list": LocalJSX.ApexFillGradientOpacityFromList & JSXBase.HTMLAttributes<HTMLApexFillGradientOpacityFromListElement>;
+            "apex-fill-gradient-opacity-to-item": LocalJSX.ApexFillGradientOpacityToItem & JSXBase.HTMLAttributes<HTMLApexFillGradientOpacityToItemElement>;
+            "apex-fill-gradient-opacity-to-list": LocalJSX.ApexFillGradientOpacityToList & JSXBase.HTMLAttributes<HTMLApexFillGradientOpacityToListElement>;
+            "apex-fill-gradient-stops-item": LocalJSX.ApexFillGradientStopsItem & JSXBase.HTMLAttributes<HTMLApexFillGradientStopsItemElement>;
+            "apex-fill-gradient-stops-list": LocalJSX.ApexFillGradientStopsList & JSXBase.HTMLAttributes<HTMLApexFillGradientStopsListElement>;
+            "apex-fill-image": LocalJSX.ApexFillImage & JSXBase.HTMLAttributes<HTMLApexFillImageElement>;
+            "apex-fill-image-src-item": LocalJSX.ApexFillImageSrcItem & JSXBase.HTMLAttributes<HTMLApexFillImageSrcItemElement>;
+            "apex-fill-image-src-list": LocalJSX.ApexFillImageSrcList & JSXBase.HTMLAttributes<HTMLApexFillImageSrcListElement>;
+            "apex-fill-opacity-item": LocalJSX.ApexFillOpacityItem & JSXBase.HTMLAttributes<HTMLApexFillOpacityItemElement>;
+            "apex-fill-opacity-list": LocalJSX.ApexFillOpacityList & JSXBase.HTMLAttributes<HTMLApexFillOpacityListElement>;
+            "apex-fill-pattern": LocalJSX.ApexFillPattern & JSXBase.HTMLAttributes<HTMLApexFillPatternElement>;
+            "apex-fill-pattern-style-item": LocalJSX.ApexFillPatternStyleItem & JSXBase.HTMLAttributes<HTMLApexFillPatternStyleItemElement>;
+            "apex-fill-pattern-style-list": LocalJSX.ApexFillPatternStyleList & JSXBase.HTMLAttributes<HTMLApexFillPatternStyleListElement>;
+            "apex-fill-type-item": LocalJSX.ApexFillTypeItem & JSXBase.HTMLAttributes<HTMLApexFillTypeItemElement>;
+            "apex-fill-type-list": LocalJSX.ApexFillTypeList & JSXBase.HTMLAttributes<HTMLApexFillTypeListElement>;
+            "apex-forecast-data-points": LocalJSX.ApexForecastDataPoints & JSXBase.HTMLAttributes<HTMLApexForecastDataPointsElement>;
+            "apex-grid": LocalJSX.ApexGrid & JSXBase.HTMLAttributes<HTMLApexGridElement>;
+            "apex-grid-column": LocalJSX.ApexGridColumn & JSXBase.HTMLAttributes<HTMLApexGridColumnElement>;
+            "apex-grid-column-colors-item": LocalJSX.ApexGridColumnColorsItem & JSXBase.HTMLAttributes<HTMLApexGridColumnColorsItemElement>;
+            "apex-grid-column-colors-list": LocalJSX.ApexGridColumnColorsList & JSXBase.HTMLAttributes<HTMLApexGridColumnColorsListElement>;
+            "apex-grid-padding": LocalJSX.ApexGridPadding & JSXBase.HTMLAttributes<HTMLApexGridPaddingElement>;
+            "apex-grid-row": LocalJSX.ApexGridRow & JSXBase.HTMLAttributes<HTMLApexGridRowElement>;
+            "apex-grid-row-colors-item": LocalJSX.ApexGridRowColorsItem & JSXBase.HTMLAttributes<HTMLApexGridRowColorsItemElement>;
+            "apex-grid-row-colors-list": LocalJSX.ApexGridRowColorsList & JSXBase.HTMLAttributes<HTMLApexGridRowColorsListElement>;
+            "apex-grid-xaxis": LocalJSX.ApexGridXaxis & JSXBase.HTMLAttributes<HTMLApexGridXaxisElement>;
+            "apex-grid-xaxis-lines": LocalJSX.ApexGridXaxisLines & JSXBase.HTMLAttributes<HTMLApexGridXaxisLinesElement>;
+            "apex-grid-yaxis": LocalJSX.ApexGridYaxis & JSXBase.HTMLAttributes<HTMLApexGridYaxisElement>;
+            "apex-grid-yaxis-lines": LocalJSX.ApexGridYaxisLines & JSXBase.HTMLAttributes<HTMLApexGridYaxisLinesElement>;
+            "apex-legend": LocalJSX.ApexLegend & JSXBase.HTMLAttributes<HTMLApexLegendElement>;
+            "apex-legend-custom-legend-items-item": LocalJSX.ApexLegendCustomLegendItemsItem & JSXBase.HTMLAttributes<HTMLApexLegendCustomLegendItemsItemElement>;
+            "apex-legend-custom-legend-items-list": LocalJSX.ApexLegendCustomLegendItemsList & JSXBase.HTMLAttributes<HTMLApexLegendCustomLegendItemsListElement>;
+            "apex-legend-item-margin": LocalJSX.ApexLegendItemMargin & JSXBase.HTMLAttributes<HTMLApexLegendItemMarginElement>;
+            "apex-legend-labels": LocalJSX.ApexLegendLabels & JSXBase.HTMLAttributes<HTMLApexLegendLabelsElement>;
+            "apex-legend-labels-colors-item": LocalJSX.ApexLegendLabelsColorsItem & JSXBase.HTMLAttributes<HTMLApexLegendLabelsColorsItemElement>;
+            "apex-legend-labels-colors-list": LocalJSX.ApexLegendLabelsColorsList & JSXBase.HTMLAttributes<HTMLApexLegendLabelsColorsListElement>;
+            "apex-legend-markers": LocalJSX.ApexLegendMarkers & JSXBase.HTMLAttributes<HTMLApexLegendMarkersElement>;
+            "apex-legend-markers-fill-colors-item": LocalJSX.ApexLegendMarkersFillColorsItem & JSXBase.HTMLAttributes<HTMLApexLegendMarkersFillColorsItemElement>;
+            "apex-legend-markers-fill-colors-list": LocalJSX.ApexLegendMarkersFillColorsList & JSXBase.HTMLAttributes<HTMLApexLegendMarkersFillColorsListElement>;
+            "apex-legend-on-item-click": LocalJSX.ApexLegendOnItemClick & JSXBase.HTMLAttributes<HTMLApexLegendOnItemClickElement>;
+            "apex-legend-on-item-hover": LocalJSX.ApexLegendOnItemHover & JSXBase.HTMLAttributes<HTMLApexLegendOnItemHoverElement>;
+            "apex-locale": LocalJSX.ApexLocale & JSXBase.HTMLAttributes<HTMLApexLocaleElement>;
+            "apex-locale-options": LocalJSX.ApexLocaleOptions & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsElement>;
+            "apex-locale-options-days-item": LocalJSX.ApexLocaleOptionsDaysItem & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsDaysItemElement>;
+            "apex-locale-options-days-list": LocalJSX.ApexLocaleOptionsDaysList & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsDaysListElement>;
+            "apex-locale-options-months-item": LocalJSX.ApexLocaleOptionsMonthsItem & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsMonthsItemElement>;
+            "apex-locale-options-months-list": LocalJSX.ApexLocaleOptionsMonthsList & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsMonthsListElement>;
+            "apex-locale-options-short-days-item": LocalJSX.ApexLocaleOptionsShortDaysItem & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsShortDaysItemElement>;
+            "apex-locale-options-short-days-list": LocalJSX.ApexLocaleOptionsShortDaysList & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsShortDaysListElement>;
+            "apex-locale-options-short-months-item": LocalJSX.ApexLocaleOptionsShortMonthsItem & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsShortMonthsItemElement>;
+            "apex-locale-options-short-months-list": LocalJSX.ApexLocaleOptionsShortMonthsList & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsShortMonthsListElement>;
+            "apex-locale-options-toolbar": LocalJSX.ApexLocaleOptionsToolbar & JSXBase.HTMLAttributes<HTMLApexLocaleOptionsToolbarElement>;
+            "apex-marker-shape-list": LocalJSX.ApexMarkerShapeList & JSXBase.HTMLAttributes<HTMLApexMarkerShapeListElement>;
+            "apex-markers": LocalJSX.ApexMarkers & JSXBase.HTMLAttributes<HTMLApexMarkersElement>;
+            "apex-markers-colors-item": LocalJSX.ApexMarkersColorsItem & JSXBase.HTMLAttributes<HTMLApexMarkersColorsItemElement>;
+            "apex-markers-colors-list": LocalJSX.ApexMarkersColorsList & JSXBase.HTMLAttributes<HTMLApexMarkersColorsListElement>;
+            "apex-markers-discrete-list": LocalJSX.ApexMarkersDiscreteList & JSXBase.HTMLAttributes<HTMLApexMarkersDiscreteListElement>;
+            "apex-markers-fill-opacity-item": LocalJSX.ApexMarkersFillOpacityItem & JSXBase.HTMLAttributes<HTMLApexMarkersFillOpacityItemElement>;
+            "apex-markers-fill-opacity-list": LocalJSX.ApexMarkersFillOpacityList & JSXBase.HTMLAttributes<HTMLApexMarkersFillOpacityListElement>;
+            "apex-markers-hover": LocalJSX.ApexMarkersHover & JSXBase.HTMLAttributes<HTMLApexMarkersHoverElement>;
+            "apex-markers-size-item": LocalJSX.ApexMarkersSizeItem & JSXBase.HTMLAttributes<HTMLApexMarkersSizeItemElement>;
+            "apex-markers-size-list": LocalJSX.ApexMarkersSizeList & JSXBase.HTMLAttributes<HTMLApexMarkersSizeListElement>;
+            "apex-markers-stroke-colors-item": LocalJSX.ApexMarkersStrokeColorsItem & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeColorsItemElement>;
+            "apex-markers-stroke-colors-list": LocalJSX.ApexMarkersStrokeColorsList & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeColorsListElement>;
+            "apex-markers-stroke-dash-array-item": LocalJSX.ApexMarkersStrokeDashArrayItem & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeDashArrayItemElement>;
+            "apex-markers-stroke-dash-array-list": LocalJSX.ApexMarkersStrokeDashArrayList & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeDashArrayListElement>;
+            "apex-markers-stroke-opacity-item": LocalJSX.ApexMarkersStrokeOpacityItem & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeOpacityItemElement>;
+            "apex-markers-stroke-opacity-list": LocalJSX.ApexMarkersStrokeOpacityList & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeOpacityListElement>;
+            "apex-markers-stroke-width-item": LocalJSX.ApexMarkersStrokeWidthItem & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeWidthItemElement>;
+            "apex-markers-stroke-width-list": LocalJSX.ApexMarkersStrokeWidthList & JSXBase.HTMLAttributes<HTMLApexMarkersStrokeWidthListElement>;
+            "apex-no-data": LocalJSX.ApexNoData & JSXBase.HTMLAttributes<HTMLApexNoDataElement>;
+            "apex-no-data-style": LocalJSX.ApexNoDataStyle & JSXBase.HTMLAttributes<HTMLApexNoDataStyleElement>;
+            "apex-non-axis-chart-series-item": LocalJSX.ApexNonAxisChartSeriesItem & JSXBase.HTMLAttributes<HTMLApexNonAxisChartSeriesItemElement>;
+            "apex-non-axis-chart-series-list": LocalJSX.ApexNonAxisChartSeriesList & JSXBase.HTMLAttributes<HTMLApexNonAxisChartSeriesListElement>;
+            "apex-options": LocalJSX.ApexOptions & JSXBase.HTMLAttributes<HTMLApexOptionsElement>;
+            "apex-options-colors-item": LocalJSX.ApexOptionsColorsItem & JSXBase.HTMLAttributes<HTMLApexOptionsColorsItemElement>;
+            "apex-options-colors-list": LocalJSX.ApexOptionsColorsList & JSXBase.HTMLAttributes<HTMLApexOptionsColorsListElement>;
+            "apex-options-labels-item": LocalJSX.ApexOptionsLabelsItem & JSXBase.HTMLAttributes<HTMLApexOptionsLabelsItemElement>;
+            "apex-options-labels-list": LocalJSX.ApexOptionsLabelsList & JSXBase.HTMLAttributes<HTMLApexOptionsLabelsListElement>;
+            "apex-options-responsive-list": LocalJSX.ApexOptionsResponsiveList & JSXBase.HTMLAttributes<HTMLApexOptionsResponsiveListElement>;
+            "apex-options-yaxis-list": LocalJSX.ApexOptionsYaxisList & JSXBase.HTMLAttributes<HTMLApexOptionsYaxisListElement>;
+            "apex-parsing": LocalJSX.ApexParsing & JSXBase.HTMLAttributes<HTMLApexParsingElement>;
+            "apex-parsing-y-item": LocalJSX.ApexParsingYItem & JSXBase.HTMLAttributes<HTMLApexParsingYItemElement>;
+            "apex-parsing-y-list": LocalJSX.ApexParsingYList & JSXBase.HTMLAttributes<HTMLApexParsingYListElement>;
+            "apex-plot-options": LocalJSX.ApexPlotOptions & JSXBase.HTMLAttributes<HTMLApexPlotOptionsElement>;
+            "apex-plot-options-area": LocalJSX.ApexPlotOptionsArea & JSXBase.HTMLAttributes<HTMLApexPlotOptionsAreaElement>;
+            "apex-plot-options-bar": LocalJSX.ApexPlotOptionsBar & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarElement>;
+            "apex-plot-options-bar-colors": LocalJSX.ApexPlotOptionsBarColors & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarColorsElement>;
+            "apex-plot-options-bar-colors-background-bar-colors-item": LocalJSX.ApexPlotOptionsBarColorsBackgroundBarColorsItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarColorsBackgroundBarColorsItemElement>;
+            "apex-plot-options-bar-colors-background-bar-colors-list": LocalJSX.ApexPlotOptionsBarColorsBackgroundBarColorsList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarColorsBackgroundBarColorsListElement>;
+            "apex-plot-options-bar-colors-ranges-item": LocalJSX.ApexPlotOptionsBarColorsRangesItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarColorsRangesItemElement>;
+            "apex-plot-options-bar-colors-ranges-list": LocalJSX.ApexPlotOptionsBarColorsRangesList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarColorsRangesListElement>;
+            "apex-plot-options-bar-data-labels": LocalJSX.ApexPlotOptionsBarDataLabels & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarDataLabelsElement>;
+            "apex-plot-options-bar-data-labels-total": LocalJSX.ApexPlotOptionsBarDataLabelsTotal & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarDataLabelsTotalElement>;
+            "apex-plot-options-bar-data-labels-total-style": LocalJSX.ApexPlotOptionsBarDataLabelsTotalStyle & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarDataLabelsTotalStyleElement>;
+            "apex-plot-options-bar-dumbbell-colors-item-item": LocalJSX.ApexPlotOptionsBarDumbbellColorsItemItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarDumbbellColorsItemItemElement>;
+            "apex-plot-options-bar-dumbbell-colors-item-list": LocalJSX.ApexPlotOptionsBarDumbbellColorsItemList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarDumbbellColorsItemListElement>;
+            "apex-plot-options-bar-dumbbell-colors-list": LocalJSX.ApexPlotOptionsBarDumbbellColorsList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBarDumbbellColorsListElement>;
+            "apex-plot-options-box-plot": LocalJSX.ApexPlotOptionsBoxPlot & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBoxPlotElement>;
+            "apex-plot-options-box-plot-colors": LocalJSX.ApexPlotOptionsBoxPlotColors & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBoxPlotColorsElement>;
+            "apex-plot-options-box-plot-colors-lower-item": LocalJSX.ApexPlotOptionsBoxPlotColorsLowerItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBoxPlotColorsLowerItemElement>;
+            "apex-plot-options-box-plot-colors-lower-list": LocalJSX.ApexPlotOptionsBoxPlotColorsLowerList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBoxPlotColorsLowerListElement>;
+            "apex-plot-options-box-plot-colors-upper-item": LocalJSX.ApexPlotOptionsBoxPlotColorsUpperItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBoxPlotColorsUpperItemElement>;
+            "apex-plot-options-box-plot-colors-upper-list": LocalJSX.ApexPlotOptionsBoxPlotColorsUpperList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBoxPlotColorsUpperListElement>;
+            "apex-plot-options-bubble": LocalJSX.ApexPlotOptionsBubble & JSXBase.HTMLAttributes<HTMLApexPlotOptionsBubbleElement>;
+            "apex-plot-options-candlestick": LocalJSX.ApexPlotOptionsCandlestick & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickElement>;
+            "apex-plot-options-candlestick-colors": LocalJSX.ApexPlotOptionsCandlestickColors & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickColorsElement>;
+            "apex-plot-options-candlestick-colors-downward-item": LocalJSX.ApexPlotOptionsCandlestickColorsDownwardItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickColorsDownwardItemElement>;
+            "apex-plot-options-candlestick-colors-downward-list": LocalJSX.ApexPlotOptionsCandlestickColorsDownwardList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickColorsDownwardListElement>;
+            "apex-plot-options-candlestick-colors-upward-item": LocalJSX.ApexPlotOptionsCandlestickColorsUpwardItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickColorsUpwardItemElement>;
+            "apex-plot-options-candlestick-colors-upward-list": LocalJSX.ApexPlotOptionsCandlestickColorsUpwardList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickColorsUpwardListElement>;
+            "apex-plot-options-candlestick-wick": LocalJSX.ApexPlotOptionsCandlestickWick & JSXBase.HTMLAttributes<HTMLApexPlotOptionsCandlestickWickElement>;
+            "apex-plot-options-heatmap": LocalJSX.ApexPlotOptionsHeatmap & JSXBase.HTMLAttributes<HTMLApexPlotOptionsHeatmapElement>;
+            "apex-plot-options-heatmap-color-scale": LocalJSX.ApexPlotOptionsHeatmapColorScale & JSXBase.HTMLAttributes<HTMLApexPlotOptionsHeatmapColorScaleElement>;
+            "apex-plot-options-heatmap-color-scale-ranges-item": LocalJSX.ApexPlotOptionsHeatmapColorScaleRangesItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsHeatmapColorScaleRangesItemElement>;
+            "apex-plot-options-heatmap-color-scale-ranges-list": LocalJSX.ApexPlotOptionsHeatmapColorScaleRangesList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsHeatmapColorScaleRangesListElement>;
+            "apex-plot-options-line": LocalJSX.ApexPlotOptionsLine & JSXBase.HTMLAttributes<HTMLApexPlotOptionsLineElement>;
+            "apex-plot-options-line-colors": LocalJSX.ApexPlotOptionsLineColors & JSXBase.HTMLAttributes<HTMLApexPlotOptionsLineColorsElement>;
+            "apex-plot-options-pie": LocalJSX.ApexPlotOptionsPie & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieElement>;
+            "apex-plot-options-pie-data-labels": LocalJSX.ApexPlotOptionsPieDataLabels & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieDataLabelsElement>;
+            "apex-plot-options-pie-donut": LocalJSX.ApexPlotOptionsPieDonut & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieDonutElement>;
+            "apex-plot-options-pie-donut-labels": LocalJSX.ApexPlotOptionsPieDonutLabels & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieDonutLabelsElement>;
+            "apex-plot-options-pie-donut-labels-name": LocalJSX.ApexPlotOptionsPieDonutLabelsName & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieDonutLabelsNameElement>;
+            "apex-plot-options-pie-donut-labels-total": LocalJSX.ApexPlotOptionsPieDonutLabelsTotal & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieDonutLabelsTotalElement>;
+            "apex-plot-options-pie-donut-labels-value": LocalJSX.ApexPlotOptionsPieDonutLabelsValue & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPieDonutLabelsValueElement>;
+            "apex-plot-options-polar-area": LocalJSX.ApexPlotOptionsPolarArea & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPolarAreaElement>;
+            "apex-plot-options-polar-area-rings": LocalJSX.ApexPlotOptionsPolarAreaRings & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPolarAreaRingsElement>;
+            "apex-plot-options-polar-area-spokes": LocalJSX.ApexPlotOptionsPolarAreaSpokes & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPolarAreaSpokesElement>;
+            "apex-plot-options-polar-area-spokes-connector-colors-item": LocalJSX.ApexPlotOptionsPolarAreaSpokesConnectorColorsItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsItemElement>;
+            "apex-plot-options-polar-area-spokes-connector-colors-list": LocalJSX.ApexPlotOptionsPolarAreaSpokesConnectorColorsList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsPolarAreaSpokesConnectorColorsListElement>;
+            "apex-plot-options-radar": LocalJSX.ApexPlotOptionsRadar & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarElement>;
+            "apex-plot-options-radar-polygons": LocalJSX.ApexPlotOptionsRadarPolygons & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsElement>;
+            "apex-plot-options-radar-polygons-connector-colors-item": LocalJSX.ApexPlotOptionsRadarPolygonsConnectorColorsItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsConnectorColorsItemElement>;
+            "apex-plot-options-radar-polygons-connector-colors-list": LocalJSX.ApexPlotOptionsRadarPolygonsConnectorColorsList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsConnectorColorsListElement>;
+            "apex-plot-options-radar-polygons-fill": LocalJSX.ApexPlotOptionsRadarPolygonsFill & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsFillElement>;
+            "apex-plot-options-radar-polygons-fill-colors-item": LocalJSX.ApexPlotOptionsRadarPolygonsFillColorsItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsFillColorsItemElement>;
+            "apex-plot-options-radar-polygons-fill-colors-list": LocalJSX.ApexPlotOptionsRadarPolygonsFillColorsList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsFillColorsListElement>;
+            "apex-plot-options-radar-polygons-stroke-colors-item": LocalJSX.ApexPlotOptionsRadarPolygonsStrokeColorsItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsStrokeColorsItemElement>;
+            "apex-plot-options-radar-polygons-stroke-colors-list": LocalJSX.ApexPlotOptionsRadarPolygonsStrokeColorsList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsStrokeColorsListElement>;
+            "apex-plot-options-radar-polygons-stroke-width-item": LocalJSX.ApexPlotOptionsRadarPolygonsStrokeWidthItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsStrokeWidthItemElement>;
+            "apex-plot-options-radar-polygons-stroke-width-list": LocalJSX.ApexPlotOptionsRadarPolygonsStrokeWidthList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadarPolygonsStrokeWidthListElement>;
+            "apex-plot-options-radial-bar": LocalJSX.ApexPlotOptionsRadialBar & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarElement>;
+            "apex-plot-options-radial-bar-bar-labels": LocalJSX.ApexPlotOptionsRadialBarBarLabels & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarBarLabelsElement>;
+            "apex-plot-options-radial-bar-data-labels": LocalJSX.ApexPlotOptionsRadialBarDataLabels & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarDataLabelsElement>;
+            "apex-plot-options-radial-bar-data-labels-name": LocalJSX.ApexPlotOptionsRadialBarDataLabelsName & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarDataLabelsNameElement>;
+            "apex-plot-options-radial-bar-data-labels-total": LocalJSX.ApexPlotOptionsRadialBarDataLabelsTotal & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarDataLabelsTotalElement>;
+            "apex-plot-options-radial-bar-data-labels-value": LocalJSX.ApexPlotOptionsRadialBarDataLabelsValue & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarDataLabelsValueElement>;
+            "apex-plot-options-radial-bar-hollow": LocalJSX.ApexPlotOptionsRadialBarHollow & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarHollowElement>;
+            "apex-plot-options-radial-bar-track": LocalJSX.ApexPlotOptionsRadialBarTrack & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarTrackElement>;
+            "apex-plot-options-radial-bar-track-background-item": LocalJSX.ApexPlotOptionsRadialBarTrackBackgroundItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarTrackBackgroundItemElement>;
+            "apex-plot-options-radial-bar-track-background-list": LocalJSX.ApexPlotOptionsRadialBarTrackBackgroundList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsRadialBarTrackBackgroundListElement>;
+            "apex-plot-options-treemap": LocalJSX.ApexPlotOptionsTreemap & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapElement>;
+            "apex-plot-options-treemap-color-scale": LocalJSX.ApexPlotOptionsTreemapColorScale & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapColorScaleElement>;
+            "apex-plot-options-treemap-color-scale-ranges-item": LocalJSX.ApexPlotOptionsTreemapColorScaleRangesItem & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapColorScaleRangesItemElement>;
+            "apex-plot-options-treemap-color-scale-ranges-list": LocalJSX.ApexPlotOptionsTreemapColorScaleRangesList & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapColorScaleRangesListElement>;
+            "apex-plot-options-treemap-data-labels": LocalJSX.ApexPlotOptionsTreemapDataLabels & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapDataLabelsElement>;
+            "apex-plot-options-treemap-series-title": LocalJSX.ApexPlotOptionsTreemapSeriesTitle & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapSeriesTitleElement>;
+            "apex-plot-options-treemap-series-title-style": LocalJSX.ApexPlotOptionsTreemapSeriesTitleStyle & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapSeriesTitleStyleElement>;
+            "apex-plot-options-treemap-series-title-style-padding": LocalJSX.ApexPlotOptionsTreemapSeriesTitleStylePadding & JSXBase.HTMLAttributes<HTMLApexPlotOptionsTreemapSeriesTitleStylePaddingElement>;
+            "apex-responsive": LocalJSX.ApexResponsive & JSXBase.HTMLAttributes<HTMLApexResponsiveElement>;
+            "apex-states": LocalJSX.ApexStates & JSXBase.HTMLAttributes<HTMLApexStatesElement>;
+            "apex-states-active": LocalJSX.ApexStatesActive & JSXBase.HTMLAttributes<HTMLApexStatesActiveElement>;
+            "apex-states-active-filter": LocalJSX.ApexStatesActiveFilter & JSXBase.HTMLAttributes<HTMLApexStatesActiveFilterElement>;
+            "apex-states-hover": LocalJSX.ApexStatesHover & JSXBase.HTMLAttributes<HTMLApexStatesHoverElement>;
+            "apex-states-hover-filter": LocalJSX.ApexStatesHoverFilter & JSXBase.HTMLAttributes<HTMLApexStatesHoverFilterElement>;
+            "apex-stroke": LocalJSX.ApexStroke & JSXBase.HTMLAttributes<HTMLApexStrokeElement>;
+            "apex-stroke-colors-1-item": LocalJSX.ApexStrokeColors1Item & JSXBase.HTMLAttributes<HTMLApexStrokeColors1ItemElement>;
+            "apex-stroke-colors-1-list": LocalJSX.ApexStrokeColors1List & JSXBase.HTMLAttributes<HTMLApexStrokeColors1ListElement>;
+            "apex-stroke-colors-2-item": LocalJSX.ApexStrokeColors2Item & JSXBase.HTMLAttributes<HTMLApexStrokeColors2ItemElement>;
+            "apex-stroke-colors-2-list": LocalJSX.ApexStrokeColors2List & JSXBase.HTMLAttributes<HTMLApexStrokeColors2ListElement>;
+            "apex-stroke-curve-list": LocalJSX.ApexStrokeCurveList & JSXBase.HTMLAttributes<HTMLApexStrokeCurveListElement>;
+            "apex-stroke-dash-array-item": LocalJSX.ApexStrokeDashArrayItem & JSXBase.HTMLAttributes<HTMLApexStrokeDashArrayItemElement>;
+            "apex-stroke-dash-array-list": LocalJSX.ApexStrokeDashArrayList & JSXBase.HTMLAttributes<HTMLApexStrokeDashArrayListElement>;
+            "apex-stroke-width-item": LocalJSX.ApexStrokeWidthItem & JSXBase.HTMLAttributes<HTMLApexStrokeWidthItemElement>;
+            "apex-stroke-width-list": LocalJSX.ApexStrokeWidthList & JSXBase.HTMLAttributes<HTMLApexStrokeWidthListElement>;
+            "apex-theme": LocalJSX.ApexTheme & JSXBase.HTMLAttributes<HTMLApexThemeElement>;
+            "apex-theme-monochrome": LocalJSX.ApexThemeMonochrome & JSXBase.HTMLAttributes<HTMLApexThemeMonochromeElement>;
+            "apex-title-subtitle": LocalJSX.ApexTitleSubtitle & JSXBase.HTMLAttributes<HTMLApexTitleSubtitleElement>;
+            "apex-title-subtitle-style": LocalJSX.ApexTitleSubtitleStyle & JSXBase.HTMLAttributes<HTMLApexTitleSubtitleStyleElement>;
+            "apex-tooltip": LocalJSX.ApexTooltip & JSXBase.HTMLAttributes<HTMLApexTooltipElement>;
+            "apex-tooltip-custom-list": LocalJSX.ApexTooltipCustomList & JSXBase.HTMLAttributes<HTMLApexTooltipCustomListElement>;
+            "apex-tooltip-enabled-on-series-item": LocalJSX.ApexTooltipEnabledOnSeriesItem & JSXBase.HTMLAttributes<HTMLApexTooltipEnabledOnSeriesItemElement>;
+            "apex-tooltip-enabled-on-series-list": LocalJSX.ApexTooltipEnabledOnSeriesList & JSXBase.HTMLAttributes<HTMLApexTooltipEnabledOnSeriesListElement>;
+            "apex-tooltip-fixed": LocalJSX.ApexTooltipFixed & JSXBase.HTMLAttributes<HTMLApexTooltipFixedElement>;
+            "apex-tooltip-items": LocalJSX.ApexTooltipItems & JSXBase.HTMLAttributes<HTMLApexTooltipItemsElement>;
+            "apex-tooltip-marker": LocalJSX.ApexTooltipMarker & JSXBase.HTMLAttributes<HTMLApexTooltipMarkerElement>;
+            "apex-tooltip-marker-fill-colors-item": LocalJSX.ApexTooltipMarkerFillColorsItem & JSXBase.HTMLAttributes<HTMLApexTooltipMarkerFillColorsItemElement>;
+            "apex-tooltip-marker-fill-colors-list": LocalJSX.ApexTooltipMarkerFillColorsList & JSXBase.HTMLAttributes<HTMLApexTooltipMarkerFillColorsListElement>;
+            "apex-tooltip-on-dataset-hover": LocalJSX.ApexTooltipOnDatasetHover & JSXBase.HTMLAttributes<HTMLApexTooltipOnDatasetHoverElement>;
+            "apex-tooltip-style": LocalJSX.ApexTooltipStyle & JSXBase.HTMLAttributes<HTMLApexTooltipStyleElement>;
+            "apex-tooltip-x": LocalJSX.ApexTooltipX & JSXBase.HTMLAttributes<HTMLApexTooltipXElement>;
+            "apex-tooltip-y": LocalJSX.ApexTooltipY & JSXBase.HTMLAttributes<HTMLApexTooltipYElement>;
+            "apex-tooltip-y-list": LocalJSX.ApexTooltipYList & JSXBase.HTMLAttributes<HTMLApexTooltipYListElement>;
+            "apex-tooltip-y-title": LocalJSX.ApexTooltipYTitle & JSXBase.HTMLAttributes<HTMLApexTooltipYTitleElement>;
+            "apex-tooltip-z": LocalJSX.ApexTooltipZ & JSXBase.HTMLAttributes<HTMLApexTooltipZElement>;
+            "apex-x-axis": LocalJSX.ApexXAxis & JSXBase.HTMLAttributes<HTMLApexXAxisElement>;
+            "apex-x-axis-axis-border": LocalJSX.ApexXAxisAxisBorder & JSXBase.HTMLAttributes<HTMLApexXAxisAxisBorderElement>;
+            "apex-x-axis-axis-ticks": LocalJSX.ApexXAxisAxisTicks & JSXBase.HTMLAttributes<HTMLApexXAxisAxisTicksElement>;
+            "apex-x-axis-crosshairs": LocalJSX.ApexXAxisCrosshairs & JSXBase.HTMLAttributes<HTMLApexXAxisCrosshairsElement>;
+            "apex-x-axis-crosshairs-fill": LocalJSX.ApexXAxisCrosshairsFill & JSXBase.HTMLAttributes<HTMLApexXAxisCrosshairsFillElement>;
+            "apex-x-axis-crosshairs-fill-gradient": LocalJSX.ApexXAxisCrosshairsFillGradient & JSXBase.HTMLAttributes<HTMLApexXAxisCrosshairsFillGradientElement>;
+            "apex-x-axis-crosshairs-fill-gradient-stops-item": LocalJSX.ApexXAxisCrosshairsFillGradientStopsItem & JSXBase.HTMLAttributes<HTMLApexXAxisCrosshairsFillGradientStopsItemElement>;
+            "apex-x-axis-crosshairs-fill-gradient-stops-list": LocalJSX.ApexXAxisCrosshairsFillGradientStopsList & JSXBase.HTMLAttributes<HTMLApexXAxisCrosshairsFillGradientStopsListElement>;
+            "apex-x-axis-crosshairs-stroke": LocalJSX.ApexXAxisCrosshairsStroke & JSXBase.HTMLAttributes<HTMLApexXAxisCrosshairsStrokeElement>;
+            "apex-x-axis-group": LocalJSX.ApexXAxisGroup & JSXBase.HTMLAttributes<HTMLApexXAxisGroupElement>;
+            "apex-x-axis-group-groups-item": LocalJSX.ApexXAxisGroupGroupsItem & JSXBase.HTMLAttributes<HTMLApexXAxisGroupGroupsItemElement>;
+            "apex-x-axis-group-groups-list": LocalJSX.ApexXAxisGroupGroupsList & JSXBase.HTMLAttributes<HTMLApexXAxisGroupGroupsListElement>;
+            "apex-x-axis-group-style": LocalJSX.ApexXAxisGroupStyle & JSXBase.HTMLAttributes<HTMLApexXAxisGroupStyleElement>;
+            "apex-x-axis-group-style-colors-item": LocalJSX.ApexXAxisGroupStyleColorsItem & JSXBase.HTMLAttributes<HTMLApexXAxisGroupStyleColorsItemElement>;
+            "apex-x-axis-group-style-colors-list": LocalJSX.ApexXAxisGroupStyleColorsList & JSXBase.HTMLAttributes<HTMLApexXAxisGroupStyleColorsListElement>;
+            "apex-x-axis-labels": LocalJSX.ApexXAxisLabels & JSXBase.HTMLAttributes<HTMLApexXAxisLabelsElement>;
+            "apex-x-axis-labels-datetime-formatter": LocalJSX.ApexXAxisLabelsDatetimeFormatter & JSXBase.HTMLAttributes<HTMLApexXAxisLabelsDatetimeFormatterElement>;
+            "apex-x-axis-labels-style": LocalJSX.ApexXAxisLabelsStyle & JSXBase.HTMLAttributes<HTMLApexXAxisLabelsStyleElement>;
+            "apex-x-axis-labels-style-colors-item": LocalJSX.ApexXAxisLabelsStyleColorsItem & JSXBase.HTMLAttributes<HTMLApexXAxisLabelsStyleColorsItemElement>;
+            "apex-x-axis-labels-style-colors-list": LocalJSX.ApexXAxisLabelsStyleColorsList & JSXBase.HTMLAttributes<HTMLApexXAxisLabelsStyleColorsListElement>;
+            "apex-x-axis-overwrite-categories-1-item": LocalJSX.ApexXAxisOverwriteCategories1Item & JSXBase.HTMLAttributes<HTMLApexXAxisOverwriteCategories1ItemElement>;
+            "apex-x-axis-overwrite-categories-1-list": LocalJSX.ApexXAxisOverwriteCategories1List & JSXBase.HTMLAttributes<HTMLApexXAxisOverwriteCategories1ListElement>;
+            "apex-x-axis-overwrite-categories-2-item": LocalJSX.ApexXAxisOverwriteCategories2Item & JSXBase.HTMLAttributes<HTMLApexXAxisOverwriteCategories2ItemElement>;
+            "apex-x-axis-overwrite-categories-2-list": LocalJSX.ApexXAxisOverwriteCategories2List & JSXBase.HTMLAttributes<HTMLApexXAxisOverwriteCategories2ListElement>;
+            "apex-x-axis-title": LocalJSX.ApexXAxisTitle & JSXBase.HTMLAttributes<HTMLApexXAxisTitleElement>;
+            "apex-x-axis-title-style": LocalJSX.ApexXAxisTitleStyle & JSXBase.HTMLAttributes<HTMLApexXAxisTitleStyleElement>;
+            "apex-x-axis-tooltip": LocalJSX.ApexXAxisTooltip & JSXBase.HTMLAttributes<HTMLApexXAxisTooltipElement>;
+            "apex-x-axis-tooltip-style": LocalJSX.ApexXAxisTooltipStyle & JSXBase.HTMLAttributes<HTMLApexXAxisTooltipStyleElement>;
+            "apex-y-axis": LocalJSX.ApexYAxis & JSXBase.HTMLAttributes<HTMLApexYAxisElement>;
+            "apex-y-axis-axis-border": LocalJSX.ApexYAxisAxisBorder & JSXBase.HTMLAttributes<HTMLApexYAxisAxisBorderElement>;
+            "apex-y-axis-axis-ticks": LocalJSX.ApexYAxisAxisTicks & JSXBase.HTMLAttributes<HTMLApexYAxisAxisTicksElement>;
+            "apex-y-axis-crosshairs": LocalJSX.ApexYAxisCrosshairs & JSXBase.HTMLAttributes<HTMLApexYAxisCrosshairsElement>;
+            "apex-y-axis-crosshairs-stroke": LocalJSX.ApexYAxisCrosshairsStroke & JSXBase.HTMLAttributes<HTMLApexYAxisCrosshairsStrokeElement>;
+            "apex-y-axis-labels": LocalJSX.ApexYAxisLabels & JSXBase.HTMLAttributes<HTMLApexYAxisLabelsElement>;
+            "apex-y-axis-labels-style": LocalJSX.ApexYAxisLabelsStyle & JSXBase.HTMLAttributes<HTMLApexYAxisLabelsStyleElement>;
+            "apex-y-axis-labels-style-colors-item": LocalJSX.ApexYAxisLabelsStyleColorsItem & JSXBase.HTMLAttributes<HTMLApexYAxisLabelsStyleColorsItemElement>;
+            "apex-y-axis-labels-style-colors-list": LocalJSX.ApexYAxisLabelsStyleColorsList & JSXBase.HTMLAttributes<HTMLApexYAxisLabelsStyleColorsListElement>;
+            "apex-y-axis-series-name-item": LocalJSX.ApexYAxisSeriesNameItem & JSXBase.HTMLAttributes<HTMLApexYAxisSeriesNameItemElement>;
+            "apex-y-axis-series-name-list": LocalJSX.ApexYAxisSeriesNameList & JSXBase.HTMLAttributes<HTMLApexYAxisSeriesNameListElement>;
+            "apex-y-axis-title": LocalJSX.ApexYAxisTitle & JSXBase.HTMLAttributes<HTMLApexYAxisTitleElement>;
+            "apex-y-axis-title-style": LocalJSX.ApexYAxisTitleStyle & JSXBase.HTMLAttributes<HTMLApexYAxisTitleStyleElement>;
+            "apex-y-axis-tooltip": LocalJSX.ApexYAxisTooltip & JSXBase.HTMLAttributes<HTMLApexYAxisTooltipElement>;
+            "image-annotations": LocalJSX.ImageAnnotations & JSXBase.HTMLAttributes<HTMLImageAnnotationsElement>;
+            "point-annotations": LocalJSX.PointAnnotations & JSXBase.HTMLAttributes<HTMLPointAnnotationsElement>;
+            "point-annotations-image": LocalJSX.PointAnnotationsImage & JSXBase.HTMLAttributes<HTMLPointAnnotationsImageElement>;
+            "point-annotations-marker": LocalJSX.PointAnnotationsMarker & JSXBase.HTMLAttributes<HTMLPointAnnotationsMarkerElement>;
+            "text-annotations": LocalJSX.TextAnnotations & JSXBase.HTMLAttributes<HTMLTextAnnotationsElement>;
+            "x-axis-annotations": LocalJSX.XAxisAnnotations & JSXBase.HTMLAttributes<HTMLXAxisAnnotationsElement>;
+            "y-axis-annotations": LocalJSX.YAxisAnnotations & JSXBase.HTMLAttributes<HTMLYAxisAnnotationsElement>;
         }
     }
 }
